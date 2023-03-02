@@ -18,6 +18,11 @@ library(ggpattern)
 ## Define utility functions
 
 ```{r setup-load-utility-functions}
+# Returns the number of days since a specific date, e.g. "2023-11-28"
+days_since <- function (yymmdd) { 
+  as.integer(difftime(Sys.Date(), as.Date(yymmdd, "%Y-%m-%d"), units="days"))
+}
+
 # Adds columns for each metric that are relative to 1,000 lines-of-code.
 add_scaled_metrics <- function(data) {
   data$bugs_kloc <- (data$bugs / data$loc) * 1000
@@ -36,6 +41,32 @@ add_scaled_metrics <- function(data) {
 # Returns 2 for projects that use warnings, 1 otherwise.
 uses_warnings <- function(categories) {
   ifelse(categories %in% 2:11, 2, 1)
+}
+
+# Plots credible intervals for the major categories based on a fit model
+plot_intervals_of_major_categories <- function(fit) {
+  mcmc_plot(fit,
+            type="intervals",
+            variable=c(
+              "b_category1",  # N
+              "b_category2",  # A
+              "b_category3",  # AE
+              "b_category5",  # AEP
+              "b_category7"   # AEP+
+            ),
+            regex=FALSE,
+            point_size=2,
+            prob=0.5,        # Inner region density mass percentage
+            prob_outer=0.89  # Outer region density mass percentage
+  ) +
+    theme_default(base_family="sans", base_size=14) + 
+    scale_y_discrete(labels=c(
+                       "b_category1"="N",
+                       "b_category2"="A",
+                       "b_category3"="AE",
+                       "b_category5"="AEP",
+                       "b_category7"="AEP+"
+                     ))
 }
 ```
 
