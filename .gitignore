@@ -144,4 +144,5 @@ dmypy.json
 *.rds
 
 book
+_main_files
 _bookdown_files
