@@ -3,12 +3,197 @@ author: Albin Johansson & Carl Holmberg
 date: 2023
 ---
 
-# Code Smells
-
 ```{r cs-include-setup, include=FALSE}
 source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 ```
 
+# Code Smells
+
 This is the code smells section.
 
+## Prepare data
+
+```{r}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230302
+
+# Returns a list of standardized data necessary for the analysis.
+create_code_smells_data <- function(data) {
+  list(
+    code_smells_kloc_std=scale((data$code_smells / data$loc) * 1000),
+        contributors_std=scale(data$contributors),
+               stars_std=scale(data$stars),
+                 age_std=scale(days_since(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_code_smells_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_code_smells_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### CS1
+
+```{r cs-model-1}
+cs1 <- brm(
+  code_smells_kloc_std ~ 0 + category,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs1",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs1)
+```
+
+### CS2
+
+```{r cs-model-2}
+cs2 <- brm(
+  code_smells_kloc_std ~ 0 + category + contributors_std,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs2",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs2)
+```
+
+### CS3
+
+```{r cs-model-3}
+cs3 <- brm(
+  code_smells_kloc_std ~ 0 + category + stars_std,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs3",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs3)
+```
+
+### CS4
+
+```{r cs-model-4}
+cs4 <- brm(
+  code_smells_kloc_std ~ 0 + category + age_std,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs4",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs4)
+```
+
+### CS5
+
+```{r cs-model-5}
+cs5 <- brm(
+  code_smells_kloc_std ~ 0 + category + contributors_std + age_std,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs5",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs5)
+```
+
+### CS6
+
+```{r cs-model-6}
+cs6 <- brm(
+  code_smells_kloc_std ~ 0 + category + contributors_std + stars_std + age_std,
+  family = gaussian,
+  prior = c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data=data,
+  iter=10000,
+  warmup=5000,
+  chains=4,
+  cores=4,
+  file = "fits/cs6",
+  file_refit = "on_change",
+  seed=model_seed
+)
+
+summary(cs6)
+```
+
+## Model comparisons
+
+```{r cs-model-comparisons}
+cs1 <- add_criterion(cs1, criterion="loo", moment_match=TRUE)
+cs2 <- add_criterion(cs2, criterion="loo", moment_match=TRUE)
+cs3 <- add_criterion(cs3, criterion="loo", moment_match=TRUE)
+cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
+cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
+cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
+
+print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6), simplify=FALSE)
+```
 
