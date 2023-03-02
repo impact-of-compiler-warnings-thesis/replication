@@ -1,5 +1,6 @@
 ---
-author: "Albin Johansson & Carl Holmberg"
+title: The Impact of Compiler Warnings on Code Quality in C++ Projects
+author: Albin Johansson & Carl Holmberg
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -28,17 +29,17 @@ output:
 
 ## Render book
 
-```{r, eval=FALSE}
+```{r render-book, eval=FALSE}
 bookdown::render_book()
 ```
 
 ## Preview book
 
-```{r eval=FALSE}
+```{r serve-book, eval=FALSE}
 bookdown::serve_book()
 ```
 
-```{r include=FALSE}
+```{r write-bib, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'

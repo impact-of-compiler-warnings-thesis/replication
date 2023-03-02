@@ -6,6 +6,7 @@ language:
 rmd_files:
   - "index.Rmd"
   - "pages/introduction.Rmd"
+  - "pages/setup.Rmd"
   - "pages/data_summary.Rmd"
   - "pages/bugs.Rmd"
   - "pages/code_smells.Rmd"

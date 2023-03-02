@@ -5,4 +5,10 @@ date: 2023
 
 # Code Smells
 
+```{r cs-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
 This is the code smells section.
+
+

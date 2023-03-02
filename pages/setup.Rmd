@@ -1,0 +1,57 @@
+# Setup
+
+## Load packages
+
+```{r, include=FALSE}
+options(knitr.duplicate.label = "allow")
+```
+
+```{r setup-load-packages, message=FALSE}
+# Bayesian data analysis tools
+library(brms)
+
+# Miscellaneous plotting
+library(ggplot2)
+library(ggpattern)
+```
+
+## Define utility functions
+
+```{r setup-load-utility-functions}
+# Adds columns for each metric that are relative to 1,000 lines-of-code.
+add_scaled_metrics <- function(data) {
+  data$bugs_kloc <- (data$bugs / data$loc) * 1000
+  data$code_smells_kloc <- (data$code_smells / data$loc) * 1000
+  data$critical_violations_kloc <- (data$critical_violations / data$loc) * 1000
+  data$major_violations_kloc <- (data$major_violations / data$loc) * 1000
+  data$minor_violations_kloc <- (data$minor_violations / data$loc) * 1000
+  data$security_hotspots_kloc <- (data$security_hotspots / data$loc) * 1000
+  data$vulnerabilities_kloc <- (data$vulnerabilities / data$loc) * 1000
+  data$duplicated_lines_kloc <- (data$duplicated_lines / data$loc) * 1000
+  data$cyclomatic_complexity_kloc <- (data$cyclomatic_complexity / data$loc) * 1000
+  data$cognitive_complexity_kloc <- (data$cognitive_complexity / data$loc) * 1000
+  data
+}
+
+# Returns 2 for projects that use warnings, 1 otherwise.
+uses_warnings <- function(categories) {
+  ifelse(categories %in% 2:11, 2, 1)
+}
+```
+
+## Load data frame
+
+The data we need has been prepared in a separate CSV file, all we need to do is load it. However, we will need to create some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.
+
+```{r setup-load-data-frame}
+df <- read.csv("data/data_frame.csv")
+
+# Include columns with metrics scaled per KLOC
+df <- add_scaled_metrics(df)
+```
+
+## Define useful constants
+
+```{r setup-define-constants}
+major_categories = c(1, 2, 3, 5, 7)
+```

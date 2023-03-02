@@ -5,23 +5,11 @@ date: 2023
 
 # Data summary
 
-## Load packages
-
-```{r load-packages, message=FALSE}
-library(brms)
-library(ggplot2)
-library(ggpattern)
+```{r ds-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 ```
 
-## Load data
-
-The data we need is located in a separate CSV file, all we need to do is load it.
-
-```{r load-data}
-raw_df <- read.csv("data/data_frame.csv")
-```
-
-## Arrange categories
+## Plot category sample distribution
 
 We assign indices to each of the warning categories as follows. The "major" categories are categories with more rigorous sample sizes, so their analysis results are more reliable. Subsequent analysis steps focus on these major categories.
 
@@ -37,7 +25,7 @@ We assign indices to each of the warning categories as follows. The "major" cate
 -   10 = `A+`
 -   11 = `E`
 
-```{r arrange-categories}
+```{r ds-arrange-categories}
 category_labels <- c("1"="N",
                      "2"="A",
                      "3"="AE",
@@ -49,20 +37,11 @@ category_labels <- c("1"="N",
                      "9"="E+",
                      "10"="A+",
                      "11"="E")
-
-major_categories = c(1, 2, 3, 5, 7)
-
-# Returns 2 for projects that use warnings, 1 otherwise.
-uses_warnings <- function(categories) {
-  ifelse(categories %in% 2:11, 2, 1)
-}
 ```
 
-## Category sample distribution
+Now we plot the amount of samples in each category, in a bar chart.
 
-Here we plot the amount of samples in each category, in a bar chart.
-
-```{r category-sample-distribution}
+```{r ds-category-sample-distribution}
 # Used to dictate the patters used for the bars in each category
 category_patterns <- c(
   "N"="none",
@@ -93,7 +72,7 @@ category_colors <- c(
   "11"="#00441b"
 )
 
-ggplot(raw_df, aes(x=category, fill=factor(category))) +
+ggplot(df, aes(x=category, fill=factor(category))) +
   theme_default(base_family="sans", base_size=14) +
   theme(legend.position="bottom") +
   guides(fill=guide_legend(title=NULL,
@@ -122,7 +101,7 @@ The bars will be ordered according to the different categories, and color coded.
 
 To provide summary plots for the various metrics, we will define a helper function that produces color-coded bar plots. Here we will only include the major categories.
 
-```{r}
+```{r ds-prepare-summary-plots}
 plot_barplot_of_major_samples <- function(data, metric) {
   ggplot(as.data.frame(data),
          aes(x=reorder(name, category),
@@ -146,28 +125,10 @@ plot_barplot_of_major_samples <- function(data, metric) {
 }
 ```
 
-Additionally, we will need to modify the existing data frame. We want to exclude the samples that do not belong any of the major categories, and we will need to include some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.
+Additionally, we will need to create a new data frame where the samples that do not belong any of the major categories are excluded.
 
-```{r add-scaled-metrics}
-add_scaled_metrics <- function(data) {
-  data$bugs_kloc <- (data$bugs / data$loc) * 1000
-  data$code_smells_kloc <- (data$code_smells / data$loc) * 1000
-  data$critical_violations_kloc <- (data$critical_violations / data$loc) * 1000
-  data$major_violations_kloc <- (data$major_violations / data$loc) * 1000
-  data$minor_violations_kloc <- (data$minor_violations / data$loc) * 1000
-  data$security_hotspots_kloc <- (data$security_hotspots / data$loc) * 1000
-  data$vulnerabilities_kloc <- (data$vulnerabilities / data$loc) * 1000
-  data$duplicated_lines_kloc <- (data$duplicated_lines / data$loc) * 1000
-  data$cyclomatic_complexity_kloc <- (data$cyclomatic_complexity / data$loc) * 1000
-  data$cognitive_complexity_kloc <- (data$cognitive_complexity / data$loc) * 1000
-  data
-}
-
-# Create a new data frame with the major samples from the original data frame
-df_major = raw_df[raw_df$category %in% major_categories, ]
-
-# Append columns with scaled data
-df_major <- add_scaled_metrics(df_major)
+```{r ds-add-scaled-metrics}
+df_major = df[df$category %in% major_categories, ]
 ```
 
 ## Metric summary plots
@@ -176,7 +137,7 @@ We can now use the `plot_barplot_of_major_samples` function to plot the scaled v
 
 ### Bugs
 
-```{r bugs-summary}
+```{r ds-bugs-summary}
 plot_barplot_of_major_samples(df_major, df_major$bugs_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Bugs / KLOC") +
   geom_hline(yintercept=1:18 / 2, alpha=0.2) +
@@ -185,7 +146,7 @@ plot_barplot_of_major_samples(df_major, df_major$bugs_kloc) +
 
 ### Code smells
 
-```{r code-smells-summary}
+```{r ds-code-smells-summary}
 plot_barplot_of_major_samples(df_major, df_major$code_smells_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Code smells / KLOC") +
   geom_hline(yintercept=50 * 1:13, alpha=0.2) +
@@ -194,7 +155,7 @@ plot_barplot_of_major_samples(df_major, df_major$code_smells_kloc) +
 
 ### Critical violations
 
-```{r critical-violations-summary}
+```{r ds-critical-violations-summary}
 plot_barplot_of_major_samples(df_major, df_major$critical_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Critical violations / KLOC") +
   geom_hline(yintercept=10 * 1:11, alpha=0.2) +
@@ -203,7 +164,7 @@ plot_barplot_of_major_samples(df_major, df_major$critical_violations_kloc) +
 
 ### Major violations
 
-```{r major-violations-summary}
+```{r ds-major-violations-summary}
 plot_barplot_of_major_samples(df_major, df_major$major_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Major violations / KLOC") +
   geom_hline(yintercept=50 * 1:12, alpha=0.2) +
@@ -212,7 +173,7 @@ plot_barplot_of_major_samples(df_major, df_major$major_violations_kloc) +
 
 ### Minor violations
 
-```{r minor-violations-summary}
+```{r ds-minor-violations-summary}
 plot_barplot_of_major_samples(df_major, df_major$minor_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Minor violations / KLOC") +
   geom_hline(yintercept=10 * 1:10, alpha=0.2) +
@@ -221,7 +182,7 @@ plot_barplot_of_major_samples(df_major, df_major$minor_violations_kloc) +
 
 ### Security hotspots
 
-```{r security-hotspots-summary}
+```{r ds-security-hotspots-summary}
 plot_barplot_of_major_samples(df_major, df_major$security_hotspots_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Security hotspots / KLOC") +
   geom_hline(yintercept=1:11 / 2, alpha=0.2) +
@@ -230,7 +191,7 @@ plot_barplot_of_major_samples(df_major, df_major$security_hotspots_kloc) +
 
 ### Vulnerabilities
 
-```{r vulnerabilities-summary}
+```{r ds-vulnerabilities-summary}
 plot_barplot_of_major_samples(df_major, df_major$vulnerabilities_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Vulnerabilities / KLOC") +
   geom_hline(yintercept=1:6 / 20, alpha=0.2) +
@@ -239,7 +200,7 @@ plot_barplot_of_major_samples(df_major, df_major$vulnerabilities_kloc) +
 
 ### Cyclomatic complexity
 
-```{r cyclomatic-complexity-summary}
+```{r ds-cyclomatic-complexity-summary}
 plot_barplot_of_major_samples(df_major, df_major$cyclomatic_complexity_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Cyclomatic complexity / KLOC") +
   geom_hline(yintercept=1:12 * 100, alpha=0.2) +
@@ -248,7 +209,7 @@ plot_barplot_of_major_samples(df_major, df_major$cyclomatic_complexity_kloc) +
 
 ### Cognitive complexity
 
-```{r cognitive-complexity-summary}
+```{r ds-cognitive-complexity-summary}
 plot_barplot_of_major_samples(df_major, df_major$cognitive_complexity_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Cognitive complexity / KLOC") +
   geom_hline(yintercept=1:8 * 50, alpha=0.2) +
@@ -257,7 +218,7 @@ plot_barplot_of_major_samples(df_major, df_major$cognitive_complexity_kloc) +
 
 ### Duplicated lines
 
-```{r duplicated-lines-summary}
+```{r ds-duplicated-lines-summary}
 plot_barplot_of_major_samples(df_major, df_major$duplicated_lines_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Duplicated lines / KLOC") +
   geom_hline(yintercept=1:12 * 50, alpha=0.2) +
