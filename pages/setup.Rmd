@@ -43,6 +43,19 @@ uses_warnings <- function(categories) {
   ifelse(categories %in% 2:11, 2, 1)
 }
 
+# Plots credible intervals for all categories based on a fit model
+plot_intervals_of_categories <- function(model) {
+  mcmc_plot(model,
+            type="intervals",
+            variable="b_category",
+            regex=TRUE,
+            point_size=2,
+            prob=0.5,        # Inner region density mass percentage
+            prob_outer=0.89  # Outer region density mass percentage
+  ) +
+    theme_default(base_family="sans", base_size=14)
+}
+
 # Plots credible intervals for the major categories based on a fit model
 plot_intervals_of_major_categories <- function(fit) {
   mcmc_plot(fit,
