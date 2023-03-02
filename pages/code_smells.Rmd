@@ -1,0 +1,8 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+# Code Smells
+
+This is the code smells section.

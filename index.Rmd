@@ -1,0 +1,46 @@
+---
+author: "Albin Johansson & Carl Holmberg"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+link-citations: yes   
+github-repo: impact-of-compiler-warnings-thesis/replication
+output: 
+  bookdown::gitbook:
+    css: style.css
+    config:
+      info: true
+      download: null
+      sharing:
+        github: true
+        facebook: false
+        twitter: false
+        linkedin: false
+        weibo: false
+        instapaper: false
+        vk: false
+        whatsapp: false
+        all: []
+---
+
+# Overview
+
+## Render book
+
+```{r, eval=FALSE}
+bookdown::render_book()
+```
+
+## Preview book
+
+```{r eval=FALSE}
+bookdown::serve_book()
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

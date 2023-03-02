@@ -1,0 +1,8 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+# Introduction
+
+This is the introduction section.

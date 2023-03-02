@@ -1,0 +1,11 @@
+delete_merged_file: true
+output_dir: book
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files:
+  - "index.Rmd"
+  - "pages/introduction.Rmd"
+  - "pages/data_summary.Rmd"
+  - "pages/bugs.Rmd"
+  - "pages/code_smells.Rmd"
