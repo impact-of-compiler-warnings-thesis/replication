@@ -86,3 +86,9 @@ df <- add_scaled_metrics(df)
 ```{r setup-define-constants}
 major_categories = c(1, 2, 3, 5, 7)
 ```
+
+## Print environment information
+
+```{r setup-print-env-info}
+sessionInfo()
+```
