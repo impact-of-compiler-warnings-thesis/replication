@@ -64,24 +64,27 @@ summary(cs1)
 ### CS2
 
 ```{r cs-model-2}
-cs2 <- brm(
-  code_smells_kloc_std ~ 0 + category + contributors_std,
-  family = gaussian,
-  prior = c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data=data,
-  iter=10000,
-  warmup=5000,
-  chains=4,
-  cores=4,
-  file = "fits/cs2",
-  file_refit = "on_change",
-  seed=model_seed
-)
+fit_model_cs2 <- function(name, data) {
+  brm(
+    code_smells_kloc_std ~ 0 + category + contributors_std,
+    family = gaussian,
+    prior = c(
+      prior(normal(0, 1), class=b),
+      prior(normal(0, 1), class=b, coef="contributors_std"),
+      prior(exponential(1), class=sigma)
+    ),
+    data=data,
+    iter=10000,
+    warmup=5000,
+    chains=4,
+    cores=4,
+    file = paste("fits", name, sep="/"),
+    file_refit = "on_change",
+    seed=model_seed
+  )
+}
 
+cs2 <- fit_model_cs2("cs2", data)
 summary(cs2)
 ```
 
@@ -194,6 +197,67 @@ cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
 cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
 cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
 
-print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6), simplify=FALSE)
+print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6, criterion="loo"),
+      simplify=FALSE)
 ```
 
+## Intervals of major categories
+
+```{r cs-plot-intervals-of-major-categories, message=FALSE}
+plot_intervals_of_major_categories(cs2) +
+  labs(title="CS2", x="Code smells per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r cs-warnings-vs-no-warnings, message=FALSE}
+# Fit CS2 using data that uses binary factor for usage of warnings
+cs2_factor_uses_warnings <- fit_model_cs2("cs2_factor_uses_warnings", 
+                                          data_factor_uses_warnings)
+
+plot_intervals_of_categories(cs2_factor_uses_warnings) +
+  labs(title="CS2", x="Code smells per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
+
+## Without outliers
+
+There are outliers in category AEP and AEP+, "clipp" and "hana", which bias the analysis results.
+Here we remove these samples and fit CS2 to the trimmed data.
+
+```{r cs-remove-outliers, message=FALSE}
+# Prepare version of data frame without the outliers
+df_no_outliers <- df
+df_no_outliers <- df_no_outliers[df_no_outliers$name != "clipp",]
+df_no_outliers <- df_no_outliers[df_no_outliers$name != "hana",]
+
+# Prepare data for analysis
+data_no_outliers <- create_code_smells_data(df_no_outliers)
+data_no_outliers$category <- factor(df_no_outliers$category)
+
+# Fit CS2 using the trimmed data
+cs2_no_outliers <- fit_model_cs2("cs2_no_outliers", data_no_outliers)
+summary(cs2_no_outliers)
+
+plot_intervals_of_major_categories(cs2_no_outliers) +
+  labs(title="CS2 (no outliers)", x="Code smells per KLOC (std)")
+
+data_no_outliers_factor_uses_warnings <- create_code_smells_data(df_no_outliers)
+data_no_outliers_factor_uses_warnings$category <- 
+  factor(uses_warnings(df_no_outliers$category))
+
+# Fit CS2 using the trimmed data, but with binary warning category factor
+cs2_no_outliers_factor_uses_warnings <-
+  fit_model_cs2("cs2_data_no_outliers_factor_uses_warnings",
+                data_no_outliers_factor_uses_warnings)
+
+plot_intervals_of_categories(cs2_no_outliers_factor_uses_warnings) +
+  labs(title="CS2 (no outliers)", x="Code smells per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
