@@ -140,5 +140,8 @@ dmypy.json
 .RData
 .Ruserdata
 
+# Model fit files
+*.rds
+
 book
 _bookdown_files
