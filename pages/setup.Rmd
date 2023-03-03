@@ -1,10 +1,11 @@
 # Setup
 
-## Load packages
-
 ```{r, include=FALSE}
 options(knitr.duplicate.label = "allow")
 ```
+
+This page outlines the steps required to prepare the R environment.
+First we need to load the required packages.
 
 ```{r setup-load-packages, message=FALSE}
 # Bayesian data analysis tools
@@ -15,7 +16,7 @@ library(ggplot2)
 library(ggpattern)
 ```
 
-## Define utility functions
+Then we will define some utility functions that are commonly used.
 
 ```{r setup-load-utility-functions}
 # Returns the number of days since a specific date, e.g. "2023-11-28"
@@ -41,6 +42,24 @@ add_scaled_metrics <- function(data) {
 # Returns 2 for projects that use warnings, 1 otherwise.
 uses_warnings <- function(categories) {
   ifelse(categories %in% 2:11, 2, 1)
+}
+
+# Utility function used to fit brms models
+fit_model <- function(name, formula, priors, data, seed) {
+  brm(
+    formula,
+    family=gaussian,
+    prior=priors,
+    data=data,
+    iter=10000,
+    warmup=5000,
+    chains=4,
+    cores=4,
+    file=paste("fits", name, sep="/"),
+    file_refit="on_change",
+    save_pars=save_pars(all=TRUE),
+    seed=seed
+  )
 }
 
 # Plots credible intervals for all categories based on a fit model
@@ -83,8 +102,6 @@ plot_intervals_of_major_categories <- function(fit) {
 }
 ```
 
-## Load data frame
-
 The data we need has been prepared in a separate CSV file, all we need to do is load it. However, we will need to create some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.
 
 ```{r setup-load-data-frame}
@@ -94,13 +111,13 @@ df <- read.csv("data/data_frame.csv")
 df <- add_scaled_metrics(df)
 ```
 
-## Define useful constants
+We will also define some useful constants.
 
 ```{r setup-define-constants}
 major_categories = c(1, 2, 3, 5, 7)
 ```
 
-## Print environment information
+The following provides information about the used R session.
 
 ```{r setup-print-env-info}
 sessionInfo()
