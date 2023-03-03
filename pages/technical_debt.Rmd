@@ -1,0 +1,217 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r td-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+
+# Technical Debt
+
+This is the technical debt section.
+
+## Prepare data
+
+```{r}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230302
+
+# Returns a list of standardized data necessary for the analysis.
+create_tech_debt_data <- function(data) {
+  list(
+    tech_debt_std = scale(data$sqale_debt_ratio),
+    contributors_std = scale(data$contributors),
+    stars_std = scale(data$stars),
+    age_std=scale(days_since(data$created_at)),
+    files_std = scale(data$files)
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_tech_debt_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_tech_debt_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+## Define Models
+
+### TD1
+```{r td-model-1}
+td1 <- brm(
+    tech_debt_std ~ 0 + category,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td1",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td1))
+```
+
+### TD2
+```{r td-model-2}
+td2 <- brm(
+    tech_debt_std ~ 0 + category + files_std,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "files_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td2",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td2))
+```
+
+### TD3
+```{r td-model-3}
+td3 <- brm(
+    tech_debt_std ~ 0 + category + contributors_std,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "contributors_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td3",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td3))
+```
+
+### TD4
+```{r td-model-4}
+td4 <- brm(
+    tech_debt_std ~ 0 + category + contributors_std + stars_std,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "contributors_std"),
+        prior(normal(0, 1), class = b, coef = "stars_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td4",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td4))
+```
+
+### TD5
+```{r td-model-5}
+td5 <- brm(
+    tech_debt_std ~ 0 + category + age_std,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "age_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td5",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td5))
+```
+
+### TD6
+```{r td-model-6}
+td6 <- brm(
+    tech_debt_std ~ 0 + category + contributors_std + stars_std + files_std + age_std, # nolint: line_length_linter.
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "contributors_std"),
+        prior(normal(0, 1), class = b, coef = "stars_std"),
+        prior(normal(0, 1), class = b, coef = "files_std"),
+        prior(normal(0, 1), class = b, coef = "age_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td6",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td6))
+```
+
+### TD7
+```{r td-model-7}
+td7 <- brm(
+    tech_debt_std ~ 0 + category + contributors_std + files_std,
+    family = gaussian,
+    prior = c(
+        prior(normal(0, 1), class = b),
+        prior(normal(0, 1), class = b, coef = "contributors_std"),
+        prior(normal(0, 1), class = b, coef = "files_std"),
+        prior(exponential(1), class = sigma)
+    ),
+    data = data,
+    iter = 10000,
+    warmup = 5000,
+    chains = 4,
+    cores = 4,
+    file = "fits/td7",
+    file_refit = "on_change",
+    seed=model_seed
+)
+
+print(summary(td7))
+```
+
+## Model Comparisons
+```{r td-model-comparisons, message=FALSE}
+td1 <- add_criterion(td1, "loo", moment_match = TRUE)
+td2 <- add_criterion(td2, "loo", moment_match = TRUE)
+td3 <- add_criterion(td3, "loo", moment_match = TRUE)
+td4 <- add_criterion(td4, "loo", moment_match = TRUE)
+td5 <- add_criterion(td5, "loo", moment_match = TRUE)
+td6 <- add_criterion(td6, "loo", moment_match = TRUE)
+td7 <- add_criterion(td7, "loo", moment_match = TRUE)
+print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion = "loo"), simplify = FALSE)
+```
