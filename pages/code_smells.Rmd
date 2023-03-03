@@ -20,7 +20,7 @@ model_seed <- 20230302
 # Returns a list of standardized data necessary for the analysis.
 create_code_smells_data <- function(data) {
   list(
-    code_smells_kloc_std=scale((data$code_smells / data$loc) * 1000),
+    code_smells_kloc_std=scale(data$code_smells_kloc),
         contributors_std=scale(data$contributors),
                stars_std=scale(data$stars),
                  age_std=scale(days_since(data$created_at))

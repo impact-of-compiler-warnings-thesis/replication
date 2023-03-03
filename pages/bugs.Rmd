@@ -3,6 +3,188 @@ author: Albin Johansson & Carl Holmberg
 date: 2023
 ---
 
+```{r cs-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
 # Bugs
 
 This is the bugs section.
+
+## Prepare data
+
+```{r b-prepare-data}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230303
+
+# Returns a list of standardized data necessary for the analysis.
+create_bugs_data <- function(data) {
+  list(
+       bugs_kloc_std=scale(data$bugs_kloc),
+    contributors_std=scale(data$contributors),
+           stars_std=scale(data$stars),
+             age_std=scale(days_since(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_bugs_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_bugs_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### B1
+
+```{r b-model-1, message=FALSE}
+fit_model_b1 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+b1 <- fit_model_b1("b1", data)
+b1 <- add_criterion(b1, criterion="loo", moment_match=TRUE)
+
+summary(b1)
+```
+
+### B2
+
+```{r b-model-2, message=FALSE}
+b2 <- fit_model(
+  "b2",
+  "bugs_kloc_std ~ 0 + category + contributors_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+b2 <- add_criterion(b2, criterion="loo", moment_match=TRUE)
+
+summary(b2)
+```
+
+### B3
+
+```{r b-model-3, message=FALSE}
+b3 <- fit_model(
+  "b3",
+  "bugs_kloc_std ~ 0 + category + stars_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+b3 <- add_criterion(b3, criterion="loo", moment_match=TRUE)
+
+summary(b3)
+```
+
+### B4
+
+```{r b-model-4, message=FALSE}
+b4 <- fit_model(
+  "b4",
+  "bugs_kloc_std ~ 0 + category + age_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+b4 <- add_criterion(b4, criterion="loo", moment_match=TRUE)
+
+summary(b4)
+```
+
+### B5
+
+```{r b-model-5, message=FALSE}
+b5 <- fit_model(
+  "b5",
+  "bugs_kloc_std ~ 0 + category + contributors_std + stars_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+b5 <- add_criterion(b5, criterion="loo", moment_match=TRUE)
+
+summary(b5)
+```
+
+### B6
+
+```{r b-model-6, message=FALSE}
+b6 <- fit_model(
+  "b6",
+  "bugs_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+b6 <- add_criterion(b6, criterion="loo", moment_match=TRUE)
+
+summary(b6)
+```
+
+## Model comparisons
+
+```{r b-model-comparisons}
+print(loo_compare(b1, b2, b3, b4, b5, b6, criterion="loo"), simplify=FALSE)
+```
+
+## Intervals of major categories
+
+```{r b-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(b1) +
+  labs(title="B1", x="Bugs per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r b-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+# Fit B1 using data that uses binary factor for usage of warnings
+b1_factor_uses_warnings <- fit_model_b1("b1_factor_uses_warnings",
+                                        data_factor_uses_warnings)
+
+plot_intervals_of_categories(b1_factor_uses_warnings) +
+  labs(title="B1", x="Bugs per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
