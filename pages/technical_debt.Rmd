@@ -63,24 +63,26 @@ print(summary(td1))
 
 ### TD2
 ```{r td-model-2}
-td2 <- brm(
-    tech_debt_std ~ 0 + category + files_std,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "files_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td2",
-    file_refit = "on_change",
-    seed=model_seed
-)
-
+fit_model_td2 <- function(name, data) {
+  brm(
+      tech_debt_std ~ 0 + category + files_std,
+      family = gaussian,
+      prior = c(
+          prior(normal(0, 1), class = b),
+          prior(normal(0, 1), class = b, coef = "files_std"),
+          prior(exponential(1), class = sigma)
+      ),
+      data = data,
+      iter = 10000,
+      warmup = 5000,
+      chains = 4,
+      cores = 4,
+      file = paste("fits", name, sep="/"),
+      file_refit = "on_change",
+      seed=model_seed
+  )
+}
+td2 <- fit_model_td2("td2", data)
 print(summary(td2))
 ```
 
@@ -214,4 +216,58 @@ td5 <- add_criterion(td5, "loo", moment_match = TRUE)
 td6 <- add_criterion(td6, "loo", moment_match = TRUE)
 td7 <- add_criterion(td7, "loo", moment_match = TRUE)
 print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion = "loo"), simplify = FALSE)
+```
+
+## Intervals of major categories
+
+```{r td-major-categories, message=FALSE}
+plot_intervals_of_major_categories(td2) + labs(title="TD2", x="Technical Debt Ratio (std)")
+```
+
+## Warnings versus no warnings
+```{r td-warnings-no-warnings}
+td2_factor_uses_warnings <- fit_model_td2("td2_factor_uses_warnings", data_factor_uses_warnings)
+
+plot_intervals_of_categories(td2_factor_uses_warnings) + 
+  labs(title="TD2", x="Technical Debt Ratio (std)") +
+  scale_y_discrete(labels=c("b_category1"="No warnings", "b_category2"="Any warnings"))
+```
+
+## Without outliers
+```{r td-without-outliers, message=FALSE}
+# Prepare version of data frame without outliers
+df_no_outliers <- df
+df_no_outliers <- df_no_outliers[df_no_outliers$name != "clipp",]
+
+# Prepare data for analysis
+data_no_outliers <- create_tech_debt_data(df_no_outliers)
+data_no_outliers$category <- factor(df_no_outliers$category)
+
+# Fit TD2 using the trimmed data
+td2_no_outliers <-fit_model_td2("td2_no_outliers", data_no_outliers)
+summary(td2_no_outliers)
+
+# Plot Major categories without outliers
+plot_intervals_of_major_categories(td2_no_outliers) + 
+  labs(title="TD2 (no outliers", x="Technical Debt Ratio (std)")
+
+
+# Split data into warning and no warning categories
+data_no_outliers_factor_uses_warnings <- create_tech_debt_data(df_no_outliers)
+data_no_outliers_factor_uses_warnings$category <- 
+  factor(uses_warnings(df_no_outliers$category))
+
+td2_no_outliers_factor_uses_warnings <-
+  fit_model_td2("td2_data_no_outliers_factor_uses_warnings",
+                data_no_outliers_factor_uses_warnings)
+
+
+# Plot with warnings and no warnings
+plot_intervals_of_categories(td2_no_outliers_factor_uses_warnings) +
+   labs(title="TD2 (no outliers)", x="Technical Debt Ratio (std)") +
+   scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+  ))
+
 ```
