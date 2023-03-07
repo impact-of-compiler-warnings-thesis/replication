@@ -3,7 +3,7 @@ author: Albin Johansson & Carl Holmberg
 date: 2023
 ---
 
-```{r cs-include-setup, include=FALSE}
+```{r b-include-setup, include=FALSE}
 source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 ```
 
