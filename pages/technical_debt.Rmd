@@ -21,11 +21,11 @@ model_seed <- 20230302
 # Returns a list of standardized data necessary for the analysis.
 create_tech_debt_data <- function(data) {
   list(
-    tech_debt_std = scale(data$sqale_debt_ratio),
-    contributors_std = scale(data$contributors),
-    stars_std = scale(data$stars),
-    age_std=scale(days_since(data$created_at)),
-    files_std = scale(data$files)
+       tech_debt_std=scale(data$sqale_debt_ratio),
+    contributors_std=scale(data$contributors),
+           stars_std=scale(data$stars),
+             age_std=scale(get_age(data$created_at)),
+           files_std=scale(data$files)
   )
 }
 

@@ -19,9 +19,10 @@ library(ggpattern)
 Then we will define some utility functions that are commonly used.
 
 ```{r setup-load-utility-functions}
-# Returns the number of days since a specific date, e.g. "2023-11-28"
-days_since <- function (yymmdd) { 
-  as.integer(difftime(Sys.Date(), as.Date(yymmdd, "%Y-%m-%d"), units="days"))
+# Returns the number of days between a date and the analysis date.
+# We use February 28 as analysis date, otherwise it changes from day-to-day.
+get_age <- function (yymmdd) {
+  as.integer(difftime("2023-02-28", as.Date(yymmdd, "%Y-%m-%d"), units="days"))
 }
 
 # Adds columns for each metric that are relative to 1,000 lines-of-code.

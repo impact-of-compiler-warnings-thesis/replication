@@ -23,7 +23,7 @@ create_code_smells_data <- function(data) {
     code_smells_kloc_std=scale(data$code_smells_kloc),
         contributors_std=scale(data$contributors),
                stars_std=scale(data$stars),
-                 age_std=scale(days_since(data$created_at))
+                 age_std=scale(get_age(data$created_at))
   )
 }
 
@@ -52,7 +52,7 @@ cs1 <- fit_model(
   model_seed
 )
 
-cs1 <- add_criterion(cs1, criterion="loo")
+cs1 <- add_criterion(cs1, criterion="loo", moment_match=TRUE)
 
 summary(cs1)
 ```
@@ -72,7 +72,7 @@ cs2 <- fit_model(
   model_seed
 )
 
-cs2 <- add_criterion(cs2, criterion="loo")
+cs2 <- add_criterion(cs2, criterion="loo", moment_match=TRUE)
 
 summary(cs2)
 ```
@@ -92,7 +92,7 @@ cs3 <- fit_model(
   model_seed
 )
 
-cs3 <- add_criterion(cs3, criterion="loo")
+cs3 <- add_criterion(cs3, criterion="loo", moment_match=TRUE)
 
 summary(cs3)
 ```
@@ -112,7 +112,7 @@ cs4 <- fit_model(
   model_seed
 )
 
-cs4 <- add_criterion(cs4, criterion="loo")
+cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
 
 summary(cs4)
 ```
@@ -133,7 +133,7 @@ cs5 <- fit_model(
   model_seed
 )
 
-cs5 <- add_criterion(cs5, criterion="loo")
+cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
 
 summary(cs5)
 ```
@@ -155,7 +155,7 @@ fit_model_cs6 <- function(name, data) {
 }
 
 cs6 <- fit_model_cs6("cs6", data)
-cs6 <- add_criterion(cs6, criterion="loo")
+cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
 
 summary(cs6)
 ```
@@ -177,7 +177,7 @@ cs7 <- fit_model(
   model_seed
 )
 
-cs7 <- add_criterion(cs7, criterion="loo", moment_matching=TRUE)
+cs7 <- add_criterion(cs7, criterion="loo", moment_match=TRUE)
 
 summary(cs7)
 ```
