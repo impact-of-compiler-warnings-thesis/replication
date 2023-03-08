@@ -20,7 +20,7 @@ Then we will define some utility functions that are commonly used.
 
 ```{r setup-load-utility-functions}
 # Returns the number of days between a date and the analysis date.
-# We use February 28 as analysis date, otherwise it changes from day-to-day.
+# We use February 28 as the reference date, otherwise it changes from day-to-day.
 get_age <- function (yymmdd) {
   as.integer(difftime("2023-02-28", as.Date(yymmdd, "%Y-%m-%d"), units="days"))
 }
@@ -61,6 +61,11 @@ fit_model <- function(name, formula, priors, data, seed) {
     save_pars=save_pars(all=TRUE),
     seed=seed
   )
+}
+
+# Converts a standardized value to the natural scale, given the source data.
+restore_from_std <- function(value, data) {
+  value * sd(data) + mean(data)
 }
 
 # Plots credible intervals for all categories based on a fit model
