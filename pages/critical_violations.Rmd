@@ -1,0 +1,226 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r cv-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+
+# Critical Violations
+
+This is the section about critical violations.
+Critical violations are severe code smells, where the code violates the standards.
+
+## Prepare Data
+
+```{r}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230322
+
+
+
+# Returns a list of standardized data necessary for the analysis.
+create_critical_violations_data <- function(data) {
+  critical_violations_kloc <- (data$critical_violations / data$loc) * 1000
+  list(
+      category                     = factor(data$category),
+      critical_violations_kloc_std = scale(critical_violations_kloc),
+      stars_std                    = scale(data$stars),
+      contributors_std             = scale(data$contributors),
+      age_std                      = scale(days_since(data$created_at)),
+      size_std                     = scale(data$loc),
+      files_std                    = scale(data$files)
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_critical_violations_data(df)
+data$category <- factor(df$category)
+
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_critical_violations_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define Models
+
+### CV1
+```{r cv-model-1}
+fit_model_cv1 <- function(name, data) {
+  fit_model(name, 
+                 "critical_violations_kloc_std ~ 0 + category", 
+                 c(
+                    prior(normal(0, 1), class = b),
+                    prior(exponential(1), class = sigma)
+                  ),
+                 data,
+                 model_seed
+               )
+}
+
+cv1 <- fit_model_cv1("cv1", data)
+
+cv1 <- add_criterion(cv1, criterion="loo", moment_match=TRUE)
+
+summary(cv1)
+```
+
+### CV2
+```{r cv-model-2}
+cv2 <- fit_model(
+  "cv2",
+  "critical_violations_kloc_std ~ 0 + category + contributors_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv2 <- add_criterion(cv2, criterion="loo", moment_match=TRUE)
+
+summary(cv2)
+```
+
+### CV3
+```{r cv-model-3}
+cv3 <- fit_model(
+  "cv3",
+  "critical_violations_kloc_std ~ 0 + category + stars_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv3 <- add_criterion(cv3, criterion="loo", moment_match=TRUE) 
+summary(cv3)
+```
+### CV4
+```{r cv-model-4}
+cv4 <- fit_model(
+  "cv4",
+  "critical_violations_kloc_std ~ 0 + category + files_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="files_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv4 <- add_criterion(cv4, criterion="loo", moment_match=TRUE)
+summary(cv4)
+```
+
+### CV5
+```{r cv-model-5}
+cv5 <- fit_model(
+  "cv5",
+  "critical_violations_kloc_std ~ 0 + category + age_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv5 <- add_criterion(cv5, criterion="loo", moment_match=TRUE)
+summary(cv5)
+```
+
+### CV6
+```{r cv-model-6}
+cv6 <- fit_model(
+  "cv6",
+  "critical_violations_kloc_std ~ 0 + category + size_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="size_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv6 <- add_criterion(cv6, criterion="loo", moment_match=TRUE)
+summary(cv6)
+```
+
+### CV7
+```{r cv-model-7}
+cv7 <- fit_model(
+  "cv7",
+  "critical_violations_kloc_std ~ 0 + category + contributors_std + stars_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv7 <- add_criterion(cv7, criterion="loo", moment_match=TRUE)
+summary(cv7)
+```
+
+### CV8
+```{r cv-model-8}
+cv8 <- fit_model(
+  "cv8",
+  "critical_violations_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
+  c(
+    prior(normal(0, 1), class=b),
+    prior(normal(0, 1), class=b, coef="contributors_std"),
+    prior(normal(0, 1), class=b, coef="stars_std"),
+    prior(normal(0, 1), class=b, coef="age_std"),
+    prior(exponential(1), class=sigma)
+  ),
+  data,
+  model_seed
+)
+
+cv8 <- add_criterion(cv8, criterion="loo", moment_match=TRUE)
+summary(cv8)
+```
+
+## Model comparisons
+
+```{r cv-model-comparisons}
+print(loo_compare(cv1, cv2, cv3, cv4, cv5, cv6, cv7, cv8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Intervals of major categories
+```{r cv-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(cv1) +
+  labs(title="CV1", x="Code smells per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r cv-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+# Fit CS6 using data that uses binary factor for usage of warnings
+cv1_factor_uses_warnings <- fit_model_cv1("cv1_factor_uses_warnings",
+                                          data_factor_uses_warnings)
+
+plot_intervals_of_categories(cv1_factor_uses_warnings) +
+  labs(title="CV1", x="Code smells per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```

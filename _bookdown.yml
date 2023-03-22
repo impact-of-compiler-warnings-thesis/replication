@@ -10,5 +10,6 @@ rmd_files:
   - "pages/data_summary.Rmd"
   - "pages/bugs.Rmd"
   - "pages/code_smells.Rmd"
+  - "pages/critical_violations.Rmd"
   - "pages/technical_debt.Rmd"
 
