@@ -15,23 +15,19 @@ Critical violations are severe code smells, where the code violates the standard
 
 ## Prepare Data
 
-```{r}
+```{r cv-prepare-data}
 # The model seed is the date that the analysis was conducted
 model_seed <- 20230322
 
-
-
 # Returns a list of standardized data necessary for the analysis.
 create_critical_violations_data <- function(data) {
-  critical_violations_kloc <- (data$critical_violations / data$loc) * 1000
   list(
-      category                     = factor(data$category),
-      critical_violations_kloc_std = scale(critical_violations_kloc),
-      stars_std                    = scale(data$stars),
-      contributors_std             = scale(data$contributors),
-      age_std                      = scale(days_since(data$created_at)),
-      size_std                     = scale(data$loc),
-      files_std                    = scale(data$files)
+      critical_violations_kloc_std=scale(data$critical_violations_kloc),
+                         stars_std=scale(data$stars),
+                  contributors_std=scale(data$contributors),
+                           age_std=scale(get_age(data$created_at)),
+                          size_std=scale(data$loc),
+                         files_std=scale(data$files)
   )
 }
 
@@ -48,28 +44,26 @@ data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ## Define Models
 
 ### CV1
-```{r cv-model-1}
+```{r cv-model-1, message=FALSE}
 fit_model_cv1 <- function(name, data) {
   fit_model(name, 
-                 "critical_violations_kloc_std ~ 0 + category", 
-                 c(
-                    prior(normal(0, 1), class = b),
-                    prior(exponential(1), class = sigma)
-                  ),
-                 data,
-                 model_seed
-               )
+            "critical_violations_kloc_std ~ 0 + category", 
+            c(
+               prior(normal(0, 1), class = b),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
 }
 
 cv1 <- fit_model_cv1("cv1", data)
-
 cv1 <- add_criterion(cv1, criterion="loo", moment_match=TRUE)
 
 summary(cv1)
 ```
 
 ### CV2
-```{r cv-model-2}
+```{r cv-model-2, message=FALSE}
 cv2 <- fit_model(
   "cv2",
   "critical_violations_kloc_std ~ 0 + category + contributors_std",
@@ -88,7 +82,7 @@ summary(cv2)
 ```
 
 ### CV3
-```{r cv-model-3}
+```{r cv-model-3, message=FALSE}
 cv3 <- fit_model(
   "cv3",
   "critical_violations_kloc_std ~ 0 + category + stars_std",
@@ -101,11 +95,12 @@ cv3 <- fit_model(
   model_seed
 )
 
-cv3 <- add_criterion(cv3, criterion="loo", moment_match=TRUE) 
+cv3 <- add_criterion(cv3, criterion="loo", moment_match=TRUE)
+
 summary(cv3)
 ```
 ### CV4
-```{r cv-model-4}
+```{r cv-model-4, message=FALSE}
 cv4 <- fit_model(
   "cv4",
   "critical_violations_kloc_std ~ 0 + category + files_std",
@@ -119,11 +114,12 @@ cv4 <- fit_model(
 )
 
 cv4 <- add_criterion(cv4, criterion="loo", moment_match=TRUE)
+
 summary(cv4)
 ```
 
 ### CV5
-```{r cv-model-5}
+```{r cv-model-5, message=FALSE}
 cv5 <- fit_model(
   "cv5",
   "critical_violations_kloc_std ~ 0 + category + age_std",
@@ -137,11 +133,12 @@ cv5 <- fit_model(
 )
 
 cv5 <- add_criterion(cv5, criterion="loo", moment_match=TRUE)
+
 summary(cv5)
 ```
 
 ### CV6
-```{r cv-model-6}
+```{r cv-model-6, message=FALSE}
 cv6 <- fit_model(
   "cv6",
   "critical_violations_kloc_std ~ 0 + category + size_std",
@@ -155,11 +152,12 @@ cv6 <- fit_model(
 )
 
 cv6 <- add_criterion(cv6, criterion="loo", moment_match=TRUE)
+
 summary(cv6)
 ```
 
 ### CV7
-```{r cv-model-7}
+```{r cv-model-7, message=FALSE}
 cv7 <- fit_model(
   "cv7",
   "critical_violations_kloc_std ~ 0 + category + contributors_std + stars_std",
@@ -174,11 +172,12 @@ cv7 <- fit_model(
 )
 
 cv7 <- add_criterion(cv7, criterion="loo", moment_match=TRUE)
+
 summary(cv7)
 ```
 
 ### CV8
-```{r cv-model-8}
+```{r cv-model-8, message=FALSE}
 cv8 <- fit_model(
   "cv8",
   "critical_violations_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
