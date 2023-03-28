@@ -12,5 +12,5 @@ rmd_files:
   - "pages/code_smells.Rmd"
   - "pages/critical_violations.Rmd"
   - "pages/major_violations.Rmd"
+  - "pages/minor_violations.Rmd"
   - "pages/technical_debt.Rmd"
-
