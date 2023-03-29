@@ -80,27 +80,6 @@ miv2 <- add_criterion(miv2, criterion="loo", moment_match=TRUE)
 summary(miv2)
 ```
 
-### MIV2
-
-```{r miv-model-2, message=FALSE}
-fit_model_miv2 <- function(name, data) {
-  fit_model(name,
-            "minor_violations_kloc_std ~ 0 + category + contributors_std",
-            c(
-              prior(normal(0, 1), class=b),
-              prior(normal(0, 1), class=b, coef="contributors_std"),
-              prior(exponential(1), class=sigma)
-            ),
-            data,
-            model_seed)
-}
-
-miv2 <- fit_model_miv2("miv2", data)
-miv2 <- add_criterion(miv2, criterion="loo", moment_match=TRUE)
-
-summary(miv2)
-```
-
 ### MIV3
 
 ```{r miv-model-3, message=FALSE}
