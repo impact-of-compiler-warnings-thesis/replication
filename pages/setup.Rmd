@@ -16,7 +16,26 @@ library(ggplot2)
 library(ggpattern)
 ```
 
-Then we will define some utility functions that are commonly used.
+Then we define some useful constants.
+
+```{r setup-define-constants}
+major_categories <- c(1, 2, 3, 5, 7)
+
+ordered_category_names <- c("N",    # category 1
+                            "A",    # category 2
+                            "AE",   # category 3
+                            "AP",   # category 4
+                            "AEP",  # category 5
+                            "AE+",  # category 6
+                            "AEP+", # category 7
+                            "AP+",  # category 8
+                            "E+",   # category 9
+                            "A+",   # category 10
+                            "E"     # category 11
+                            )
+```
+
+We will also define some convenience functions.
 
 ```{r setup-load-utility-functions}
 # Returns the number of days between a date and the analysis date.
@@ -68,6 +87,13 @@ restore_from_std <- function(value, data) {
   value * sd(data) + mean(data)
 }
 
+# Returns a data frame with columns for standardized and natural scale means
+determine_natural_scale_means <- function(std_means, data) {
+  means <- data.frame(row.names=ordered_category_names, "std"=std_means)
+  means$natural <- round(restore_from_std(means$std, data), digits=2)
+  means
+}
+
 # Plots credible intervals for all categories based on a fit model
 plot_intervals_of_categories <- function(model) {
   mcmc_plot(model,
@@ -115,12 +141,6 @@ df <- read.csv("data/data_frame.csv")
 
 # Include columns with metrics scaled per KLOC
 df <- add_scaled_metrics(df)
-```
-
-We will also define some useful constants.
-
-```{r setup-define-constants}
-major_categories = c(1, 2, 3, 5, 7)
 ```
 
 The following provides information about the used R session.

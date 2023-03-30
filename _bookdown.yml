@@ -13,4 +13,5 @@ rmd_files:
   - "pages/critical_violations.Rmd"
   - "pages/major_violations.Rmd"
   - "pages/minor_violations.Rmd"
+  - "pages/security_hotspots.Rmd"
   - "pages/technical_debt.Rmd"

@@ -1,0 +1,245 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r s-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+# Security Hotspots
+
+This section covers the analysis relating to the "security hotspots" metric.
+
+## Prepare data
+
+```{r s-prepare-data}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230330
+
+create_security_hotspots_data <- function(data) {
+  list(
+    security_hotspots_kloc_std=scale(data$security_hotspots_kloc),
+              contributors_std=scale(data$contributors),
+                     stars_std=scale(data$stars),
+                     files_std=scale(data$files),
+                      size_std=scale(data$loc),
+                       age_std=scale(get_age(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_security_hotspots_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_security_hotspots_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### S1
+
+```{r s-model-1, message=FALSE}
+fit_model_s1 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s1 <- fit_model_s1("s1", data)
+s1 <- add_criterion(s1, criterion="loo", moment_match=TRUE)
+
+summary(s1)
+```
+
+### S2
+
+```{r s-model-2, message=FALSE}
+fit_model_s2 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s2 <- fit_model_s2("s2", data)
+s2 <- add_criterion(s2, criterion="loo", moment_match=TRUE)
+
+summary(s2)
+```
+
+### S3
+
+```{r s-model-3, message=FALSE}
+fit_model_s3 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s3 <- fit_model_s3("s3", data)
+s3 <- add_criterion(s3, criterion="loo", moment_match=TRUE)
+
+summary(s3)
+```
+
+### S4
+
+```{r s-model-4, message=FALSE}
+fit_model_s4 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s4 <- fit_model_s4("s4", data)
+s4 <- add_criterion(s4, criterion="loo", moment_match=TRUE)
+
+summary(s4)
+```
+
+### S5
+
+```{r s-model-5, message=FALSE}
+fit_model_s5 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s5 <- fit_model_s5("s5", data)
+s5 <- add_criterion(s5, criterion="loo", moment_match=TRUE)
+
+summary(s5)
+```
+
+### S6
+
+```{r s-model-6, message=FALSE}
+fit_model_s6 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s6 <- fit_model_s6("s6", data)
+s6 <- add_criterion(s6, criterion="loo", moment_match=TRUE)
+
+summary(s6)
+```
+
+### S7
+
+```{r s-model-7, message=FALSE}
+fit_model_s7 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s7 <- fit_model_s7("s7", data)
+s7 <- add_criterion(s7, criterion="loo", moment_match=TRUE)
+
+summary(s7)
+```
+
+### S8
+
+```{r s-model-8, message=FALSE}
+fit_model_s8 <- function(name, data) {
+  fit_model(name,
+            "security_hotspots_kloc_std ~ 0 + category + contributors_std + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+s8 <- fit_model_s8("s8", data)
+s8 <- add_criterion(s8, criterion="loo", moment_match=TRUE)
+
+summary(s8)
+```
+
+## Model comparisons
+
+```{r s-model-comparisons}
+print(loo_compare(s1, s2, s3, s4, s5, s6, s7, s8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r s-determine-natural-scale-means}
+s2_std_means <- c(0.26, 0.19, -0.20, -0.45, -0.10, -0.17,  0.01,  0.67, -0.39, -0.16, -0.19)
+determine_natural_scale_means(s2_std_means, df$security_hotspots_kloc)
+```
+
+## Intervals of major categories
+
+```{r s-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(s2) +
+  labs(title="S2", x="Security hotspots per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r s-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+# Fit S2 using data that uses binary factor for usage of warnings
+s2_factor_uses_warnings <- fit_model_s2("s2_factor_uses_warnings",
+                                        data_factor_uses_warnings)
+
+plot_intervals_of_categories(s2_factor_uses_warnings) +
+  labs(title="S2", x="Security hotspots per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
