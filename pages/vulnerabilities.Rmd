@@ -1,0 +1,232 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r v-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+# Vulnerabilities
+
+This section covers the analysis relating to the "vulnerabilities" metric.
+
+## Prepare data
+
+```{r v-prepare-data}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230330
+
+create_vulnerabilities_data <- function(data) {
+  list(
+    vulnerabilities_kloc_std=scale(data$vulnerabilities_kloc),
+            contributors_std=scale(data$contributors),
+                   stars_std=scale(data$stars),
+                   files_std=scale(data$files),
+                    size_std=scale(data$loc),
+                     age_std=scale(get_age(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_vulnerabilities_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_vulnerabilities_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### V1
+
+```{r v-model-1, message=FALSE}
+fit_model_v1 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v1 <- fit_model_v1("v1", data)
+v1 <- add_criterion(v1, criterion="loo", moment_match=TRUE)
+```
+
+### V2
+
+```{r v-model-2, message=FALSE}
+fit_model_v2 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v2 <- fit_model_v2("v2", data)
+v2 <- add_criterion(v2, criterion="loo", moment_match=TRUE)
+```
+
+### V3
+
+```{r v-model-3, message=FALSE}
+fit_model_v3 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v3 <- fit_model_v3("v3", data)
+v3 <- add_criterion(v3, criterion="loo", moment_match=TRUE)
+```
+
+### V4
+
+```{r v-model-4, message=FALSE}
+fit_model_v4 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v4 <- fit_model_v4("v4", data)
+v4 <- add_criterion(v4, criterion="loo", moment_match=TRUE)
+```
+
+### V5
+
+```{r v-model-5, message=FALSE}
+fit_model_v5 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v5 <- fit_model_v5("v5", data)
+v5 <- add_criterion(v5, criterion="loo", moment_match=TRUE)
+```
+
+### V6
+
+```{r v-model-6, message=FALSE}
+fit_model_v6 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v6 <- fit_model_v6("v6", data)
+v6 <- add_criterion(v6, criterion="loo", moment_match=TRUE)
+```
+
+### V7
+
+```{r v-model-7, message=FALSE}
+fit_model_v7 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + contributors_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v7 <- fit_model_v7("v7", data)
+v7 <- add_criterion(v7, criterion="loo", moment_match=TRUE)
+```
+
+### V8
+
+```{r v-model-8, message=FALSE}
+fit_model_v8 <- function(name, data) {
+  fit_model(name,
+            "vulnerabilities_kloc_std ~ 0 + category + contributors_std + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+v8 <- fit_model_v8("v8", data)
+v8 <- add_criterion(v8, criterion="loo", moment_match=TRUE)
+```
+
+## Model comparison
+
+```{r v-model-comparison}
+print(loo_compare(v1, v2, v3, v4, v5, v6, v7, v8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r v-determine-natural-scale-means}
+summary(v1)
+
+v1_std_means <- c(-0.04, 0.44, 0.15, -0.20, -0.10, -0.07, -0.22, -0.12, -0.12, -0.18, -0.13)
+determine_natural_scale_means(v1_std_means, df$vulnerabilities_kloc, precision=6)
+```
+
+## Intervals of major categories
+
+```{r v-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(v1) +
+  labs(title="V1", x="Vulnerabilities per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r v-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+# Fit V1 using data that uses binary factor for usage of warnings
+v1_factor_uses_warnings <- fit_model_v1("v1_factor_uses_warnings",
+                                        data_factor_uses_warnings)
+
+plot_intervals_of_categories(v1_factor_uses_warnings) +
+  labs(title="V1", x="Vulnerabilities per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
+

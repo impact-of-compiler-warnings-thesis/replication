@@ -88,9 +88,9 @@ restore_from_std <- function(value, data) {
 }
 
 # Returns a data frame with columns for standardized and natural scale means
-determine_natural_scale_means <- function(std_means, data) {
+determine_natural_scale_means <- function(std_means, data, precision=2) {
   means <- data.frame(row.names=ordered_category_names, "std"=std_means)
-  means$natural <- round(restore_from_std(means$std, data), digits=2)
+  means$natural <- round(restore_from_std(means$std, data), digits=precision)
   means
 }
 
