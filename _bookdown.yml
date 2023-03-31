@@ -15,4 +15,5 @@ rmd_files:
   - "pages/minor_violations.Rmd"
   - "pages/security_hotspots.Rmd"
   - "pages/vulnerabilities.Rmd"
+  - "pages/cyclomatic_complexity.Rmd"
   - "pages/technical_debt.Rmd"

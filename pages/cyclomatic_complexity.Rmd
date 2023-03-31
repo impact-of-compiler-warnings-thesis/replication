@@ -1,0 +1,278 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r cyc-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+# Cyclomatic Complexity
+
+This section covers the analysis relating to the cyclomatic complexity metric.
+
+## Prepare data
+
+```{r cyc-prepare-data}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230331
+
+create_cyclomatic_complexity_data <- function(data) {
+  list(
+    cyclomatic_complexity_kloc_std=scale(data$cyclomatic_complexity_kloc),
+                  contributors_std=scale(data$contributors),
+                         stars_std=scale(data$stars),
+                         files_std=scale(data$files),
+                          size_std=scale(data$loc),
+                           age_std=scale(get_age(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_cyclomatic_complexity_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_cyclomatic_complexity_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### CYC1
+
+```{r cyc-model-1, message=FALSE}
+fit_model_cyc1 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc1 <- fit_model_cyc1("cyc1", data)
+```
+
+### CYC2
+
+```{r cyc-model-2, message=FALSE}
+fit_model_cyc2 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc2 <- fit_model_cyc2("cyc2", data)
+```
+
+### CYC3
+
+```{r cyc-model-3, message=FALSE}
+fit_model_cyc3 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc3 <- fit_model_cyc3("cyc3", data)
+```
+
+### CYC4
+
+```{r cyc-model-4, message=FALSE}
+fit_model_cyc4 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc4 <- fit_model_cyc4("cyc4", data)
+```
+
+### CYC5
+
+```{r cyc-model-5, message=FALSE}
+fit_model_cyc5 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc5 <- fit_model_cyc5("cyc5", data)
+```
+
+### CYC6
+
+```{r cyc-model-6, message=FALSE}
+fit_model_cyc6 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc6 <- fit_model_cyc6("cyc6", data)
+```
+
+### CYC7
+
+```{r cyc-model-7, message=FALSE}
+fit_model_cyc7 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + size_std + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc7 <- fit_model_cyc7("cyc7", data)
+```
+
+### CYC8
+
+```{r cyc-model-8, message=FALSE}
+fit_model_cyc8 <- function(name, data) {
+  fit_model(name,
+            "cyclomatic_complexity_kloc_std ~ 0 + category + size_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cyc8 <- fit_model_cyc8("cyc8", data)
+```
+
+## Compare models
+
+```{r cyc-compare-models, message=FALSE}
+cyc1 <- add_criterion(cyc1, criterion="loo", moment_match=FALSE)
+cyc2 <- add_criterion(cyc2, criterion="loo", moment_match=FALSE)
+cyc3 <- add_criterion(cyc3, criterion="loo", moment_match=FALSE)
+cyc4 <- add_criterion(cyc4, criterion="loo", moment_match=FALSE)
+cyc5 <- add_criterion(cyc5, criterion="loo", moment_match=FALSE)
+cyc6 <- add_criterion(cyc6, criterion="loo", moment_match=FALSE)
+cyc7 <- add_criterion(cyc7, criterion="loo", moment_match=FALSE)
+cyc8 <- add_criterion(cyc8, criterion="loo", moment_match=FALSE)
+
+print(loo_compare(cyc1, cyc2, cyc3, cyc4, cyc5, cyc6, cyc7, cyc8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r cyc-determine-natural-scale-means}
+summary(cyc7)
+
+cyc7_std_means <- c(-0.17, 0.20, -0.04, 0.16, 0.04, -0.13, 0.16, -0.32, -0.23, -0.05, -0.33)
+determine_natural_scale_means(cyc7_std_means, df$cyclomatic_complexity_kloc)
+```
+
+## Intervals of major categories
+
+```{r cyc-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(cyc7) +
+  labs(title="CYC7", x="Cyclomatic complexity per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r cyc-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+cyc7_factor_uses_warnings <- fit_model_cyc7("cyc7_factor_uses_warnings",
+                                            data_factor_uses_warnings)
+
+plot_intervals_of_categories(cyc7_factor_uses_warnings) +
+  labs(title="CYC7", x="Cyclomatic complexity per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
+
+## Without outliers
+
+Category AEP+ has a notable outlier, "better-enums".
+We will remove it from the sample population to see how this affects the analysis results. 
+```{r cyc-prepare-data-without-outliers, message=FALSE}
+# Prepare version of data frame without the outliers
+df_cyc <- df
+df_cyc <- df_cyc[df_cyc$name != "better-enums",]
+
+# Prepare data for analysis
+data_cyc <- create_cyclomatic_complexity_data(df_cyc)
+data_cyc$category <- factor(df_cyc$category)
+
+# Fit CYC7 using the culled data
+cyc7_no_outliers <- fit_model_cyc7("cyc7_no_outliers", data_cyc)
+summary(cyc7_no_outliers)
+```
+
+We can now plot the credible intervals of the major categories again, and see that
+AEP+ has dramatically improved as a result of removing the outlier.
+The plot indicates that there is no clear correlation between use of compiler warnings and cyclomatic complexity.
+
+```{r cyc-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(cyc7_no_outliers) +
+  labs(title="CYC7 (no outliers)", x="Cyclomatic complexity per KLOC (std)")
+```
+
+However, projects that do not use warnings still have lower cyclomatic complexity
+than those who do use warnings.
+
+```{r cyc-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}
+data_cyc_factor_uses_warnings <- create_cyclomatic_complexity_data(df_cyc)
+data_cyc_factor_uses_warnings$category <- factor(uses_warnings(df_cyc$category))
+
+cyc7_no_outliers_factor_uses_warnings <-
+  fit_model_cyc7("cyc7_no_outliers_factor_uses_warnings", 
+                 data_cyc_factor_uses_warnings)
+
+plot_intervals_of_categories(cyc7_no_outliers_factor_uses_warnings) +
+  labs(title="CYC7 (no outliers)", x="Cyclomatic complexity per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
+
