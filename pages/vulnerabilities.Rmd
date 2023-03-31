@@ -195,6 +195,7 @@ v5 <- add_criterion(v5, criterion="loo", moment_match=TRUE)
 v6 <- add_criterion(v6, criterion="loo", moment_match=TRUE)
 v7 <- add_criterion(v7, criterion="loo", moment_match=TRUE)
 v8 <- add_criterion(v8, criterion="loo", moment_match=TRUE)
+
 print(loo_compare(v1, v2, v3, v4, v5, v6, v7, v8, criterion="loo"),
       simplify=FALSE)
 ```
