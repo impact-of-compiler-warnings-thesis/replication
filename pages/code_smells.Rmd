@@ -9,7 +9,7 @@ source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 
 # Code Smells
 
-This is the code smells section.
+This section covers the analysis relating to the "code smells" metric.
 
 ## Prepare data
 
@@ -180,6 +180,15 @@ cs7 <- add_criterion(cs7, criterion="loo", moment_match=TRUE)
 
 print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6, cs7, criterion="loo"),
       simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r cs-determine-natural-scale-means}
+summary(cs6)
+
+cs6_std_means <- c(0.40, 0.38, -0.05, 0.13, -0.14, -0.22, -0.47, 0.01, -0.15, -0.32, -0.19)
+determine_natural_scale_means(cs6_std_means, df$code_smells_kloc)
 ```
 
 ## Intervals of major categories
