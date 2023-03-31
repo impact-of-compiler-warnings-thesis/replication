@@ -9,7 +9,7 @@ source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 
 # Bugs
 
-This is the bugs section.
+This section covers the analysis relating to the "bugs" metric.
 
 ## Prepare data
 
@@ -23,6 +23,8 @@ create_bugs_data <- function(data) {
        bugs_kloc_std=scale(data$bugs_kloc),
     contributors_std=scale(data$contributors),
            stars_std=scale(data$stars),
+            size_std=scale(data$loc),
+           files_std=scale(data$files),
              age_std=scale(get_age(data$created_at))
   )
 }
@@ -53,118 +55,121 @@ fit_model_b1 <- function(name, data) {
 }
 
 b1 <- fit_model_b1("b1", data)
-b1 <- add_criterion(b1, criterion="loo", moment_match=TRUE)
-
-summary(b1)
 ```
 
 ### B2
 
 ```{r b-model-2, message=FALSE}
-b2 <- fit_model(
-  "b2",
-  "bugs_kloc_std ~ 0 + category + contributors_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_b2 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-b2 <- add_criterion(b2, criterion="loo", moment_match=TRUE)
-
-summary(b2)
+b2 <- fit_model_b2("b2", data)
 ```
 
 ### B3
 
 ```{r b-model-3, message=FALSE}
-b3 <- fit_model(
-  "b3",
-  "bugs_kloc_std ~ 0 + category + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_b3 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-b3 <- add_criterion(b3, criterion="loo", moment_match=TRUE)
-
-summary(b3)
+b3 <- fit_model_b3("b3", data)
 ```
 
 ### B4
 
 ```{r b-model-4, message=FALSE}
-b4 <- fit_model(
-  "b4",
-  "bugs_kloc_std ~ 0 + category + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_b4 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-b4 <- add_criterion(b4, criterion="loo", moment_match=TRUE)
-
-summary(b4)
+b4 <- fit_model_b4("b4", data)
 ```
 
 ### B5
 
 ```{r b-model-5, message=FALSE}
-b5 <- fit_model(
-  "b5",
-  "bugs_kloc_std ~ 0 + category + contributors_std + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_b5 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-b5 <- add_criterion(b5, criterion="loo", moment_match=TRUE)
-
-summary(b5)
+b5 <- fit_model_b5("b5", data)
 ```
 
 ### B6
 
 ```{r b-model-6, message=FALSE}
-b6 <- fit_model(
-  "b6",
-  "bugs_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_b6 <- function(name, data) {
+  fit_model(name,
+            "bugs_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-b6 <- add_criterion(b6, criterion="loo", moment_match=TRUE)
-
-summary(b6)
+b6 <- fit_model_b6("b6", data)
 ```
 
-## Model comparisons
+## Compare models
 
-```{r b-model-comparisons}
+```{r b-compare-models}
+b1 <- add_criterion(b1, criterion="loo", moment_match=TRUE)
+b2 <- add_criterion(b2, criterion="loo", moment_match=TRUE)
+b3 <- add_criterion(b3, criterion="loo", moment_match=TRUE)
+b4 <- add_criterion(b4, criterion="loo", moment_match=TRUE)
+b5 <- add_criterion(b5, criterion="loo", moment_match=TRUE)
+b6 <- add_criterion(b6, criterion="loo", moment_match=TRUE)
+
 print(loo_compare(b1, b2, b3, b4, b5, b6, criterion="loo"), simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r b-determine-natural-scale-means}
+summary(b1)
+
+b1_std_means <- c(0.27, 0.24, -0.02, 0.37, -0.28, -0.20, -0.23, 0.47, -0.02, -0.29, -0.10)
+determine_natural_scale_means(b1_std_means, df$bugs_kloc)
 ```
 
 ## Intervals of major categories
@@ -177,7 +182,6 @@ plot_intervals_of_major_categories(b1) +
 ## Warnings versus no warnings
 
 ```{r b-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit B1 using data that uses binary factor for usage of warnings
 b1_factor_uses_warnings <- fit_model_b1("b1_factor_uses_warnings",
                                         data_factor_uses_warnings)
 
