@@ -41,101 +41,91 @@ data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ### CS1
 
 ```{r cs-model-1}
-cs1 <- fit_model(
-  "cs1",
-  "code_smells_kloc_std ~ 0 + category",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs1 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs1 <- add_criterion(cs1, criterion="loo", moment_match=TRUE)
-
-summary(cs1)
+cs1 <- fit_model_cs1("cs1", data)
 ```
 
 ### CS2
 
 ```{r cs-model-2}
-cs2 <- fit_model(
-  "cs2",
-  "code_smells_kloc_std ~ 0 + category + contributors_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs2 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs2 <- add_criterion(cs2, criterion="loo", moment_match=TRUE)
-
-summary(cs2)
+cs2 <- fit_model_cs2("cs2", data)
 ```
 
 ### CS3
 
 ```{r cs-model-3}
-cs3 <- fit_model(
-  "cs3",
-  "code_smells_kloc_std ~ 0 + category + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs3 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs3 <- add_criterion(cs3, criterion="loo", moment_match=TRUE)
-
-summary(cs3)
+cs3 <- fit_model_cs3("cs3", data)
 ```
 
 ### CS4
 
 ```{r cs-model-4}
-cs4 <- fit_model(
-  "cs4",
-  "code_smells_kloc_std ~ 0 + category + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs4 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
-
-summary(cs4)
+cs4 <- fit_model_cs4("cs4", data)
 ```
 
 ### CS5
 
 ```{r cs-model-5}
-cs5 <- fit_model(
-  "cs5",
-  "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs5 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
-
-summary(cs5)
+cs5 <- fit_model_cs5("cs5", data)
 ```
 
 ### CS6
@@ -155,36 +145,39 @@ fit_model_cs6 <- function(name, data) {
 }
 
 cs6 <- fit_model_cs6("cs6", data)
-cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
-
-summary(cs6)
 ```
 
 ### CS7
 
 ```{r cs-model-7}
-cs7 <- fit_model(
-  "cs7",
-  "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_cs7 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-cs7 <- add_criterion(cs7, criterion="loo", moment_match=TRUE)
-
-summary(cs7)
+cs7 <- fit_model_cs7("cs7", data)
 ```
 
-## Model comparisons
+## Compare models
 
-```{r cs-model-comparisons}
+```{r cs-compare-models}
+cs1 <- add_criterion(cs1, criterion="loo", moment_match=TRUE)
+cs2 <- add_criterion(cs2, criterion="loo", moment_match=TRUE)
+cs3 <- add_criterion(cs3, criterion="loo", moment_match=TRUE)
+cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
+cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
+cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
+cs7 <- add_criterion(cs7, criterion="loo", moment_match=TRUE)
+
 print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6, cs7, criterion="loo"),
       simplify=FALSE)
 ```

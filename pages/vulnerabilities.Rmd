@@ -54,7 +54,6 @@ fit_model_v1 <- function(name, data) {
 }
 
 v1 <- fit_model_v1("v1", data)
-v1 <- add_criterion(v1, criterion="loo", moment_match=TRUE)
 ```
 
 ### V2
@@ -73,7 +72,6 @@ fit_model_v2 <- function(name, data) {
 }
 
 v2 <- fit_model_v2("v2", data)
-v2 <- add_criterion(v2, criterion="loo", moment_match=TRUE)
 ```
 
 ### V3
@@ -92,7 +90,6 @@ fit_model_v3 <- function(name, data) {
 }
 
 v3 <- fit_model_v3("v3", data)
-v3 <- add_criterion(v3, criterion="loo", moment_match=TRUE)
 ```
 
 ### V4
@@ -111,7 +108,6 @@ fit_model_v4 <- function(name, data) {
 }
 
 v4 <- fit_model_v4("v4", data)
-v4 <- add_criterion(v4, criterion="loo", moment_match=TRUE)
 ```
 
 ### V5
@@ -130,7 +126,6 @@ fit_model_v5 <- function(name, data) {
 }
 
 v5 <- fit_model_v5("v5", data)
-v5 <- add_criterion(v5, criterion="loo", moment_match=TRUE)
 ```
 
 ### V6
@@ -149,7 +144,6 @@ fit_model_v6 <- function(name, data) {
 }
 
 v6 <- fit_model_v6("v6", data)
-v6 <- add_criterion(v6, criterion="loo", moment_match=TRUE)
 ```
 
 ### V7
@@ -169,7 +163,6 @@ fit_model_v7 <- function(name, data) {
 }
 
 v7 <- fit_model_v7("v7", data)
-v7 <- add_criterion(v7, criterion="loo", moment_match=TRUE)
 ```
 
 ### V8
@@ -189,12 +182,19 @@ fit_model_v8 <- function(name, data) {
 }
 
 v8 <- fit_model_v8("v8", data)
-v8 <- add_criterion(v8, criterion="loo", moment_match=TRUE)
 ```
 
-## Model comparison
+## Compare models
 
-```{r v-model-comparison}
+```{r v-compare-models}
+v1 <- add_criterion(v1, criterion="loo", moment_match=TRUE)
+v2 <- add_criterion(v2, criterion="loo", moment_match=TRUE)
+v3 <- add_criterion(v3, criterion="loo", moment_match=TRUE)
+v4 <- add_criterion(v4, criterion="loo", moment_match=TRUE)
+v5 <- add_criterion(v5, criterion="loo", moment_match=TRUE)
+v6 <- add_criterion(v6, criterion="loo", moment_match=TRUE)
+v7 <- add_criterion(v7, criterion="loo", moment_match=TRUE)
+v8 <- add_criterion(v8, criterion="loo", moment_match=TRUE)
 print(loo_compare(v1, v2, v3, v4, v5, v6, v7, v8, criterion="loo"),
       simplify=FALSE)
 ```
@@ -218,7 +218,6 @@ plot_intervals_of_major_categories(v1) +
 ## Warnings versus no warnings
 
 ```{r v-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit V1 using data that uses binary factor for usage of warnings
 v1_factor_uses_warnings <- fit_model_v1("v1_factor_uses_warnings",
                                         data_factor_uses_warnings)
 
