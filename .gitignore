@@ -143,6 +143,7 @@ dmypy.json
 # Model fit files
 *.rds
 
+libs
 book
 _main.Rmd
 _main_files
