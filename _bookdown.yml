@@ -16,5 +16,6 @@ rmd_files:
   - "pages/security_hotspots.Rmd"
   - "pages/vulnerabilities.Rmd"
   - "pages/cyclomatic_complexity.Rmd"
+  - "pages/cognitive_complexity.Rmd"
   - "pages/duplicated_lines.Rmd"
   - "pages/technical_debt.Rmd"
