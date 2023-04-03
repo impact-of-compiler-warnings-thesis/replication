@@ -13,7 +13,7 @@ This section covers the analysis relating to the "code smells" metric.
 
 ## Prepare data
 
-```{r}
+```{r cs-prepare-data}
 # The model seed is the date that the analysis was conducted
 model_seed <- 20230302
 
