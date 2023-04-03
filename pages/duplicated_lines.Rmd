@@ -1,0 +1,233 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+```{r d-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+# Duplicated Lines
+
+This section covers the analysis relating to the "duplicated lines" metric.
+
+## Prepare data
+
+```{r d-prepare-data}
+# The model seed is the date that the analysis was conducted
+model_seed <- 20230403
+
+# Returns a list of standardized data necessary for the analysis.
+create_duplicated_lines_data <- function(data) {
+  list(
+    duplicated_lines_kloc_std=scale(data$duplicated_lines_kloc),
+             contributors_std=scale(data$contributors),
+                    stars_std=scale(data$stars),
+                    files_std=scale(data$files),
+                     size_std=scale(data$loc),
+                      age_std=scale(get_age(data$created_at))
+  )
+}
+
+# Prepare data with all categories as factors (1-11).
+data <- create_duplicated_lines_data(df)
+data$category <- factor(df$category)
+
+# Prepare data that factors on the presence of compiler warnings
+data_factor_uses_warnings <- create_duplicated_lines_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+```
+
+## Define models
+
+### D1
+
+```{r d-model-1, message=FALSE}
+fit_model_d1 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d1 <- fit_model_d1("d1", data)
+```
+
+### D2
+
+```{r d-model-2, message=FALSE}
+fit_model_d2 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d2 <- fit_model_d2("d2", data)
+```
+
+### D3
+
+```{r d-model-3, message=FALSE}
+fit_model_d3 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d3 <- fit_model_d3("d3", data)
+```
+
+### D4
+
+```{r d-model-4, message=FALSE}
+fit_model_d4 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d4 <- fit_model_d4("d4", data)
+```
+
+### D5
+
+```{r d-model-5, message=FALSE}
+fit_model_d5 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d5 <- fit_model_d5("d5", data)
+```
+
+### D6
+
+```{r d-model-6, message=FALSE}
+fit_model_d6 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d6 <- fit_model_d6("d6", data)
+```
+
+### D7
+
+```{r d-model-7, message=FALSE}
+fit_model_d7 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + contributors_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d7 <- fit_model_d7("d7", data)
+```
+
+### D8
+
+```{r d-model-8, message=FALSE}
+fit_model_d8 <- function(name, data) {
+  fit_model(name,
+            "duplicated_lines_kloc_std ~ 0 + category + contributors_std + size_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="size_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+d8 <- fit_model_d8("d8", data)
+```
+
+## Compare models
+
+```{r d-compare-models, message=FALSE}
+d1 <- add_criterion(d1, criterion="loo")
+d2 <- add_criterion(d2, criterion="loo")
+d3 <- add_criterion(d3, criterion="loo")
+d4 <- add_criterion(d4, criterion="loo")
+d5 <- add_criterion(d5, criterion="loo")
+d6 <- add_criterion(d6, criterion="loo")
+d7 <- add_criterion(d7, criterion="loo")
+d8 <- add_criterion(d8, criterion="loo")
+
+print(loo_compare(d1, d2, d3, d4, d5, d6, d7, d8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r d-determine-natural-scale-means}
+summary(d6)
+
+d6_std_means <- c(0.18, -0.26, -0.11, -0.32, 0.15, 1.12, -0.30, 0.02, -0.23, -0.24, -0.29)
+determine_natural_scale_means(d6_std_means, df$duplicated_lines_kloc)
+```
+
+## Credible intervals of major categories
+
+```{r d-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(d6) +
+  labs(title="D6", x="Duplicated lines per KLOC (std)")
+```
+
+## Warnings versus no warnings
+
+```{r d-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+# Fit D6 using data that uses binary factor for usage of warnings
+d6_factor_uses_warnings <- fit_model_d6("d6_factor_uses_warnings",
+                                        data_factor_uses_warnings)
+
+plot_intervals_of_categories(d6_factor_uses_warnings) +
+  labs(title="D6", x="Duplicated lines per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
