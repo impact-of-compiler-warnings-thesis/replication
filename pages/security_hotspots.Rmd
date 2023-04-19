@@ -54,9 +54,6 @@ fit_model_s1 <- function(name, data) {
 }
 
 s1 <- fit_model_s1("s1", data)
-s1 <- add_criterion(s1, criterion="loo", moment_match=TRUE)
-
-summary(s1)
 ```
 
 ### S2
@@ -75,9 +72,6 @@ fit_model_s2 <- function(name, data) {
 }
 
 s2 <- fit_model_s2("s2", data)
-s2 <- add_criterion(s2, criterion="loo", moment_match=TRUE)
-
-summary(s2)
 ```
 
 ### S3
@@ -96,9 +90,6 @@ fit_model_s3 <- function(name, data) {
 }
 
 s3 <- fit_model_s3("s3", data)
-s3 <- add_criterion(s3, criterion="loo", moment_match=TRUE)
-
-summary(s3)
 ```
 
 ### S4
@@ -117,9 +108,6 @@ fit_model_s4 <- function(name, data) {
 }
 
 s4 <- fit_model_s4("s4", data)
-s4 <- add_criterion(s4, criterion="loo", moment_match=TRUE)
-
-summary(s4)
 ```
 
 ### S5
@@ -138,9 +126,6 @@ fit_model_s5 <- function(name, data) {
 }
 
 s5 <- fit_model_s5("s5", data)
-s5 <- add_criterion(s5, criterion="loo", moment_match=TRUE)
-
-summary(s5)
 ```
 
 ### S6
@@ -159,9 +144,6 @@ fit_model_s6 <- function(name, data) {
 }
 
 s6 <- fit_model_s6("s6", data)
-s6 <- add_criterion(s6, criterion="loo", moment_match=TRUE)
-
-summary(s6)
 ```
 
 ### S7
@@ -181,9 +163,6 @@ fit_model_s7 <- function(name, data) {
 }
 
 s7 <- fit_model_s7("s7", data)
-s7 <- add_criterion(s7, criterion="loo", moment_match=TRUE)
-
-summary(s7)
 ```
 
 ### S8
@@ -203,14 +182,20 @@ fit_model_s8 <- function(name, data) {
 }
 
 s8 <- fit_model_s8("s8", data)
-s8 <- add_criterion(s8, criterion="loo", moment_match=TRUE)
-
-summary(s8)
 ```
 
-## Model comparisons
+## Compare models
 
 ```{r s-model-comparisons}
+s1 <- add_criterion(s1, criterion="loo", moment_match=TRUE)
+s2 <- add_criterion(s2, criterion="loo", moment_match=TRUE)
+s3 <- add_criterion(s3, criterion="loo", moment_match=TRUE)
+s4 <- add_criterion(s4, criterion="loo", moment_match=TRUE)
+s5 <- add_criterion(s5, criterion="loo", moment_match=TRUE)
+s6 <- add_criterion(s6, criterion="loo", moment_match=TRUE)
+s7 <- add_criterion(s7, criterion="loo", moment_match=TRUE)
+s8 <- add_criterion(s8, criterion="loo", moment_match=TRUE)
+
 print(loo_compare(s1, s2, s3, s4, s5, s6, s7, s8, criterion="loo"),
       simplify=FALSE)
 ```
@@ -218,6 +203,8 @@ print(loo_compare(s1, s2, s3, s4, s5, s6, s7, s8, criterion="loo"),
 ## Determine natural scale means
 
 ```{r s-determine-natural-scale-means}
+summary(s2)
+
 s2_std_means <- c(0.26, 0.19, -0.20, -0.45, -0.10, -0.17,  0.01,  0.67, -0.39, -0.16, -0.19)
 determine_natural_scale_means(s2_std_means, df$security_hotspots_kloc)
 ```
@@ -232,7 +219,6 @@ plot_intervals_of_major_categories(s2) +
 ## Warnings versus no warnings
 
 ```{r s-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit S2 using data that uses binary factor for usage of warnings
 s2_factor_uses_warnings <- fit_model_s2("s2_factor_uses_warnings",
                                         data_factor_uses_warnings)
 
