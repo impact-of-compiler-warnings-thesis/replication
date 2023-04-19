@@ -34,232 +34,233 @@ data_factor_uses_warnings <- create_major_violations_data(df)
 data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-### MAV1 
+### MAV1
 
 ```{r mav-model-1, message=FALSE}
-mav1 <- fit_model(
-  "mav1",
-  "major_violations_kloc_std ~ 0 + category",
-  c(
-    prior(normal(0, 1), class = b),
-    prior(exponential(1), class = sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_mav1 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav1 <- add_criterion(mav1, criterion="loo", moment_match=FALSE)
-summary(mav1)
+mav1 <- fit_model_mav1("mav1", data)
 ```
 
 ### MAV2
 
 ```{r mav-model-2, message=FALSE}
 fit_model_mav2 <- function(name, data) {
-  mav2 <- fit_model(
-    name,
-    "major_violations_kloc_std ~ 0 + category + contributors_std",
-    c(
-      prior(normal(0, 1), class=b),
-      prior(normal(0, 1), class=b, coef="contributors_std"),
-      prior(exponential(1), class=sigma)
-    ),
-    data,
-    model_seed
-  )
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
 }
 
 mav2 <- fit_model_mav2("mav2", data)
-mav2 <- add_criterion(mav2, criterion = "loo", moment_match = FALSE)
-summary(mav2)
 ```
 
 ### MAV3
 
 ```{r mav-model-3, message=FALSE}
-mav3 <- fit_model(
-  "mav3",
-  "major_violations_kloc_std ~ 0 + category + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_mav3 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav3 <- add_criterion(mav3, criterion="loo", moment_match=FALSE)
-summary(mav3)
+mav3 <- fit_model_mav3("mav3", data)
 ```
 
 ### MAV4
 
 ```{r mav-model-4, message=FALSE}
-mav4 <- fit_model(
-  "mav4",
-  "major_violations_kloc_std ~ 0 + category + files_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="files_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_mav4 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav4 <- add_criterion(mav4, criterion="loo", moment_match=FALSE)
-summary(mav4)
+mav4 <- fit_model_mav4("mav4", data)
 ```
 
 ### MAV5
 
 ```{r mav-model-5, message=FALSE}
-mav5 <- fit_model(
-  "mav5",
-  "major_violations_kloc_std ~ 0 + category + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_mav5 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav5 <- add_criterion(mav5, criterion="loo", moment_match=FALSE)
-summary(mav5)
+mav5 <- fit_model_mav5("mav5", data)
 ```
 
 ### MAV6
 
 ```{r mav-model-6, message=FALSE}
-mav6 <- fit_model(
-  "mav6",
-  "major_violations_kloc_std ~ 0 + category + contributors_std + stars_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+fit_model_mav6 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav6 <- add_criterion(mav6, criterion="loo", moment_match=FALSE)
-summary(mav6)
+mav6 <- fit_model_mav6("mav6", data)
 ```
 
 ### MAV7
 
-```{r mav-model-7}
-mav7 <- fit_model(
-  "mav7",
-  "major_violations_kloc_std ~ 0 + category + contributors_std + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+```{r mav-model-7, message=FALSE}
+fit_model_mav7 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + contributors_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav7 <- add_criterion(mav7, criterion="loo", moment_match=FALSE)
-summary(mav7)
+mav7 <- fit_model_mav7("mav7", data)
 ```
 
 ### MAV8
 
-```{r mav-model-8}
-mav8 <- fit_model(
-  "mav8",
-  "major_violations_kloc_std ~ 0 + category + contributors_std + files_std + stars_std + age_std",
-  c(
-    prior(normal(0, 1), class=b),
-    prior(normal(0, 1), class=b, coef="contributors_std"),
-    prior(normal(0, 1), class=b, coef="files_std"),
-    prior(normal(0, 1), class=b, coef="stars_std"),
-    prior(normal(0, 1), class=b, coef="age_std"),
-    prior(exponential(1), class=sigma)
-  ),
-  data,
-  model_seed
-)
+```{r mav-model-8, message=FALSE}
+fit_model_mav8 <- function(name, data) {
+  fit_model(name,
+            "major_violations_kloc_std ~ 0 + category + stars_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
 
-mav8 <- add_criterion(mav8, criterion="loo", moment_match=FALSE)
-summary(mav8)
+mav8 <- fit_model_mav8("mav8", data)
 ```
 
-## Model comparisons
+## Compare models
 
-```{r mav-model-comparisons}
+```{r mav-compare-models, message=FALSE, warning=FALSE}
+mav1 <- add_criterion(mav1, criterion="loo", moment_match=FALSE)
+mav2 <- add_criterion(mav1, criterion="loo", moment_match=FALSE)
+mav3 <- add_criterion(mav3, criterion="loo", moment_match=FALSE)
+mav4 <- add_criterion(mav4, criterion="loo", moment_match=FALSE)
+mav5 <- add_criterion(mav5, criterion="loo", moment_match=FALSE)
+mav6 <- add_criterion(mav6, criterion="loo", moment_match=FALSE)
+mav7 <- add_criterion(mav7, criterion="loo", moment_match=FALSE)
+mav8 <- add_criterion(mav8, criterion="loo", moment_match=FALSE)
+
 print(loo_compare(mav1, mav2, mav3, mav4, mav5, mav6, mav7, mav8, criterion="loo"),
       simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r mav-determine-natural-scale-means, message=FALSE}
+summary(mav5)
+
+mav5_std_means <- c(-0.04, 0.05, -0.08, -0.05, 0.49, -0.07, -0.17, -0.03, -0.22, -0.16, -0.05)
+determine_natural_scale_means(mav5_std_means, df$major_violations_kloc)
 ```
 
 ## Intervals of major categories
 
 ```{r mav-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
-plot_intervals_of_major_categories(mav2) +
-  labs(title="MAV2", x="Major violations per KLOC (std)")
+plot_intervals_of_major_categories(mav5) +
+  labs(title="MAV5", x="Major violations per KLOC (std)")
 ```
 
 ## Warnings versus no warnings
 
 ```{r mav-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit MAV2 using data that uses binary factor for usage of warnings
-mav2_factor_uses_warnings <- fit_model_mav2(
-  "mav2_factor_uses_warnings",
-  data_factor_uses_warnings
-)
+mav5_factor_uses_warnings <- fit_model_mav5("mav5_factor_uses_warnings",
+                                            data_factor_uses_warnings)
 
-plot_intervals_of_categories(mav2_factor_uses_warnings) +
-  labs(title="MAV2", x="Major Violations per KLOC (std)") +
+plot_intervals_of_categories(mav5_factor_uses_warnings) +
+  labs(title="MAV5", x="Major violations per KLOC (std)") +
   scale_y_discrete(labels = c(
     "b_category1"="No warnings",
     "b_category2"="Any warnings"
   ))
 ```
 
-## Without outliers
-
-The sample population has a considerate outlier (clipp), in category AEP.
-This is enhanced due to the small size of the clipp project (only 9,000 LOC).
+## Without `clipp`
 
 ```{r mav-remove-outliers, message=FALSE}
-# Prepare version of data frame without the outliers
-df_no_outliers <- df
-df_no_outliers <- df_no_outliers[df_no_outliers$name != "clipp", ]
+culled_df <- df
+culled_df <- culled_df[culled_df$name != "clipp", ]
 
-# Prepare data for analysis
-data_no_outliers <- create_major_violations_data(df_no_outliers)
-data_no_outliers$category <- factor(df_no_outliers$category)
+culled_data <- create_major_violations_data(culled_df)
+culled_data$category <- factor(culled_df$category)
 
-# Fit MAV2 using the trimmed data
-mav2_no_outliers <- fit_model_mav2("mav2_no_outliers", data_no_outliers)
-summary(mav2_no_outliers)
+mav5_culled <- fit_model_mav5("mav5_culled", culled_data)
 ```
 
-```{r mav2-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
-plot_intervals_of_major_categories(mav2_no_outliers) +
-  labs(title="MAV2 (no outliers)", x="Major violations per KLOC (std)")
+```{r mav-determine-natural-scale-means-culled, message=FALSE}
+summary(mav5_culled)
+
+mav5_culled_std_means <- c(0.20, 0.45, -0.04, 0.12, -0.10, 0.00, -0.37, -0.05, -0.55, -0.28, -0.03)
+determine_natural_scale_means(mav5_culled_std_means, culled_df$major_violations_kloc)
+```
+
+```{r mav-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+plot_intervals_of_major_categories(mav5_culled) +
+  labs(title="MAV5 (culled)", x="Major violations per KLOC (std)")
 ```
 
 ```{r mav-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}
-data_no_outliers_factor_uses_warnings <- create_major_violations_data(df_no_outliers)
-data_no_outliers_factor_uses_warnings$category <- factor(uses_warnings(df_no_outliers$category))
+culled_data_factor_uses_warnings <- create_major_violations_data(culled_df)
+culled_data_factor_uses_warnings$category <- factor(uses_warnings(culled_df$category))
 
-# Fit MAV2 using the trimmed data, but with binary warning category factor
-mav2_no_outliers_factor_uses_warnings <- fit_model_mav2(
-  "mav2_data_no_outliers_factor_uses_warnings",
-  data_no_outliers_factor_uses_warnings
+mav5_culled_data_factor_uses_warnings <- fit_model_mav5(
+  "mav5_culled_data_factor_uses_warnings",
+  culled_data_factor_uses_warnings
 )
 
-plot_intervals_of_categories(mav2_no_outliers_factor_uses_warnings) +
-  labs(title="MAV2 (no outliers)", x="Major violations per KLOC (std)") +
+plot_intervals_of_categories(mav5_culled_data_factor_uses_warnings) +
+  labs(title="MAV5 (culled)", x="Major violations per KLOC (std)") +
   scale_y_discrete(labels=c(
     "b_category1"="No warnings",
     "b_category2"="Any warnings"
