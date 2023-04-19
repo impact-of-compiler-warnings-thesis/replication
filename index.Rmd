@@ -25,23 +25,7 @@ output:
         all: []
 ---
 
-# Overview
+# Impact of Compiler Warnings on Software Quality
 
-## Render book
+This is the replication package accompanying the thesis Impact of Compiler Warnings by Albin Johansson and Carl Holmberg.
 
-```{r render-book, eval=FALSE}
-bookdown::render_book()
-```
-
-## Preview book
-
-```{r serve-book, eval=FALSE}
-bookdown::serve_book()
-```
-
-```{r write-bib, include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
