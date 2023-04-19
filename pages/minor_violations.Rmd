@@ -54,9 +54,6 @@ fit_model_miv1 <- function(name, data) {
 }
 
 miv1 <- fit_model_miv1("miv1", data)
-miv1 <- add_criterion(miv1, criterion="loo", moment_match=TRUE)
-
-summary(miv1)
 ```
 
 ### MIV2
@@ -75,9 +72,6 @@ fit_model_miv2 <- function(name, data) {
 }
 
 miv2 <- fit_model_miv2("miv2", data)
-miv2 <- add_criterion(miv2, criterion="loo", moment_match=TRUE)
-
-summary(miv2)
 ```
 
 ### MIV3
@@ -96,9 +90,6 @@ fit_model_miv3 <- function(name, data) {
 }
 
 miv3 <- fit_model_miv3("miv3", data)
-miv3 <- add_criterion(miv3, criterion="loo", moment_match=TRUE)
-
-summary(miv3)
 ```
 
 ### MIV4
@@ -117,9 +108,6 @@ fit_model_miv4 <- function(name, data) {
 }
 
 miv4 <- fit_model_miv4("miv4", data)
-miv4 <- add_criterion(miv4, criterion="loo", moment_match=TRUE)
-
-summary(miv4)
 ```
 
 ### MIV5
@@ -138,9 +126,6 @@ fit_model_miv5 <- function(name, data) {
 }
 
 miv5 <- fit_model_miv5("miv5", data)
-miv5 <- add_criterion(miv5, criterion="loo", moment_match=TRUE)
-
-summary(miv5)
 ```
 
 ### MIV6
@@ -159,9 +144,6 @@ fit_model_miv6 <- function(name, data) {
 }
 
 miv6 <- fit_model_miv6("miv6", data)
-miv6 <- add_criterion(miv6, criterion="loo", moment_match=TRUE)
-
-summary(miv6)
 ```
 
 ### MIV7
@@ -181,9 +163,6 @@ fit_model_miv7 <- function(name, data) {
 }
 
 miv7 <- fit_model_miv7("miv7", data)
-miv7 <- add_criterion(miv7, criterion="loo", moment_match=TRUE)
-
-summary(miv7)
 ```
 
 ### MIV8
@@ -203,16 +182,31 @@ fit_model_miv8 <- function(name, data) {
 }
 
 miv8 <- fit_model_miv8("miv8", data)
-miv8 <- add_criterion(miv8, criterion="loo", moment_match=TRUE)
-
-summary(miv8)
 ```
 
-## Model comparisons
+## Compare models
 
 ```{r miv-model-comparisons}
+miv1 <- add_criterion(miv1, criterion="loo", moment_match=TRUE)
+miv2 <- add_criterion(miv2, criterion="loo", moment_match=TRUE)
+miv3 <- add_criterion(miv3, criterion="loo", moment_match=TRUE)
+miv4 <- add_criterion(miv4, criterion="loo", moment_match=TRUE)
+miv5 <- add_criterion(miv5, criterion="loo", moment_match=TRUE)
+miv6 <- add_criterion(miv6, criterion="loo", moment_match=TRUE)
+miv7 <- add_criterion(miv7, criterion="loo", moment_match=TRUE)
+miv8 <- add_criterion(miv8, criterion="loo", moment_match=TRUE)
+
 print(loo_compare(miv1, miv2, miv3, miv4, miv5, miv6, miv7, miv8, criterion="loo"),
       simplify=FALSE)
+```
+
+## Determine natural scale means
+
+```{r miv-determine-natural-scale-means, message=FALSE}
+summary(miv1)
+
+miv1_std_means <- c(0.27, 0.22, -0.15, 0.46, -0.15, -0.28, -0.23, 0.42, 0.32, -0.21, 0.20)
+determine_natural_scale_means(miv1_std_means, df$minor_violations_kloc)
 ```
 
 ## Intervals of major categories
@@ -225,7 +219,6 @@ plot_intervals_of_major_categories(miv1) +
 ## Warnings versus no warnings
 
 ```{r miv-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit MIV1 using data that uses binary factor for usage of warnings
 miv1_factor_uses_warnings <- fit_model_miv1("miv1_factor_uses_warnings",
                                             data_factor_uses_warnings)
 
