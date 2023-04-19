@@ -131,6 +131,47 @@ Additionally, we will need to create a new data frame where the samples that do 
 df_major = df[df$category %in% major_categories, ]
 ```
 
+## Meta plots
+This section will show some plots that are not related to the outcome but show some more meta information about the sample.
+
+### LOC per sample
+```{r loc-summary}
+plot_barplot_of_major_samples(df_major, df_major$loc) +
+  labs(title="Overview of all major samples", x="Samples", y="LOC") +
+  geom_hline(yintercept=1:7 * 100000, alpha=0.2) +
+  scale_y_continuous(breaks=1:7 * 100000)
+
+```
+
+### LOC per category
+```{r loc-per-category}
+df_locdata <- aggregate( loc ~ category, df_major, mean )
+
+ggplot(df_locdata,
+         aes(x=category,
+             y=loc,
+             fill=factor(category))) +
+    theme_default(base_family="sans", base_size=14) +
+    theme(legend.position="bottom") +
+    guides(fill = guide_legend(title = NULL)) +
+    geom_col(color="#000000F0", linewidth=0.5) +
+    scale_x_discrete(labels=NULL) +
+    scale_fill_manual(labels=c("1"="N",
+                               "2"="A",
+                               "3"="AE",
+                               "5"="AEP",
+                               "7"="AEP+"),
+                      values=c("1"="#7b3294",
+                               "2"="#c2a5cf", 
+                               "3"="#f7f7f7", 
+                               "5"="#a6dba0", 
+                               "7"="#008837")) +
+  labs(title="Mean LOC per category", x="Categories", y="LOC") +
+  geom_hline(yintercept=1:5 * 40000, alpha=0.2) +
+  scale_y_continuous(breaks=1:5 * 40000)
+ 
+```
+
 ## Metric summary plots
 
 We can now use the `plot_barplot_of_major_samples` function to plot the scaled values for every sample in the major categories.
