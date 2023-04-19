@@ -59,8 +59,8 @@ fit_model_td1 <- function(name, data) {
     seed=model_seed
 )
 }
-td1 <- fit_model_td1("td1", data)
 
+td1 <- fit_model_td1("td1", data)
 print(summary(td1))
 ```
 
@@ -221,15 +221,24 @@ td7 <- add_criterion(td7, "loo", moment_match = TRUE)
 print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion = "loo"), simplify = FALSE)
 ```
 
+## Determine natural scale means
+
+```{r td-determine-natural-scale-means, message=FALSE}
+summary(td1)
+
+td1_std_means <- c(0.26, 0.18,-0.08,-0.21, 0.23,-0.17,-0.30,-0.15,-0.30,-0.30,-0.18)
+determine_natural_scale_means(td1_std_means, df$sqale_debt_ratio)
+```
+
 ## Intervals of major categories
 
 ```{r td-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
-plot_intervals_of_major_categories(td1) + labs(title="TD2", x="Technical Debt Ratio (std)")
+plot_intervals_of_major_categories(td1) + labs(title="TD1", x="Technical Debt Ratio (std)")
 ```
 
 ## Warnings versus no warnings
 ```{r td-warnings-no-warnings , fig.width=6, fig.height=2.8}
-td2_factor_uses_warnings <- fit_model_td1("td1_factor_uses_warnings", data_factor_uses_warnings)
+td1_factor_uses_warnings <- fit_model_td1("td1_factor_uses_warnings", data_factor_uses_warnings)
 
 plot_intervals_of_categories(td1_factor_uses_warnings) + 
   labs(title="TD1", x="Technical Debt Ratio (std)") +
@@ -237,7 +246,7 @@ plot_intervals_of_categories(td1_factor_uses_warnings) +
 ```
 
 ## Without outliers
-```{r td-without-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+```{r td-without-outliers, fig.width=6, fig.height=2.8, message=TRUE}
 # Prepare version of data frame without outliers
 df_no_outliers <- df
 df_no_outliers <- df_no_outliers[df_no_outliers$name != "clipp",]
@@ -249,6 +258,10 @@ data_no_outliers$category <- factor(df_no_outliers$category)
 # Fit TD1 using the trimmed data
 td1_no_outliers <-fit_model_td1("td1_no_outliers", data_no_outliers)
 summary(td1_no_outliers)
+
+td1_culled_std_means <- c(0.38, 0.29, -0.04, 0.21, -0.12, -0.15, -0.31, -0.15, -0.33, -0.32, -0.20)
+determine_natural_scale_means(td1_culled_std_means, culled_df$sqale_debt_ratio)
+
 
 # Plot Major categories without outliers
 plot_intervals_of_major_categories(td1_no_outliers) + 
