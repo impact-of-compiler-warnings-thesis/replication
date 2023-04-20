@@ -176,6 +176,50 @@ ggplot(df_locdata,
  
 ```
 
+
+### Age per sample
+```{r age-per-sample}
+df_major$age <- get_age(df_major$created_at)
+  
+plot_barplot_of_major_samples(df_major, df_major$age) +
+  labs(title="Overview of all major samples", x="Samples", y="Age (days)") +
+  geom_hline(yintercept=1:5 * 1000, alpha=0.2) +
+  scale_y_continuous(breaks=1:5 * 1000)
+```
+
+### Age per category
+```{r age-per-category}
+df_agedata <- aggregate( age ~ category, df_major, mean )
+
+
+df_agedata$category <- factor(df_agedata$category,
+                              levels = c("1", "2", "3", "5", "7"))
+
+ggplot(df_agedata,
+         aes(x=category,
+             y=age,
+             fill=factor(category))) +
+    theme_default(base_family="sans", base_size=14) +
+    theme(legend.position="bottom") +
+    guides(fill = guide_legend(title = NULL)) +
+    geom_col(color="#000000F0", linewidth=0.5) +
+    scale_x_discrete(labels=NULL) +
+    scale_fill_manual(labels=c("1"="N",
+                               "2"="A",
+                               "3"="AE",
+                               "5"="AEP",
+                               "7"="AEP+"),
+                      values=c("1"="#7b3294",
+                               "2"="#c2a5cf", 
+                               "3"="#f7f7f7", 
+                               "5"="#a6dba0", 
+                               "7"="#008837")) +
+  labs(title="Mean Age per Category", x="Categories", y="Age (days)") +
+  geom_hline(yintercept=1:6 * 500, alpha=0.2) +
+  scale_y_continuous(breaks=1:6 * 500)
+ 
+```
+
 ## Metric summary plots
 
 We can now use the `plot_barplot_of_major_samples` function to plot the scaled values for every sample in the major categories.
