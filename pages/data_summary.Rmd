@@ -147,6 +147,10 @@ plot_barplot_of_major_samples(df_major, df_major$loc) +
 ```{r loc-per-category}
 df_locdata <- aggregate( loc ~ category, df_major, mean )
 
+
+df_locdata$category <- factor(df_locdata$category,
+                              levels = c("1", "2", "3", "5", "7"))
+
 ggplot(df_locdata,
          aes(x=category,
              y=loc,
@@ -167,8 +171,8 @@ ggplot(df_locdata,
                                "5"="#a6dba0", 
                                "7"="#008837")) +
   labs(title="Mean LOC per category", x="Categories", y="LOC") +
-  geom_hline(yintercept=1:5 * 40000, alpha=0.2) +
-  scale_y_continuous(breaks=1:5 * 40000)
+  geom_hline(yintercept=1:9 * 20000, alpha=0.2) +
+  scale_y_continuous(breaks=1:9 * 20000)
  
 ```
 
