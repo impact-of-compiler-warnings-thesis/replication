@@ -7,7 +7,6 @@ date: 2023
 source(knitr::purl('pages/setup.Rmd', output = tempfile()))
 ```
 
-
 # Technical Debt
 
 This is the technical debt section.
@@ -18,7 +17,6 @@ This is the technical debt section.
 # The model seed is the date that the analysis was conducted
 model_seed <- 20230302
 
-# Returns a list of standardized data necessary for the analysis.
 create_tech_debt_data <- function(data) {
   list(
        tech_debt_std=scale(data$sqale_debt_ratio),
@@ -29,196 +27,156 @@ create_tech_debt_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_tech_debt_data(df)
 data$category <- factor(df$category)
 
-# Prepare data that factors on the presence of compiler warnings
 data_factor_uses_warnings <- create_tech_debt_data(df)
 data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
+
 ## Define Models
 
 ### TD1
+
 ```{r td-model-1}
 fit_model_td1 <- function(name, data) {
-   brm(
-    tech_debt_std ~ 0 + category,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = paste("fits", name, sep="/"),
-    file_refit = "on_change",
-    seed=model_seed
-)
+  fit_model(name,
+            "tech_debt_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
 }
 
 td1 <- fit_model_td1("td1", data)
-print(summary(td1))
 ```
 
 ### TD2
+
 ```{r td-model-2}
 fit_model_td2 <- function(name, data) {
-  brm(
-      tech_debt_std ~ 0 + category + files_std,
-      family = gaussian,
-      prior = c(
-          prior(normal(0, 1), class = b),
-          prior(normal(0, 1), class = b, coef = "files_std"),
-          prior(exponential(1), class = sigma)
-      ),
-      data = data,
-      iter = 10000,
-      warmup = 5000,
-      chains = 4,
-      cores = 4,
-      file = paste("fits", name, sep="/"),
-      file_refit = "on_change",
-      seed=model_seed
-  )
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
 }
+
 td2 <- fit_model_td2("td2", data)
-print(summary(td2))
 ```
 
 ### TD3
-```{r td-model-3}
-td3 <- brm(
-    tech_debt_std ~ 0 + category + contributors_std,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "contributors_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td3",
-    file_refit = "on_change",
-    seed=model_seed
-)
 
-print(summary(td3))
+```{r td-model-3}
+fit_model_td3 <- function(name, data) {
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+td3 <- fit_model_td3("td3", data)
 ```
 
 ### TD4
-```{r td-model-4}
-td4 <- brm(
-    tech_debt_std ~ 0 + category + contributors_std + stars_std,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "contributors_std"),
-        prior(normal(0, 1), class = b, coef = "stars_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td4",
-    file_refit = "on_change",
-    seed=model_seed
-)
 
-print(summary(td4))
+```{r td-model-4}
+fit_model_td4 <- function(name, data) {
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+td4 <- fit_model_td4("td4", data)
 ```
 
 ### TD5
-```{r td-model-5}
-td5 <- brm(
-    tech_debt_std ~ 0 + category + age_std,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "age_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td5",
-    file_refit = "on_change",
-    seed=model_seed
-)
 
-print(summary(td5))
+```{r td-model-5}
+fit_model_td5 <- function(name, data) {
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+td5 <- fit_model_td5("td5", data)
 ```
 
 ### TD6
-```{r td-model-6}
-td6 <- brm(
-    tech_debt_std ~ 0 + category + contributors_std + stars_std + files_std + age_std, # nolint: line_length_linter.
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "contributors_std"),
-        prior(normal(0, 1), class = b, coef = "stars_std"),
-        prior(normal(0, 1), class = b, coef = "files_std"),
-        prior(normal(0, 1), class = b, coef = "age_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td6",
-    file_refit = "on_change",
-    seed=model_seed
-)
 
-print(summary(td6))
+```{r td-model-6}
+fit_model_td6 <- function(name, data) {
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + contributors_std + stars_std + files_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+td6 <- fit_model_td6("td6", data)
 ```
 
 ### TD7
-```{r td-model-7}
-td7 <- brm(
-    tech_debt_std ~ 0 + category + contributors_std + files_std,
-    family = gaussian,
-    prior = c(
-        prior(normal(0, 1), class = b),
-        prior(normal(0, 1), class = b, coef = "contributors_std"),
-        prior(normal(0, 1), class = b, coef = "files_std"),
-        prior(exponential(1), class = sigma)
-    ),
-    data = data,
-    iter = 10000,
-    warmup = 5000,
-    chains = 4,
-    cores = 4,
-    file = "fits/td7",
-    file_refit = "on_change",
-    seed=model_seed
-)
 
-print(summary(td7))
+```{r td-model-7}
+fit_model_td7 <- function(name, data) {
+  fit_model(name,
+            "tech_debt_std ~ 0 + category + contributors_std + files_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="files_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+td7 <- fit_model_td7("td7", data)
 ```
 
-## Model Comparisons
-```{r td-model-comparisons, message=FALSE}
-td1 <- add_criterion(td1, "loo", moment_match = TRUE)
-td2 <- add_criterion(td2, "loo", moment_match = TRUE)
-td3 <- add_criterion(td3, "loo", moment_match = TRUE)
-td4 <- add_criterion(td4, "loo", moment_match = TRUE)
-td5 <- add_criterion(td5, "loo", moment_match = TRUE)
-td6 <- add_criterion(td6, "loo", moment_match = TRUE)
-td7 <- add_criterion(td7, "loo", moment_match = TRUE)
-print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion = "loo"), simplify = FALSE)
+## Compare models
+
+```{r td-compare-models, message=FALSE}
+td1 <- add_criterion(td1, "loo", moment_match=TRUE)
+td2 <- add_criterion(td2, "loo", moment_match=TRUE)
+td3 <- add_criterion(td3, "loo", moment_match=TRUE)
+td4 <- add_criterion(td4, "loo", moment_match=TRUE)
+td5 <- add_criterion(td5, "loo", moment_match=TRUE)
+td6 <- add_criterion(td6, "loo", moment_match=TRUE)
+td7 <- add_criterion(td7, "loo", moment_match=TRUE)
+print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion="loo"), simplify=FALSE)
 ```
 
 ## Determine natural scale values
@@ -235,6 +193,7 @@ plot_intervals_of_major_categories(td1) + labs(title="TD1", x="Technical Debt Ra
 ```
 
 ## Warnings versus no warnings
+
 ```{r td-warnings-no-warnings , fig.width=6, fig.height=2.8}
 td1_factor_uses_warnings <- fit_model_td1("td1_factor_uses_warnings", data_factor_uses_warnings)
 
@@ -244,44 +203,33 @@ plot_intervals_of_categories(td1_factor_uses_warnings) +
 ```
 
 ## Without outliers
+
 ```{r td-without-outliers, fig.width=6, fig.height=2.8, message=TRUE}
-# Prepare version of data frame without outliers
-df_no_outliers <- df
-df_no_outliers <- df_no_outliers[df_no_outliers$name != "clipp",]
+df_culled <- df
+df_culled <- df_culled[df_culled$name != "clipp",]
 
-# Prepare data for analysis
-data_no_outliers <- create_tech_debt_data(df_no_outliers)
-data_no_outliers$category <- factor(df_no_outliers$category)
+culled_data <- create_tech_debt_data(df_culled)
+culled_data$category <- factor(df_culled$category)
 
-# Fit TD1 using the trimmed data
-td1_no_outliers <-fit_model_td1("td1_no_outliers", data_no_outliers)
-summary(td1_no_outliers)
+td1_culled <- fit_model_td1("td1_no_outliers", culled_data)
 
-td1_culled_std_means <- c(0.38, 0.29, -0.04, 0.21, -0.12, -0.15, -0.31, -0.15, -0.33, -0.32, -0.20)
-determine_natural_scale_means(td1_culled_std_means, culled_df$sqale_debt_ratio)
+summary(td1_culled)
+print(create_natural_scale_summary_df(td1_culled, df_culled$sqale_debt_ratio))
 
+plot_intervals_of_major_categories(td1_culled) + 
+  labs(title="TD1 (culled)", x="Technical Debt Ratio (std)")
 
-# Plot Major categories without outliers
-plot_intervals_of_major_categories(td1_no_outliers) + 
-  labs(title="TD1 (no outliers)", x="Technical Debt Ratio (std)")
+culled_data_factor_uses_warnings <- create_tech_debt_data(df_culled)
+culled_data_factor_uses_warnings$category <- factor(uses_warnings(df_culled$category))
 
-
-# Split data into warning and no warning categories
-data_no_outliers_factor_uses_warnings <- create_tech_debt_data(df_no_outliers)
-data_no_outliers_factor_uses_warnings$category <- 
-  factor(uses_warnings(df_no_outliers$category))
-
-td1_no_outliers_factor_uses_warnings <-
+td1_culled_factor_uses_warnings <-
   fit_model_td1("td1_data_no_outliers_factor_uses_warnings",
-                data_no_outliers_factor_uses_warnings)
+                culled_data_factor_uses_warnings)
 
-
-# Plot with warnings and no warnings
-plot_intervals_of_categories(td1_no_outliers_factor_uses_warnings) +
-   labs(title="TD1 (no outliers)", x="Technical Debt Ratio (std)") +
+plot_intervals_of_categories(td1_culled_factor_uses_warnings) +
+   labs(title="TD1 (culled)", x="Technical Debt Ratio (std)") +
    scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
   ))
-
 ```

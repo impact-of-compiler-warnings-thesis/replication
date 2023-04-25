@@ -200,7 +200,7 @@ print(loo_compare(cyc1, cyc2, cyc3, cyc4, cyc5, cyc6, cyc7, cyc8, criterion="loo
       simplify=FALSE)
 ```
 
-## Determine natural scale means
+## Determine natural scale values
 
 ```{r cyc-determine-natural-scale-values}
 summary(cyc7)
@@ -232,21 +232,18 @@ plot_intervals_of_categories(cyc7_factor_uses_warnings) +
 
 Category AEP+ has a notable outlier, "better-enums".
 We will remove it from the sample population to see how this affects the analysis results. 
+
 ```{r cyc-prepare-data-without-outliers, message=FALSE}
-# Prepare version of data frame without the outliers
-df_cyc <- df
-df_cyc <- df_cyc[df_cyc$name != "better-enums",]
+df_culled <- df
+df_culled <- df_culled[df_culled$name != "better-enums",]
 
-# Prepare data for analysis
-data_cyc <- create_cyclomatic_complexity_data(df_cyc)
-data_cyc$category <- factor(df_cyc$category)
+culled_data <- create_cyclomatic_complexity_data(df_culled)
+culled_data$category <- factor(df_culled$category)
 
-# Fit CYC7 using the culled data
-cyc7_no_outliers <- fit_model_cyc7("cyc7_no_outliers", data_cyc)
-summary(cyc7_no_outliers)
+cyc7_culled <- fit_model_cyc7("cyc7_no_outliers", culled_data)
 
-cyc7_std_no_outlier_means <- c(-0.16, 0.48, 0.04, 0.43, 0.19, -0.12, -0.25, -0.53, -0.35, 0.01, -0.54)
-determine_natural_scale_means(cyc7_std_no_outlier_means, df$cyclomatic_complexity_kloc)
+summary(cyc7_culled)
+print(create_natural_scale_summary_df(cyc7_culled, df_culled$cyclomatic_complexity_kloc))
 ```
 
 We can now plot the credible intervals of the major categories again, and see that

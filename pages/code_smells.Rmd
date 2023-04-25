@@ -229,6 +229,7 @@ data_no_outliers$category <- factor(df_no_outliers$category)
 # Fit CS6 using the trimmed data
 cs6_no_outliers <- fit_model_cs6("cs6_no_outliers", data_no_outliers)
 summary(cs6_no_outliers)
+print(create_natural_scale_summary_df(cs6_no_outliers, df_no_outliers$code_smells_kloc))
 ```
 
 ```{r cs-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
