@@ -317,7 +317,7 @@ plot_barplot_of_major_samples(df_major, df_major$duplicated_lines_kloc) +
 ### Technical Debt
 ```{r ds-technical-debt-summary}
 plot_barplot_of_major_samples(df_major, df_major$sqale_debt_ratio) +
-  labs(title="Overview of all major samples", x="Samples", y="Tech Debt Ratio") +
+  labs(title="Overview of all major samples", x="Samples", y="Technical Debt Ratio") +
   geom_hline(yintercept=1:5 * 2, alpha=0.2) +
   scale_y_continuous(breaks=1:5 * 2)
 ```
