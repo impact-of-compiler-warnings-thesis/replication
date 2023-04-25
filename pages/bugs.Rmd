@@ -163,13 +163,11 @@ b6 <- add_criterion(b6, criterion="loo", moment_match=TRUE)
 print(loo_compare(b1, b2, b3, b4, b5, b6, criterion="loo"), simplify=FALSE)
 ```
 
-## Determine natural scale means
+## Determine natural scale values
 
-```{r b-determine-natural-scale-means}
+```{r b-determine-natural-scale-values}
 summary(b1)
-
-b1_std_means <- c(0.27, 0.24, -0.02, 0.37, -0.28, -0.20, -0.23, 0.47, -0.02, -0.29, -0.10)
-determine_natural_scale_means(b1_std_means, df$bugs_kloc)
+print(create_natural_scale_summary_df(b1, df$bugs_kloc))
 ```
 
 ## Intervals of major categories

@@ -201,13 +201,11 @@ print(loo_compare(d1, d2, d3, d4, d5, d6, d7, d8, criterion="loo"),
       simplify=FALSE)
 ```
 
-## Determine natural scale means
+## Determine natural scale values
 
-```{r d-determine-natural-scale-means}
+```{r d-determine-natural-scale-values}
 summary(d6)
-
-d6_std_means <- c(0.18, -0.26, -0.11, -0.32, 0.15, 1.12, -0.30, 0.02, -0.23, -0.24, -0.29)
-determine_natural_scale_means(d6_std_means, df$duplicated_lines_kloc)
+print(create_natural_scale_summary_df(d6, df$duplicated_lines_kloc))
 ```
 
 ## Credible intervals of major categories

@@ -94,6 +94,49 @@ determine_natural_scale_means <- function(std_means, data, precision=2) {
   means
 }
 
+# This function creates a data frame with summary data in the natural scale,
+# similar to what you get from the brms "summary" function.
+create_natural_scale_summary_df <- function(fit, raw_data, precision=2) {
+  fit_df <- as.data.frame(fit)
+  intervals <- posterior_interval(fit, prob=0.90)  # 0.05-0.95
+
+  std_means <- c(round(mean(fit_df$b_category1), digits=precision),
+                 round(mean(fit_df$b_category2), digits=precision),
+                 round(mean(fit_df$b_category3), digits=precision),
+                 round(mean(fit_df$b_category5), digits=precision),
+                 round(mean(fit_df$b_category7), digits=precision))
+
+  std_sd <- c(round(sd(fit_df$b_category1), digits=precision),
+              round(sd(fit_df$b_category2), digits=precision),
+              round(sd(fit_df$b_category3), digits=precision),
+              round(sd(fit_df$b_category5), digits=precision),
+              round(sd(fit_df$b_category7), digits=precision))
+
+  std_lower <- c(round(intervals[1, 1], digits=precision),
+                 round(intervals[2, 1], digits=precision),
+                 round(intervals[3, 1], digits=precision),
+                 round(intervals[5, 1], digits=precision),
+                 round(intervals[7, 1], digits=precision))
+
+  std_upper <- c(round(intervals[1, 2], digits=precision),
+                 round(intervals[2, 2], digits=precision),
+                 round(intervals[3, 2], digits=precision),
+                 round(intervals[5, 2], digits=precision),
+                 round(intervals[7, 2], digits=precision))
+
+  natural_means <- round(restore_from_std(std_means, raw_data), digits=precision)
+  natural_sd <- round(restore_from_std(std_sd, raw_data), digits=precision)
+  natural_lower <- round(restore_from_std(std_lower, raw_data), digits=precision)
+  natural_upper <- round(restore_from_std(std_upper, raw_data), digits=precision)
+
+  data.frame(row.names=c("N", "A", "AE", "AEP", "AEP+"),
+             check.names=FALSE,
+             `Mean`=natural_means,
+             `SD`=natural_sd,
+             `0.05 CI`=natural_lower,
+             `0.95 CI`=natural_upper)
+}
+
 # Plots credible intervals for all categories based on a fit model
 plot_intervals_of_categories <- function(model) {
   mcmc_plot(model,

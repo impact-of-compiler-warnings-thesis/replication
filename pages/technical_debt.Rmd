@@ -221,13 +221,11 @@ td7 <- add_criterion(td7, "loo", moment_match = TRUE)
 print(loo_compare(td1, td2, td3, td4, td5, td6, td7, criterion = "loo"), simplify = FALSE)
 ```
 
-## Determine natural scale means
+## Determine natural scale values
 
-```{r td-determine-natural-scale-means, message=FALSE}
+```{r td-determine-natural-scale-values, message=FALSE}
 summary(td1)
-
-td1_std_means <- c(0.26, 0.18,-0.08,-0.21, 0.23,-0.17,-0.30,-0.15,-0.30,-0.30,-0.18)
-determine_natural_scale_means(td1_std_means, df$sqale_debt_ratio)
+print(create_natural_scale_summary_df(td1, df$sqale_debt_ratio))
 ```
 
 ## Intervals of major categories

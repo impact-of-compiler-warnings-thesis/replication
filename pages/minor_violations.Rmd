@@ -200,13 +200,11 @@ print(loo_compare(miv1, miv2, miv3, miv4, miv5, miv6, miv7, miv8, criterion="loo
       simplify=FALSE)
 ```
 
-## Determine natural scale means
+## Determine natural scale values
 
-```{r miv-determine-natural-scale-means, message=FALSE}
+```{r miv-determine-natural-scale-values, message=FALSE}
 summary(miv1)
-
-miv1_std_means <- c(0.27, 0.22, -0.15, 0.46, -0.15, -0.28, -0.23, 0.42, 0.32, -0.21, 0.20)
-determine_natural_scale_means(miv1_std_means, df$minor_violations_kloc)
+print(create_natural_scale_summary_df(miv1, df$minor_violations_kloc))
 ```
 
 ## Intervals of major categories

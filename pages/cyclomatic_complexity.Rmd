@@ -202,11 +202,9 @@ print(loo_compare(cyc1, cyc2, cyc3, cyc4, cyc5, cyc6, cyc7, cyc8, criterion="loo
 
 ## Determine natural scale means
 
-```{r cyc-determine-natural-scale-means}
+```{r cyc-determine-natural-scale-values}
 summary(cyc7)
-
-cyc7_std_means <- c(-0.17, 0.20, -0.04, 0.16, 0.04, -0.13, 0.16, -0.32, -0.23, -0.05, -0.33)
-determine_natural_scale_means(cyc7_std_means, df$cyclomatic_complexity_kloc)
+print(create_natural_scale_summary_df(cyc7, df$cyclomatic_complexity_kloc))
 ```
 
 ## Intervals of major categories
