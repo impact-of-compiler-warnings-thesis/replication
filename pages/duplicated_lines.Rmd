@@ -13,11 +13,10 @@ This section covers the analysis relating to the "duplicated lines" metric.
 
 ## Prepare data
 
-```{r d-prepare-data}
+```{r dl-prepare-data}
 # The model seed is the date that the analysis was conducted
 model_seed <- 20230403
 
-# Returns a list of standardized data necessary for the analysis.
 create_duplicated_lines_data <- function(data) {
   list(
     duplicated_lines_kloc_std=scale(data$duplicated_lines_kloc),
@@ -42,7 +41,7 @@ data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 
 ### D1
 
-```{r d-model-1, message=FALSE}
+```{r dl-model-1, message=FALSE}
 fit_model_d1 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category",
@@ -77,7 +76,7 @@ d2 <- fit_model_d2("d2", data)
 
 ### D3
 
-```{r d-model-3, message=FALSE}
+```{r dl-model-3, message=FALSE}
 fit_model_d3 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + stars_std",
@@ -95,7 +94,7 @@ d3 <- fit_model_d3("d3", data)
 
 ### D4
 
-```{r d-model-4, message=FALSE}
+```{r dl-model-4, message=FALSE}
 fit_model_d4 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + age_std",
@@ -113,7 +112,7 @@ d4 <- fit_model_d4("d4", data)
 
 ### D5
 
-```{r d-model-5, message=FALSE}
+```{r dl-model-5, message=FALSE}
 fit_model_d5 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + size_std",
@@ -131,7 +130,7 @@ d5 <- fit_model_d5("d5", data)
 
 ### D6
 
-```{r d-model-6, message=FALSE}
+```{r dl-model-6, message=FALSE}
 fit_model_d6 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + files_std",
@@ -149,7 +148,7 @@ d6 <- fit_model_d6("d6", data)
 
 ### D7
 
-```{r d-model-7, message=FALSE}
+```{r dl-model-7, message=FALSE}
 fit_model_d7 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + contributors_std + age_std",
@@ -168,7 +167,7 @@ d7 <- fit_model_d7("d7", data)
 
 ### D8
 
-```{r d-model-8, message=FALSE}
+```{r dl-model-8, message=FALSE}
 fit_model_d8 <- function(name, data) {
   fit_model(name,
             "duplicated_lines_kloc_std ~ 0 + category + contributors_std + size_std",
@@ -187,7 +186,7 @@ d8 <- fit_model_d8("d8", data)
 
 ## Compare models
 
-```{r d-compare-models, message=FALSE}
+```{r dl-compare-models, message=FALSE}
 d1 <- add_criterion(d1, criterion="loo")
 d2 <- add_criterion(d2, criterion="loo")
 d3 <- add_criterion(d3, criterion="loo")
@@ -203,27 +202,26 @@ print(loo_compare(d1, d2, d3, d4, d5, d6, d7, d8, criterion="loo"),
 
 ## Determine natural scale values
 
-```{r d-determine-natural-scale-values}
+```{r dl-determine-natural-scale-values}
 summary(d6)
 print(create_natural_scale_summary_df(d6, df$duplicated_lines_kloc))
 ```
 
 ## Credible intervals of major categories
 
-```{r d-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+```{r dl-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(d6) +
-  labs(title="D6", x="Duplicated lines per KLOC (std)")
+  labs(title="D6", x="DL/KLOC (standardized)")
 ```
 
 ## Warnings versus no warnings
 
 ```{r d-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-# Fit D6 using data that uses binary factor for usage of warnings
 d6_factor_uses_warnings <- fit_model_d6("d6_factor_uses_warnings",
                                         data_factor_uses_warnings)
 
 plot_intervals_of_categories(d6_factor_uses_warnings) +
-  labs(title="D6", x="Duplicated lines per KLOC (std)") +
+  labs(title="D6", x="DL/KLOC (standardized)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
