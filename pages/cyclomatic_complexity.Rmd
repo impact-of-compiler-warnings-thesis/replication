@@ -251,8 +251,8 @@ AEP+ has dramatically improved as a result of removing the outlier.
 The plot indicates that there is no clear correlation between use of compiler warnings and cyclomatic complexity.
 
 ```{r cyc-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
-plot_intervals_of_major_categories(cyc7_no_outliers) +
-  labs(title="CYC7 (no outliers)", x="Cyclomatic complexity per KLOC (std)")
+plot_intervals_of_major_categories(cyc7_culled) +
+  labs(title="CYC7 (culled)", x="Cyclomatic complexity per KLOC (std)")
 ```
 
 However, projects that do not use warnings still have lower cyclomatic complexity
@@ -262,12 +262,12 @@ than those who do use warnings.
 data_cyc_factor_uses_warnings <- create_cyclomatic_complexity_data(df_cyc)
 data_cyc_factor_uses_warnings$category <- factor(uses_warnings(df_cyc$category))
 
-cyc7_no_outliers_factor_uses_warnings <-
+cyc7_culled_factor_uses_warnings <-
   fit_model_cyc7("cyc7_no_outliers_factor_uses_warnings", 
                  data_cyc_factor_uses_warnings)
 
-plot_intervals_of_categories(cyc7_no_outliers_factor_uses_warnings) +
-  labs(title="CYC7 (no outliers)", x="Cyclomatic complexity per KLOC (std)") +
+plot_intervals_of_categories(cyc7_culled_factor_uses_warnings) +
+  labs(title="CYC7 (culled)", x="Cyclomatic complexity per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
