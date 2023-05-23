@@ -248,7 +248,7 @@ cs6_no_outliers_factor_uses_warnings <-
                 data_no_outliers_factor_uses_warnings)
 
 plot_intervals_of_categories(cs6_no_outliers_factor_uses_warnings) +
-  labs(title="CS6 (no outliers)", x="Code smells per KLOC (std)") +
+  labs(title="CS6 (culled)", x="Code smells per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"

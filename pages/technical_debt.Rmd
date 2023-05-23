@@ -217,8 +217,11 @@ plot_intervals_of_major_categories(td1) +
 td1_factor_uses_warnings <- fit_model_td1("td1_factor_uses_warnings", data_factor_uses_warnings)
 
 plot_intervals_of_categories(td1_factor_uses_warnings) + 
-  labs(title="TD1", x="Technical Debt Ratio (std)") +
-  scale_y_discrete(labels=c("b_category1"="No warnings", "b_category2"="Any warnings"))
+  labs(title="TD1", x="Technical debt ratio (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                  ))
 ```
 
 ## Without outliers
@@ -246,9 +249,9 @@ td1_culled_factor_uses_warnings <-
                 culled_data_factor_uses_warnings)
 
 plot_intervals_of_categories(td1_culled_factor_uses_warnings) +
-   labs(title="TD1 (culled)", x="Technical Debt Ratio (std)") +
+   labs(title="TD1 (culled)", x="Technical debt ratio (std)") +
    scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
-  ))
+                   ))
 ```

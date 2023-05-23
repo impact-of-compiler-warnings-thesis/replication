@@ -221,7 +221,7 @@ d6_factor_uses_warnings <- fit_model_d6("d6_factor_uses_warnings",
                                         data_factor_uses_warnings)
 
 plot_intervals_of_categories(d6_factor_uses_warnings) +
-  labs(title="D6", x="DL/KLOC (standardized)") +
+  labs(title="D6", x="Duplicated lines per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
