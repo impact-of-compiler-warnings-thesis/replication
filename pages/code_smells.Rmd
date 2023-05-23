@@ -234,7 +234,7 @@ print(create_natural_scale_summary_df(cs6_no_outliers, df_no_outliers$code_smell
 
 ```{r cs-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(cs6_no_outliers) +
-  labs(title="CS6 (no outliers)", x="Code smells per KLOC (std)")
+  labs(title="CS6 (culled)", x="Code smells per KLOC (std)")
 ```
 
 ```{r cs-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}

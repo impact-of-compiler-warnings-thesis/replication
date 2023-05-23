@@ -211,7 +211,7 @@ print(create_natural_scale_summary_df(d6, df$duplicated_lines_kloc))
 
 ```{r dl-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(d6) +
-  labs(title="D6", x="DL/KLOC (standardized)")
+  labs(title="D6", x="Duplicated lines per KLOC (std)")
 ```
 
 ## Warnings versus no warnings

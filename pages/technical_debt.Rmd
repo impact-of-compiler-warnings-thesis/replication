@@ -207,7 +207,8 @@ print(create_natural_scale_summary_df(td1, df$sqale_debt_ratio))
 ## Intervals of major categories
 
 ```{r td-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
-plot_intervals_of_major_categories(td1) + labs(title="TD1", x="Technical Debt Ratio (std)")
+plot_intervals_of_major_categories(td1) +
+  labs(title="TD1", x="Technical debt ratio (std)")
 ```
 
 ## Warnings versus no warnings
