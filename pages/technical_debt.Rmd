@@ -236,7 +236,7 @@ summary(td1_culled)
 print(create_natural_scale_summary_df(td1_culled, df_culled$sqale_debt_ratio))
 
 plot_intervals_of_major_categories(td1_culled) + 
-  labs(title="TD1 (culled)", x="Technical Debt Ratio (std)")
+  labs(title="TD1 (culled)", x="Technical debt ratio (std)")
 
 culled_data_factor_uses_warnings <- create_tech_debt_data(df_culled)
 culled_data_factor_uses_warnings$category <- factor(uses_warnings(df_culled$category))
