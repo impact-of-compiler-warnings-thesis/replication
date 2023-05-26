@@ -1,7 +1,8 @@
 impact-of-compiler-warnings-on-software-quality
-dag
 introduction
 setup
+causal-analysis
+dag
 data-summary
 plot-category-sample-distribution
 prepare-for-metric-summary-plots

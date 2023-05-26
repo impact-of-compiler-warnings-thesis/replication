@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>The Impact of Compiler Warnings on Code Quality in C++ Projects</title>
-  <meta name="description" content="The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <title>Chapter 4 Causal analysis | The Impact of Compiler Warnings on Code Quality in C++ Projects</title>
+  <meta name="description" content="Chapter 4 Causal analysis | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <meta property="og:title" content="Chapter 4 Causal analysis | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="impact-of-compiler-warnings-thesis/replication" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <meta name="twitter:title" content="Chapter 4 Causal analysis | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="setup.html"/>
+<link rel="next" href="data-summary.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -393,23 +393,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Impact of Compiler Warnings on Code Quality in C++ Projects</h1>
-<p class="author"><em>Albin Johansson &amp; Carl Holmberg</em></p>
-<p class="date"><em>2023</em></p>
-</div>
-<div id="impact-of-compiler-warnings-on-software-quality" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Impact of Compiler Warnings on Software Quality<a href="index.html#impact-of-compiler-warnings-on-software-quality" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This is the replication package accompanying the Master thesis “The Impact of Compiler Warnings on Code Quality in C++ Projects” written by Albin Johansson and Carl Holmberg.</p>
+<div id="causal-analysis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Causal analysis<a href="causal-analysis.html#causal-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="dag" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> DAG<a href="causal-analysis.html#dag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following DAG illustrates the casual relationships assumed to be true for
+the purposes of the study.</p>
+<ul>
+<li>C: Culture</li>
+<li>W: Warnings</li>
+<li>R: Refactoring</li>
+<li>D: Defects</li>
+<li>S: Size</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="causal-analysis.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb1-2"><a href="causal-analysis.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="causal-analysis.html#cb1-3" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">&quot;dag {</span></span>
+<span id="cb1-4"><a href="causal-analysis.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">    C -&gt; R</span></span>
+<span id="cb1-5"><a href="causal-analysis.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">    W -&gt; R</span></span>
+<span id="cb1-6"><a href="causal-analysis.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">    D -&gt; R</span></span>
+<span id="cb1-7"><a href="causal-analysis.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">    D -&gt; W</span></span>
+<span id="cb1-8"><a href="causal-analysis.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">    S -&gt; D</span></span>
+<span id="cb1-9"><a href="causal-analysis.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">}&quot;</span>)</span>
+<span id="cb1-10"><a href="causal-analysis.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="causal-analysis.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy_dagitty</span>(dag, <span class="at">layout=</span><span class="st">&quot;fr&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="causal-analysis.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">xend=</span>xend, <span class="at">yend=</span>yend)) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="causal-analysis.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dag_node</span>() <span class="sc">+</span></span>
+<span id="cb1-14"><a href="causal-analysis.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dag_text</span>() <span class="sc">+</span></span>
+<span id="cb1-15"><a href="causal-analysis.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb1-16"><a href="causal-analysis.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/dag-1.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

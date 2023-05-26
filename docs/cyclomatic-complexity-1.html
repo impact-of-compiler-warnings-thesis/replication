@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects</title>
-  <meta name="description" content="Chapter 12 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <title>Chapter 13 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects</title>
+  <meta name="description" content="Chapter 13 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <meta property="og:title" content="Chapter 13 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="impact-of-compiler-warnings-thesis/replication" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
+  <meta name="twitter:title" content="Chapter 13 Cyclomatic Complexity | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
   
   
   
@@ -133,247 +133,248 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Impact of Compiler Warnings on Software Quality</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#dag"><i class="fa fa-check"></i><b>1.1</b> DAG</a></li>
-</ul></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Impact of Compiler Warnings on Software Quality</a></li>
 <li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>3</b> Setup</a></li>
-<li class="chapter" data-level="4" data-path="data-summary.html"><a href="data-summary.html"><i class="fa fa-check"></i><b>4</b> Data summary</a>
+<li class="chapter" data-level="4" data-path="causal-analysis.html"><a href="causal-analysis.html"><i class="fa fa-check"></i><b>4</b> Causal analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-summary.html"><a href="data-summary.html#plot-category-sample-distribution"><i class="fa fa-check"></i><b>4.1</b> Plot category sample distribution</a></li>
-<li class="chapter" data-level="4.2" data-path="data-summary.html"><a href="data-summary.html#prepare-for-metric-summary-plots"><i class="fa fa-check"></i><b>4.2</b> Prepare for metric summary plots</a></li>
-<li class="chapter" data-level="4.3" data-path="data-summary.html"><a href="data-summary.html#category-overview-plots"><i class="fa fa-check"></i><b>4.3</b> Category overview plots</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="data-summary.html"><a href="data-summary.html#loc-per-sample"><i class="fa fa-check"></i><b>4.3.1</b> LOC per sample</a></li>
-<li class="chapter" data-level="4.3.2" data-path="data-summary.html"><a href="data-summary.html#loc-per-category"><i class="fa fa-check"></i><b>4.3.2</b> LOC per category</a></li>
-<li class="chapter" data-level="4.3.3" data-path="data-summary.html"><a href="data-summary.html#stars-per-category"><i class="fa fa-check"></i><b>4.3.3</b> Stars per category</a></li>
-<li class="chapter" data-level="4.3.4" data-path="data-summary.html"><a href="data-summary.html#age-per-sample"><i class="fa fa-check"></i><b>4.3.4</b> Age per sample</a></li>
-<li class="chapter" data-level="4.3.5" data-path="data-summary.html"><a href="data-summary.html#age-per-category"><i class="fa fa-check"></i><b>4.3.5</b> Age per category</a></li>
+<li class="chapter" data-level="4.1" data-path="causal-analysis.html"><a href="causal-analysis.html#dag"><i class="fa fa-check"></i><b>4.1</b> DAG</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="data-summary.html"><a href="data-summary.html#metric-summary-plots"><i class="fa fa-check"></i><b>4.4</b> Metric summary plots</a>
+<li class="chapter" data-level="5" data-path="data-summary.html"><a href="data-summary.html"><i class="fa fa-check"></i><b>5</b> Data summary</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="data-summary.html"><a href="data-summary.html#bugs"><i class="fa fa-check"></i><b>4.4.1</b> Bugs</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-summary.html"><a href="data-summary.html#code-smells"><i class="fa fa-check"></i><b>4.4.2</b> Code smells</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-summary.html"><a href="data-summary.html#critical-violations"><i class="fa fa-check"></i><b>4.4.3</b> Critical violations</a></li>
-<li class="chapter" data-level="4.4.4" data-path="data-summary.html"><a href="data-summary.html#major-violations"><i class="fa fa-check"></i><b>4.4.4</b> Major violations</a></li>
-<li class="chapter" data-level="4.4.5" data-path="data-summary.html"><a href="data-summary.html#minor-violations"><i class="fa fa-check"></i><b>4.4.5</b> Minor violations</a></li>
-<li class="chapter" data-level="4.4.6" data-path="data-summary.html"><a href="data-summary.html#security-hotspots"><i class="fa fa-check"></i><b>4.4.6</b> Security hotspots</a></li>
-<li class="chapter" data-level="4.4.7" data-path="data-summary.html"><a href="data-summary.html#vulnerabilities"><i class="fa fa-check"></i><b>4.4.7</b> Vulnerabilities</a></li>
-<li class="chapter" data-level="4.4.8" data-path="data-summary.html"><a href="data-summary.html#cyclomatic-complexity"><i class="fa fa-check"></i><b>4.4.8</b> Cyclomatic complexity</a></li>
-<li class="chapter" data-level="4.4.9" data-path="data-summary.html"><a href="data-summary.html#cognitive-complexity"><i class="fa fa-check"></i><b>4.4.9</b> Cognitive complexity</a></li>
-<li class="chapter" data-level="4.4.10" data-path="data-summary.html"><a href="data-summary.html#duplicated-lines"><i class="fa fa-check"></i><b>4.4.10</b> Duplicated lines</a></li>
-<li class="chapter" data-level="4.4.11" data-path="data-summary.html"><a href="data-summary.html#technical-debt-ratio"><i class="fa fa-check"></i><b>4.4.11</b> Technical Debt Ratio</a></li>
+<li class="chapter" data-level="5.1" data-path="data-summary.html"><a href="data-summary.html#plot-category-sample-distribution"><i class="fa fa-check"></i><b>5.1</b> Plot category sample distribution</a></li>
+<li class="chapter" data-level="5.2" data-path="data-summary.html"><a href="data-summary.html#prepare-for-metric-summary-plots"><i class="fa fa-check"></i><b>5.2</b> Prepare for metric summary plots</a></li>
+<li class="chapter" data-level="5.3" data-path="data-summary.html"><a href="data-summary.html#category-overview-plots"><i class="fa fa-check"></i><b>5.3</b> Category overview plots</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-summary.html"><a href="data-summary.html#loc-per-sample"><i class="fa fa-check"></i><b>5.3.1</b> LOC per sample</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-summary.html"><a href="data-summary.html#loc-per-category"><i class="fa fa-check"></i><b>5.3.2</b> LOC per category</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-summary.html"><a href="data-summary.html#stars-per-category"><i class="fa fa-check"></i><b>5.3.3</b> Stars per category</a></li>
+<li class="chapter" data-level="5.3.4" data-path="data-summary.html"><a href="data-summary.html#age-per-sample"><i class="fa fa-check"></i><b>5.3.4</b> Age per sample</a></li>
+<li class="chapter" data-level="5.3.5" data-path="data-summary.html"><a href="data-summary.html#age-per-category"><i class="fa fa-check"></i><b>5.3.5</b> Age per category</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-summary.html"><a href="data-summary.html#metric-summary-plots"><i class="fa fa-check"></i><b>5.4</b> Metric summary plots</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-summary.html"><a href="data-summary.html#bugs"><i class="fa fa-check"></i><b>5.4.1</b> Bugs</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-summary.html"><a href="data-summary.html#code-smells"><i class="fa fa-check"></i><b>5.4.2</b> Code smells</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-summary.html"><a href="data-summary.html#critical-violations"><i class="fa fa-check"></i><b>5.4.3</b> Critical violations</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-summary.html"><a href="data-summary.html#major-violations"><i class="fa fa-check"></i><b>5.4.4</b> Major violations</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-summary.html"><a href="data-summary.html#minor-violations"><i class="fa fa-check"></i><b>5.4.5</b> Minor violations</a></li>
+<li class="chapter" data-level="5.4.6" data-path="data-summary.html"><a href="data-summary.html#security-hotspots"><i class="fa fa-check"></i><b>5.4.6</b> Security hotspots</a></li>
+<li class="chapter" data-level="5.4.7" data-path="data-summary.html"><a href="data-summary.html#vulnerabilities"><i class="fa fa-check"></i><b>5.4.7</b> Vulnerabilities</a></li>
+<li class="chapter" data-level="5.4.8" data-path="data-summary.html"><a href="data-summary.html#cyclomatic-complexity"><i class="fa fa-check"></i><b>5.4.8</b> Cyclomatic complexity</a></li>
+<li class="chapter" data-level="5.4.9" data-path="data-summary.html"><a href="data-summary.html#cognitive-complexity"><i class="fa fa-check"></i><b>5.4.9</b> Cognitive complexity</a></li>
+<li class="chapter" data-level="5.4.10" data-path="data-summary.html"><a href="data-summary.html#duplicated-lines"><i class="fa fa-check"></i><b>5.4.10</b> Duplicated lines</a></li>
+<li class="chapter" data-level="5.4.11" data-path="data-summary.html"><a href="data-summary.html#technical-debt-ratio"><i class="fa fa-check"></i><b>5.4.11</b> Technical Debt Ratio</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="bugs-1.html"><a href="bugs-1.html"><i class="fa fa-check"></i><b>5</b> Bugs</a>
+<li class="chapter" data-level="6" data-path="bugs-1.html"><a href="bugs-1.html"><i class="fa fa-check"></i><b>6</b> Bugs</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="bugs-1.html"><a href="bugs-1.html#prepare-data"><i class="fa fa-check"></i><b>5.1</b> Prepare data</a></li>
-<li class="chapter" data-level="5.2" data-path="bugs-1.html"><a href="bugs-1.html#define-models"><i class="fa fa-check"></i><b>5.2</b> Define models</a>
+<li class="chapter" data-level="6.1" data-path="bugs-1.html"><a href="bugs-1.html#prepare-data"><i class="fa fa-check"></i><b>6.1</b> Prepare data</a></li>
+<li class="chapter" data-level="6.2" data-path="bugs-1.html"><a href="bugs-1.html#define-models"><i class="fa fa-check"></i><b>6.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="bugs-1.html"><a href="bugs-1.html#b1"><i class="fa fa-check"></i><b>5.2.1</b> B1</a></li>
-<li class="chapter" data-level="5.2.2" data-path="bugs-1.html"><a href="bugs-1.html#b2"><i class="fa fa-check"></i><b>5.2.2</b> B2</a></li>
-<li class="chapter" data-level="5.2.3" data-path="bugs-1.html"><a href="bugs-1.html#b3"><i class="fa fa-check"></i><b>5.2.3</b> B3</a></li>
-<li class="chapter" data-level="5.2.4" data-path="bugs-1.html"><a href="bugs-1.html#b4"><i class="fa fa-check"></i><b>5.2.4</b> B4</a></li>
-<li class="chapter" data-level="5.2.5" data-path="bugs-1.html"><a href="bugs-1.html#b5"><i class="fa fa-check"></i><b>5.2.5</b> B5</a></li>
-<li class="chapter" data-level="5.2.6" data-path="bugs-1.html"><a href="bugs-1.html#b6"><i class="fa fa-check"></i><b>5.2.6</b> B6</a></li>
+<li class="chapter" data-level="6.2.1" data-path="bugs-1.html"><a href="bugs-1.html#b1"><i class="fa fa-check"></i><b>6.2.1</b> B1</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bugs-1.html"><a href="bugs-1.html#b2"><i class="fa fa-check"></i><b>6.2.2</b> B2</a></li>
+<li class="chapter" data-level="6.2.3" data-path="bugs-1.html"><a href="bugs-1.html#b3"><i class="fa fa-check"></i><b>6.2.3</b> B3</a></li>
+<li class="chapter" data-level="6.2.4" data-path="bugs-1.html"><a href="bugs-1.html#b4"><i class="fa fa-check"></i><b>6.2.4</b> B4</a></li>
+<li class="chapter" data-level="6.2.5" data-path="bugs-1.html"><a href="bugs-1.html#b5"><i class="fa fa-check"></i><b>6.2.5</b> B5</a></li>
+<li class="chapter" data-level="6.2.6" data-path="bugs-1.html"><a href="bugs-1.html#b6"><i class="fa fa-check"></i><b>6.2.6</b> B6</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="bugs-1.html"><a href="bugs-1.html#compare-models"><i class="fa fa-check"></i><b>5.3</b> Compare models</a></li>
-<li class="chapter" data-level="5.4" data-path="bugs-1.html"><a href="bugs-1.html#determine-natural-scale-values"><i class="fa fa-check"></i><b>5.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="5.5" data-path="bugs-1.html"><a href="bugs-1.html#intervals-of-major-categories"><i class="fa fa-check"></i><b>5.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="5.6" data-path="bugs-1.html"><a href="bugs-1.html#warnings-versus-no-warnings"><i class="fa fa-check"></i><b>5.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="6.3" data-path="bugs-1.html"><a href="bugs-1.html#compare-models"><i class="fa fa-check"></i><b>6.3</b> Compare models</a></li>
+<li class="chapter" data-level="6.4" data-path="bugs-1.html"><a href="bugs-1.html#determine-natural-scale-values"><i class="fa fa-check"></i><b>6.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="6.5" data-path="bugs-1.html"><a href="bugs-1.html#intervals-of-major-categories"><i class="fa fa-check"></i><b>6.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="6.6" data-path="bugs-1.html"><a href="bugs-1.html#warnings-versus-no-warnings"><i class="fa fa-check"></i><b>6.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="code-smells-1.html"><a href="code-smells-1.html"><i class="fa fa-check"></i><b>6</b> Code Smells</a>
+<li class="chapter" data-level="7" data-path="code-smells-1.html"><a href="code-smells-1.html"><i class="fa fa-check"></i><b>7</b> Code Smells</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="code-smells-1.html"><a href="code-smells-1.html#prepare-data-1"><i class="fa fa-check"></i><b>6.1</b> Prepare data</a></li>
-<li class="chapter" data-level="6.2" data-path="code-smells-1.html"><a href="code-smells-1.html#define-models-1"><i class="fa fa-check"></i><b>6.2</b> Define models</a>
+<li class="chapter" data-level="7.1" data-path="code-smells-1.html"><a href="code-smells-1.html#prepare-data-1"><i class="fa fa-check"></i><b>7.1</b> Prepare data</a></li>
+<li class="chapter" data-level="7.2" data-path="code-smells-1.html"><a href="code-smells-1.html#define-models-1"><i class="fa fa-check"></i><b>7.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="code-smells-1.html"><a href="code-smells-1.html#cs1"><i class="fa fa-check"></i><b>6.2.1</b> CS1</a></li>
-<li class="chapter" data-level="6.2.2" data-path="code-smells-1.html"><a href="code-smells-1.html#cs2"><i class="fa fa-check"></i><b>6.2.2</b> CS2</a></li>
-<li class="chapter" data-level="6.2.3" data-path="code-smells-1.html"><a href="code-smells-1.html#cs3"><i class="fa fa-check"></i><b>6.2.3</b> CS3</a></li>
-<li class="chapter" data-level="6.2.4" data-path="code-smells-1.html"><a href="code-smells-1.html#cs4"><i class="fa fa-check"></i><b>6.2.4</b> CS4</a></li>
-<li class="chapter" data-level="6.2.5" data-path="code-smells-1.html"><a href="code-smells-1.html#cs5"><i class="fa fa-check"></i><b>6.2.5</b> CS5</a></li>
-<li class="chapter" data-level="6.2.6" data-path="code-smells-1.html"><a href="code-smells-1.html#cs6"><i class="fa fa-check"></i><b>6.2.6</b> CS6</a></li>
-<li class="chapter" data-level="6.2.7" data-path="code-smells-1.html"><a href="code-smells-1.html#cs7"><i class="fa fa-check"></i><b>6.2.7</b> CS7</a></li>
+<li class="chapter" data-level="7.2.1" data-path="code-smells-1.html"><a href="code-smells-1.html#cs1"><i class="fa fa-check"></i><b>7.2.1</b> CS1</a></li>
+<li class="chapter" data-level="7.2.2" data-path="code-smells-1.html"><a href="code-smells-1.html#cs2"><i class="fa fa-check"></i><b>7.2.2</b> CS2</a></li>
+<li class="chapter" data-level="7.2.3" data-path="code-smells-1.html"><a href="code-smells-1.html#cs3"><i class="fa fa-check"></i><b>7.2.3</b> CS3</a></li>
+<li class="chapter" data-level="7.2.4" data-path="code-smells-1.html"><a href="code-smells-1.html#cs4"><i class="fa fa-check"></i><b>7.2.4</b> CS4</a></li>
+<li class="chapter" data-level="7.2.5" data-path="code-smells-1.html"><a href="code-smells-1.html#cs5"><i class="fa fa-check"></i><b>7.2.5</b> CS5</a></li>
+<li class="chapter" data-level="7.2.6" data-path="code-smells-1.html"><a href="code-smells-1.html#cs6"><i class="fa fa-check"></i><b>7.2.6</b> CS6</a></li>
+<li class="chapter" data-level="7.2.7" data-path="code-smells-1.html"><a href="code-smells-1.html#cs7"><i class="fa fa-check"></i><b>7.2.7</b> CS7</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="code-smells-1.html"><a href="code-smells-1.html#compare-models-1"><i class="fa fa-check"></i><b>6.3</b> Compare models</a></li>
-<li class="chapter" data-level="6.4" data-path="code-smells-1.html"><a href="code-smells-1.html#determine-natural-scale-values-1"><i class="fa fa-check"></i><b>6.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="6.5" data-path="code-smells-1.html"><a href="code-smells-1.html#intervals-of-major-categories-1"><i class="fa fa-check"></i><b>6.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="6.6" data-path="code-smells-1.html"><a href="code-smells-1.html#warnings-versus-no-warnings-1"><i class="fa fa-check"></i><b>6.6</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="6.7" data-path="code-smells-1.html"><a href="code-smells-1.html#without-outliers"><i class="fa fa-check"></i><b>6.7</b> Without outliers</a></li>
+<li class="chapter" data-level="7.3" data-path="code-smells-1.html"><a href="code-smells-1.html#compare-models-1"><i class="fa fa-check"></i><b>7.3</b> Compare models</a></li>
+<li class="chapter" data-level="7.4" data-path="code-smells-1.html"><a href="code-smells-1.html#determine-natural-scale-values-1"><i class="fa fa-check"></i><b>7.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="7.5" data-path="code-smells-1.html"><a href="code-smells-1.html#intervals-of-major-categories-1"><i class="fa fa-check"></i><b>7.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="7.6" data-path="code-smells-1.html"><a href="code-smells-1.html#warnings-versus-no-warnings-1"><i class="fa fa-check"></i><b>7.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="7.7" data-path="code-smells-1.html"><a href="code-smells-1.html#without-outliers"><i class="fa fa-check"></i><b>7.7</b> Without outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="critical-violations-1.html"><a href="critical-violations-1.html"><i class="fa fa-check"></i><b>7</b> Critical Violations</a>
+<li class="chapter" data-level="8" data-path="critical-violations-1.html"><a href="critical-violations-1.html"><i class="fa fa-check"></i><b>8</b> Critical Violations</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#prepare-data-2"><i class="fa fa-check"></i><b>7.1</b> Prepare Data</a></li>
-<li class="chapter" data-level="7.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#define-models-2"><i class="fa fa-check"></i><b>7.2</b> Define Models</a>
+<li class="chapter" data-level="8.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#prepare-data-2"><i class="fa fa-check"></i><b>8.1</b> Prepare Data</a></li>
+<li class="chapter" data-level="8.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#define-models-2"><i class="fa fa-check"></i><b>8.2</b> Define Models</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv1"><i class="fa fa-check"></i><b>7.2.1</b> CV1</a></li>
-<li class="chapter" data-level="7.2.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv2"><i class="fa fa-check"></i><b>7.2.2</b> CV2</a></li>
-<li class="chapter" data-level="7.2.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv3"><i class="fa fa-check"></i><b>7.2.3</b> CV3</a></li>
-<li class="chapter" data-level="7.2.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv4"><i class="fa fa-check"></i><b>7.2.4</b> CV4</a></li>
-<li class="chapter" data-level="7.2.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv5"><i class="fa fa-check"></i><b>7.2.5</b> CV5</a></li>
-<li class="chapter" data-level="7.2.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv6"><i class="fa fa-check"></i><b>7.2.6</b> CV6</a></li>
-<li class="chapter" data-level="7.2.7" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv7"><i class="fa fa-check"></i><b>7.2.7</b> CV7</a></li>
-<li class="chapter" data-level="7.2.8" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv8"><i class="fa fa-check"></i><b>7.2.8</b> CV8</a></li>
+<li class="chapter" data-level="8.2.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv1"><i class="fa fa-check"></i><b>8.2.1</b> CV1</a></li>
+<li class="chapter" data-level="8.2.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv2"><i class="fa fa-check"></i><b>8.2.2</b> CV2</a></li>
+<li class="chapter" data-level="8.2.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv3"><i class="fa fa-check"></i><b>8.2.3</b> CV3</a></li>
+<li class="chapter" data-level="8.2.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv4"><i class="fa fa-check"></i><b>8.2.4</b> CV4</a></li>
+<li class="chapter" data-level="8.2.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv5"><i class="fa fa-check"></i><b>8.2.5</b> CV5</a></li>
+<li class="chapter" data-level="8.2.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv6"><i class="fa fa-check"></i><b>8.2.6</b> CV6</a></li>
+<li class="chapter" data-level="8.2.7" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv7"><i class="fa fa-check"></i><b>8.2.7</b> CV7</a></li>
+<li class="chapter" data-level="8.2.8" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv8"><i class="fa fa-check"></i><b>8.2.8</b> CV8</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#compare-models-2"><i class="fa fa-check"></i><b>7.3</b> Compare models</a></li>
-<li class="chapter" data-level="7.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#determine-natural-scale-values-2"><i class="fa fa-check"></i><b>7.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="7.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#intervals-of-major-categories-2"><i class="fa fa-check"></i><b>7.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="7.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#warnings-versus-no-warnings-2"><i class="fa fa-check"></i><b>7.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="8.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#compare-models-2"><i class="fa fa-check"></i><b>8.3</b> Compare models</a></li>
+<li class="chapter" data-level="8.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#determine-natural-scale-values-2"><i class="fa fa-check"></i><b>8.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="8.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#intervals-of-major-categories-2"><i class="fa fa-check"></i><b>8.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="8.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#warnings-versus-no-warnings-2"><i class="fa fa-check"></i><b>8.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="major-violations-1.html"><a href="major-violations-1.html"><i class="fa fa-check"></i><b>8</b> Major Violations</a>
+<li class="chapter" data-level="9" data-path="major-violations-1.html"><a href="major-violations-1.html"><i class="fa fa-check"></i><b>9</b> Major Violations</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="major-violations-1.html"><a href="major-violations-1.html#prepare-data-3"><i class="fa fa-check"></i><b>8.1</b> Prepare Data</a>
+<li class="chapter" data-level="9.1" data-path="major-violations-1.html"><a href="major-violations-1.html#prepare-data-3"><i class="fa fa-check"></i><b>9.1</b> Prepare Data</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="major-violations-1.html"><a href="major-violations-1.html#mav1"><i class="fa fa-check"></i><b>8.1.1</b> MAV1</a></li>
-<li class="chapter" data-level="8.1.2" data-path="major-violations-1.html"><a href="major-violations-1.html#mav2"><i class="fa fa-check"></i><b>8.1.2</b> MAV2</a></li>
-<li class="chapter" data-level="8.1.3" data-path="major-violations-1.html"><a href="major-violations-1.html#mav3"><i class="fa fa-check"></i><b>8.1.3</b> MAV3</a></li>
-<li class="chapter" data-level="8.1.4" data-path="major-violations-1.html"><a href="major-violations-1.html#mav4"><i class="fa fa-check"></i><b>8.1.4</b> MAV4</a></li>
-<li class="chapter" data-level="8.1.5" data-path="major-violations-1.html"><a href="major-violations-1.html#mav5"><i class="fa fa-check"></i><b>8.1.5</b> MAV5</a></li>
-<li class="chapter" data-level="8.1.6" data-path="major-violations-1.html"><a href="major-violations-1.html#mav6"><i class="fa fa-check"></i><b>8.1.6</b> MAV6</a></li>
-<li class="chapter" data-level="8.1.7" data-path="major-violations-1.html"><a href="major-violations-1.html#mav7"><i class="fa fa-check"></i><b>8.1.7</b> MAV7</a></li>
-<li class="chapter" data-level="8.1.8" data-path="major-violations-1.html"><a href="major-violations-1.html#mav8"><i class="fa fa-check"></i><b>8.1.8</b> MAV8</a></li>
+<li class="chapter" data-level="9.1.1" data-path="major-violations-1.html"><a href="major-violations-1.html#mav1"><i class="fa fa-check"></i><b>9.1.1</b> MAV1</a></li>
+<li class="chapter" data-level="9.1.2" data-path="major-violations-1.html"><a href="major-violations-1.html#mav2"><i class="fa fa-check"></i><b>9.1.2</b> MAV2</a></li>
+<li class="chapter" data-level="9.1.3" data-path="major-violations-1.html"><a href="major-violations-1.html#mav3"><i class="fa fa-check"></i><b>9.1.3</b> MAV3</a></li>
+<li class="chapter" data-level="9.1.4" data-path="major-violations-1.html"><a href="major-violations-1.html#mav4"><i class="fa fa-check"></i><b>9.1.4</b> MAV4</a></li>
+<li class="chapter" data-level="9.1.5" data-path="major-violations-1.html"><a href="major-violations-1.html#mav5"><i class="fa fa-check"></i><b>9.1.5</b> MAV5</a></li>
+<li class="chapter" data-level="9.1.6" data-path="major-violations-1.html"><a href="major-violations-1.html#mav6"><i class="fa fa-check"></i><b>9.1.6</b> MAV6</a></li>
+<li class="chapter" data-level="9.1.7" data-path="major-violations-1.html"><a href="major-violations-1.html#mav7"><i class="fa fa-check"></i><b>9.1.7</b> MAV7</a></li>
+<li class="chapter" data-level="9.1.8" data-path="major-violations-1.html"><a href="major-violations-1.html#mav8"><i class="fa fa-check"></i><b>9.1.8</b> MAV8</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="major-violations-1.html"><a href="major-violations-1.html#compare-models-3"><i class="fa fa-check"></i><b>8.2</b> Compare models</a></li>
-<li class="chapter" data-level="8.3" data-path="major-violations-1.html"><a href="major-violations-1.html#determine-natural-scale-values-3"><i class="fa fa-check"></i><b>8.3</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="8.4" data-path="major-violations-1.html"><a href="major-violations-1.html#intervals-of-major-categories-3"><i class="fa fa-check"></i><b>8.4</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="8.5" data-path="major-violations-1.html"><a href="major-violations-1.html#warnings-versus-no-warnings-3"><i class="fa fa-check"></i><b>8.5</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="8.6" data-path="major-violations-1.html"><a href="major-violations-1.html#without-clipp"><i class="fa fa-check"></i><b>8.6</b> Without <code>clipp</code></a></li>
+<li class="chapter" data-level="9.2" data-path="major-violations-1.html"><a href="major-violations-1.html#compare-models-3"><i class="fa fa-check"></i><b>9.2</b> Compare models</a></li>
+<li class="chapter" data-level="9.3" data-path="major-violations-1.html"><a href="major-violations-1.html#determine-natural-scale-values-3"><i class="fa fa-check"></i><b>9.3</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="9.4" data-path="major-violations-1.html"><a href="major-violations-1.html#intervals-of-major-categories-3"><i class="fa fa-check"></i><b>9.4</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="9.5" data-path="major-violations-1.html"><a href="major-violations-1.html#warnings-versus-no-warnings-3"><i class="fa fa-check"></i><b>9.5</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="9.6" data-path="major-violations-1.html"><a href="major-violations-1.html#without-clipp"><i class="fa fa-check"></i><b>9.6</b> Without <code>clipp</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="minor-violations-1.html"><a href="minor-violations-1.html"><i class="fa fa-check"></i><b>9</b> Minor Violations</a>
+<li class="chapter" data-level="10" data-path="minor-violations-1.html"><a href="minor-violations-1.html"><i class="fa fa-check"></i><b>10</b> Minor Violations</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#prepare-data-4"><i class="fa fa-check"></i><b>9.1</b> Prepare data</a></li>
-<li class="chapter" data-level="9.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#define-models-3"><i class="fa fa-check"></i><b>9.2</b> Define models</a>
+<li class="chapter" data-level="10.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#prepare-data-4"><i class="fa fa-check"></i><b>10.1</b> Prepare data</a></li>
+<li class="chapter" data-level="10.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#define-models-3"><i class="fa fa-check"></i><b>10.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv1"><i class="fa fa-check"></i><b>9.2.1</b> MIV1</a></li>
-<li class="chapter" data-level="9.2.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv2"><i class="fa fa-check"></i><b>9.2.2</b> MIV2</a></li>
-<li class="chapter" data-level="9.2.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv3"><i class="fa fa-check"></i><b>9.2.3</b> MIV3</a></li>
-<li class="chapter" data-level="9.2.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv4"><i class="fa fa-check"></i><b>9.2.4</b> MIV4</a></li>
-<li class="chapter" data-level="9.2.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv5"><i class="fa fa-check"></i><b>9.2.5</b> MIV5</a></li>
-<li class="chapter" data-level="9.2.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv6"><i class="fa fa-check"></i><b>9.2.6</b> MIV6</a></li>
-<li class="chapter" data-level="9.2.7" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv7"><i class="fa fa-check"></i><b>9.2.7</b> MIV7</a></li>
-<li class="chapter" data-level="9.2.8" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv8"><i class="fa fa-check"></i><b>9.2.8</b> MIV8</a></li>
+<li class="chapter" data-level="10.2.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv1"><i class="fa fa-check"></i><b>10.2.1</b> MIV1</a></li>
+<li class="chapter" data-level="10.2.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv2"><i class="fa fa-check"></i><b>10.2.2</b> MIV2</a></li>
+<li class="chapter" data-level="10.2.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv3"><i class="fa fa-check"></i><b>10.2.3</b> MIV3</a></li>
+<li class="chapter" data-level="10.2.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv4"><i class="fa fa-check"></i><b>10.2.4</b> MIV4</a></li>
+<li class="chapter" data-level="10.2.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv5"><i class="fa fa-check"></i><b>10.2.5</b> MIV5</a></li>
+<li class="chapter" data-level="10.2.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv6"><i class="fa fa-check"></i><b>10.2.6</b> MIV6</a></li>
+<li class="chapter" data-level="10.2.7" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv7"><i class="fa fa-check"></i><b>10.2.7</b> MIV7</a></li>
+<li class="chapter" data-level="10.2.8" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv8"><i class="fa fa-check"></i><b>10.2.8</b> MIV8</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#compare-models-4"><i class="fa fa-check"></i><b>9.3</b> Compare models</a></li>
-<li class="chapter" data-level="9.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#determine-natural-scale-values-4"><i class="fa fa-check"></i><b>9.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="9.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#intervals-of-major-categories-4"><i class="fa fa-check"></i><b>9.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="9.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#warnings-versus-no-warnings-4"><i class="fa fa-check"></i><b>9.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="10.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#compare-models-4"><i class="fa fa-check"></i><b>10.3</b> Compare models</a></li>
+<li class="chapter" data-level="10.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#determine-natural-scale-values-4"><i class="fa fa-check"></i><b>10.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="10.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#intervals-of-major-categories-4"><i class="fa fa-check"></i><b>10.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="10.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#warnings-versus-no-warnings-4"><i class="fa fa-check"></i><b>10.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html"><i class="fa fa-check"></i><b>10</b> Security Hotspots</a>
+<li class="chapter" data-level="11" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html"><i class="fa fa-check"></i><b>11</b> Security Hotspots</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#prepare-data-5"><i class="fa fa-check"></i><b>10.1</b> Prepare data</a></li>
-<li class="chapter" data-level="10.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#define-models-4"><i class="fa fa-check"></i><b>10.2</b> Define models</a>
+<li class="chapter" data-level="11.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#prepare-data-5"><i class="fa fa-check"></i><b>11.1</b> Prepare data</a></li>
+<li class="chapter" data-level="11.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#define-models-4"><i class="fa fa-check"></i><b>11.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="10.2.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s1"><i class="fa fa-check"></i><b>10.2.1</b> S1</a></li>
-<li class="chapter" data-level="10.2.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s2"><i class="fa fa-check"></i><b>10.2.2</b> S2</a></li>
-<li class="chapter" data-level="10.2.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s3"><i class="fa fa-check"></i><b>10.2.3</b> S3</a></li>
-<li class="chapter" data-level="10.2.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s4"><i class="fa fa-check"></i><b>10.2.4</b> S4</a></li>
-<li class="chapter" data-level="10.2.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s5"><i class="fa fa-check"></i><b>10.2.5</b> S5</a></li>
-<li class="chapter" data-level="10.2.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s6"><i class="fa fa-check"></i><b>10.2.6</b> S6</a></li>
-<li class="chapter" data-level="10.2.7" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s7"><i class="fa fa-check"></i><b>10.2.7</b> S7</a></li>
-<li class="chapter" data-level="10.2.8" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s8"><i class="fa fa-check"></i><b>10.2.8</b> S8</a></li>
+<li class="chapter" data-level="11.2.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s1"><i class="fa fa-check"></i><b>11.2.1</b> S1</a></li>
+<li class="chapter" data-level="11.2.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s2"><i class="fa fa-check"></i><b>11.2.2</b> S2</a></li>
+<li class="chapter" data-level="11.2.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s3"><i class="fa fa-check"></i><b>11.2.3</b> S3</a></li>
+<li class="chapter" data-level="11.2.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s4"><i class="fa fa-check"></i><b>11.2.4</b> S4</a></li>
+<li class="chapter" data-level="11.2.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s5"><i class="fa fa-check"></i><b>11.2.5</b> S5</a></li>
+<li class="chapter" data-level="11.2.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s6"><i class="fa fa-check"></i><b>11.2.6</b> S6</a></li>
+<li class="chapter" data-level="11.2.7" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s7"><i class="fa fa-check"></i><b>11.2.7</b> S7</a></li>
+<li class="chapter" data-level="11.2.8" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s8"><i class="fa fa-check"></i><b>11.2.8</b> S8</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#compare-models-5"><i class="fa fa-check"></i><b>10.3</b> Compare models</a></li>
-<li class="chapter" data-level="10.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#determine-natural-scale-values-5"><i class="fa fa-check"></i><b>10.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="10.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#intervals-of-major-categories-5"><i class="fa fa-check"></i><b>10.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="10.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#warnings-versus-no-warnings-5"><i class="fa fa-check"></i><b>10.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="11.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#compare-models-5"><i class="fa fa-check"></i><b>11.3</b> Compare models</a></li>
+<li class="chapter" data-level="11.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#determine-natural-scale-values-5"><i class="fa fa-check"></i><b>11.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="11.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#intervals-of-major-categories-5"><i class="fa fa-check"></i><b>11.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="11.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#warnings-versus-no-warnings-5"><i class="fa fa-check"></i><b>11.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html"><i class="fa fa-check"></i><b>11</b> Vulnerabilities</a>
+<li class="chapter" data-level="12" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html"><i class="fa fa-check"></i><b>12</b> Vulnerabilities</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#prepare-data-6"><i class="fa fa-check"></i><b>11.1</b> Prepare data</a></li>
-<li class="chapter" data-level="11.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#define-models-5"><i class="fa fa-check"></i><b>11.2</b> Define models</a>
+<li class="chapter" data-level="12.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#prepare-data-6"><i class="fa fa-check"></i><b>12.1</b> Prepare data</a></li>
+<li class="chapter" data-level="12.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#define-models-5"><i class="fa fa-check"></i><b>12.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v1"><i class="fa fa-check"></i><b>11.2.1</b> V1</a></li>
-<li class="chapter" data-level="11.2.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v2"><i class="fa fa-check"></i><b>11.2.2</b> V2</a></li>
-<li class="chapter" data-level="11.2.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v3"><i class="fa fa-check"></i><b>11.2.3</b> V3</a></li>
-<li class="chapter" data-level="11.2.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v4"><i class="fa fa-check"></i><b>11.2.4</b> V4</a></li>
-<li class="chapter" data-level="11.2.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v5"><i class="fa fa-check"></i><b>11.2.5</b> V5</a></li>
-<li class="chapter" data-level="11.2.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v6"><i class="fa fa-check"></i><b>11.2.6</b> V6</a></li>
-<li class="chapter" data-level="11.2.7" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v7"><i class="fa fa-check"></i><b>11.2.7</b> V7</a></li>
-<li class="chapter" data-level="11.2.8" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v8"><i class="fa fa-check"></i><b>11.2.8</b> V8</a></li>
+<li class="chapter" data-level="12.2.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v1"><i class="fa fa-check"></i><b>12.2.1</b> V1</a></li>
+<li class="chapter" data-level="12.2.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v2"><i class="fa fa-check"></i><b>12.2.2</b> V2</a></li>
+<li class="chapter" data-level="12.2.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v3"><i class="fa fa-check"></i><b>12.2.3</b> V3</a></li>
+<li class="chapter" data-level="12.2.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v4"><i class="fa fa-check"></i><b>12.2.4</b> V4</a></li>
+<li class="chapter" data-level="12.2.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v5"><i class="fa fa-check"></i><b>12.2.5</b> V5</a></li>
+<li class="chapter" data-level="12.2.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v6"><i class="fa fa-check"></i><b>12.2.6</b> V6</a></li>
+<li class="chapter" data-level="12.2.7" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v7"><i class="fa fa-check"></i><b>12.2.7</b> V7</a></li>
+<li class="chapter" data-level="12.2.8" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v8"><i class="fa fa-check"></i><b>12.2.8</b> V8</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#compare-models-6"><i class="fa fa-check"></i><b>11.3</b> Compare models</a></li>
-<li class="chapter" data-level="11.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#determine-natural-scale-values-6"><i class="fa fa-check"></i><b>11.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="11.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#intervals-of-major-categories-6"><i class="fa fa-check"></i><b>11.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="11.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#warnings-versus-no-warnings-6"><i class="fa fa-check"></i><b>11.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="12.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#compare-models-6"><i class="fa fa-check"></i><b>12.3</b> Compare models</a></li>
+<li class="chapter" data-level="12.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#determine-natural-scale-values-6"><i class="fa fa-check"></i><b>12.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="12.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#intervals-of-major-categories-6"><i class="fa fa-check"></i><b>12.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="12.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#warnings-versus-no-warnings-6"><i class="fa fa-check"></i><b>12.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html"><i class="fa fa-check"></i><b>12</b> Cyclomatic Complexity</a>
+<li class="chapter" data-level="13" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html"><i class="fa fa-check"></i><b>13</b> Cyclomatic Complexity</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#prepare-data-7"><i class="fa fa-check"></i><b>12.1</b> Prepare data</a></li>
-<li class="chapter" data-level="12.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#define-models-6"><i class="fa fa-check"></i><b>12.2</b> Define models</a>
+<li class="chapter" data-level="13.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#prepare-data-7"><i class="fa fa-check"></i><b>13.1</b> Prepare data</a></li>
+<li class="chapter" data-level="13.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#define-models-6"><i class="fa fa-check"></i><b>13.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="12.2.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc1"><i class="fa fa-check"></i><b>12.2.1</b> CYC1</a></li>
-<li class="chapter" data-level="12.2.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc2"><i class="fa fa-check"></i><b>12.2.2</b> CYC2</a></li>
-<li class="chapter" data-level="12.2.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc3"><i class="fa fa-check"></i><b>12.2.3</b> CYC3</a></li>
-<li class="chapter" data-level="12.2.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc4"><i class="fa fa-check"></i><b>12.2.4</b> CYC4</a></li>
-<li class="chapter" data-level="12.2.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc5"><i class="fa fa-check"></i><b>12.2.5</b> CYC5</a></li>
-<li class="chapter" data-level="12.2.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc6"><i class="fa fa-check"></i><b>12.2.6</b> CYC6</a></li>
-<li class="chapter" data-level="12.2.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc7"><i class="fa fa-check"></i><b>12.2.7</b> CYC7</a></li>
-<li class="chapter" data-level="12.2.8" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc8"><i class="fa fa-check"></i><b>12.2.8</b> CYC8</a></li>
+<li class="chapter" data-level="13.2.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc1"><i class="fa fa-check"></i><b>13.2.1</b> CYC1</a></li>
+<li class="chapter" data-level="13.2.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc2"><i class="fa fa-check"></i><b>13.2.2</b> CYC2</a></li>
+<li class="chapter" data-level="13.2.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc3"><i class="fa fa-check"></i><b>13.2.3</b> CYC3</a></li>
+<li class="chapter" data-level="13.2.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc4"><i class="fa fa-check"></i><b>13.2.4</b> CYC4</a></li>
+<li class="chapter" data-level="13.2.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc5"><i class="fa fa-check"></i><b>13.2.5</b> CYC5</a></li>
+<li class="chapter" data-level="13.2.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc6"><i class="fa fa-check"></i><b>13.2.6</b> CYC6</a></li>
+<li class="chapter" data-level="13.2.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc7"><i class="fa fa-check"></i><b>13.2.7</b> CYC7</a></li>
+<li class="chapter" data-level="13.2.8" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc8"><i class="fa fa-check"></i><b>13.2.8</b> CYC8</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#compare-models-7"><i class="fa fa-check"></i><b>12.3</b> Compare models</a></li>
-<li class="chapter" data-level="12.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#determine-natural-scale-values-7"><i class="fa fa-check"></i><b>12.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="12.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#intervals-of-major-categories-7"><i class="fa fa-check"></i><b>12.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="12.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#warnings-versus-no-warnings-7"><i class="fa fa-check"></i><b>12.6</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="12.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#without-outliers-1"><i class="fa fa-check"></i><b>12.7</b> Without outliers</a></li>
+<li class="chapter" data-level="13.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#compare-models-7"><i class="fa fa-check"></i><b>13.3</b> Compare models</a></li>
+<li class="chapter" data-level="13.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#determine-natural-scale-values-7"><i class="fa fa-check"></i><b>13.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="13.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#intervals-of-major-categories-7"><i class="fa fa-check"></i><b>13.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="13.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#warnings-versus-no-warnings-7"><i class="fa fa-check"></i><b>13.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="13.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#without-outliers-1"><i class="fa fa-check"></i><b>13.7</b> Without outliers</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html"><i class="fa fa-check"></i><b>13</b> Cognitive Complexity</a>
+<li class="chapter" data-level="14" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html"><i class="fa fa-check"></i><b>14</b> Cognitive Complexity</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#prepare-data-8"><i class="fa fa-check"></i><b>13.1</b> Prepare data</a></li>
-<li class="chapter" data-level="13.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#define-models-7"><i class="fa fa-check"></i><b>13.2</b> Define models</a>
+<li class="chapter" data-level="14.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#prepare-data-8"><i class="fa fa-check"></i><b>14.1</b> Prepare data</a></li>
+<li class="chapter" data-level="14.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#define-models-7"><i class="fa fa-check"></i><b>14.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog1"><i class="fa fa-check"></i><b>13.2.1</b> COG1</a></li>
-<li class="chapter" data-level="13.2.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog2"><i class="fa fa-check"></i><b>13.2.2</b> COG2</a></li>
-<li class="chapter" data-level="13.2.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog3"><i class="fa fa-check"></i><b>13.2.3</b> COG3</a></li>
-<li class="chapter" data-level="13.2.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog4"><i class="fa fa-check"></i><b>13.2.4</b> COG4</a></li>
-<li class="chapter" data-level="13.2.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog5"><i class="fa fa-check"></i><b>13.2.5</b> COG5</a></li>
-<li class="chapter" data-level="13.2.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog6"><i class="fa fa-check"></i><b>13.2.6</b> COG6</a></li>
-<li class="chapter" data-level="13.2.7" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog7"><i class="fa fa-check"></i><b>13.2.7</b> COG7</a></li>
-<li class="chapter" data-level="13.2.8" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog8"><i class="fa fa-check"></i><b>13.2.8</b> COG8</a></li>
+<li class="chapter" data-level="14.2.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog1"><i class="fa fa-check"></i><b>14.2.1</b> COG1</a></li>
+<li class="chapter" data-level="14.2.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog2"><i class="fa fa-check"></i><b>14.2.2</b> COG2</a></li>
+<li class="chapter" data-level="14.2.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog3"><i class="fa fa-check"></i><b>14.2.3</b> COG3</a></li>
+<li class="chapter" data-level="14.2.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog4"><i class="fa fa-check"></i><b>14.2.4</b> COG4</a></li>
+<li class="chapter" data-level="14.2.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog5"><i class="fa fa-check"></i><b>14.2.5</b> COG5</a></li>
+<li class="chapter" data-level="14.2.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog6"><i class="fa fa-check"></i><b>14.2.6</b> COG6</a></li>
+<li class="chapter" data-level="14.2.7" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog7"><i class="fa fa-check"></i><b>14.2.7</b> COG7</a></li>
+<li class="chapter" data-level="14.2.8" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog8"><i class="fa fa-check"></i><b>14.2.8</b> COG8</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#compare-models-8"><i class="fa fa-check"></i><b>13.3</b> Compare models</a></li>
-<li class="chapter" data-level="13.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#determine-natural-scale-values-8"><i class="fa fa-check"></i><b>13.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="13.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#credible-intervals-of-major-categories"><i class="fa fa-check"></i><b>13.5</b> Credible intervals of major categories</a></li>
-<li class="chapter" data-level="13.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#warnings-versus-no-warnings-8"><i class="fa fa-check"></i><b>13.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="14.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#compare-models-8"><i class="fa fa-check"></i><b>14.3</b> Compare models</a></li>
+<li class="chapter" data-level="14.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#determine-natural-scale-values-8"><i class="fa fa-check"></i><b>14.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="14.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#credible-intervals-of-major-categories"><i class="fa fa-check"></i><b>14.5</b> Credible intervals of major categories</a></li>
+<li class="chapter" data-level="14.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#warnings-versus-no-warnings-8"><i class="fa fa-check"></i><b>14.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html"><i class="fa fa-check"></i><b>14</b> Duplicated Lines</a>
+<li class="chapter" data-level="15" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html"><i class="fa fa-check"></i><b>15</b> Duplicated Lines</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#prepare-data-9"><i class="fa fa-check"></i><b>14.1</b> Prepare data</a></li>
-<li class="chapter" data-level="14.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#define-models-8"><i class="fa fa-check"></i><b>14.2</b> Define models</a>
+<li class="chapter" data-level="15.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#prepare-data-9"><i class="fa fa-check"></i><b>15.1</b> Prepare data</a></li>
+<li class="chapter" data-level="15.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#define-models-8"><i class="fa fa-check"></i><b>15.2</b> Define models</a>
 <ul>
-<li class="chapter" data-level="14.2.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d1"><i class="fa fa-check"></i><b>14.2.1</b> D1</a></li>
-<li class="chapter" data-level="14.2.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d2"><i class="fa fa-check"></i><b>14.2.2</b> D2</a></li>
-<li class="chapter" data-level="14.2.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d3"><i class="fa fa-check"></i><b>14.2.3</b> D3</a></li>
-<li class="chapter" data-level="14.2.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d4"><i class="fa fa-check"></i><b>14.2.4</b> D4</a></li>
-<li class="chapter" data-level="14.2.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d5"><i class="fa fa-check"></i><b>14.2.5</b> D5</a></li>
-<li class="chapter" data-level="14.2.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d6"><i class="fa fa-check"></i><b>14.2.6</b> D6</a></li>
-<li class="chapter" data-level="14.2.7" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d7"><i class="fa fa-check"></i><b>14.2.7</b> D7</a></li>
-<li class="chapter" data-level="14.2.8" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d8"><i class="fa fa-check"></i><b>14.2.8</b> D8</a></li>
+<li class="chapter" data-level="15.2.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d1"><i class="fa fa-check"></i><b>15.2.1</b> D1</a></li>
+<li class="chapter" data-level="15.2.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d2"><i class="fa fa-check"></i><b>15.2.2</b> D2</a></li>
+<li class="chapter" data-level="15.2.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d3"><i class="fa fa-check"></i><b>15.2.3</b> D3</a></li>
+<li class="chapter" data-level="15.2.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d4"><i class="fa fa-check"></i><b>15.2.4</b> D4</a></li>
+<li class="chapter" data-level="15.2.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d5"><i class="fa fa-check"></i><b>15.2.5</b> D5</a></li>
+<li class="chapter" data-level="15.2.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d6"><i class="fa fa-check"></i><b>15.2.6</b> D6</a></li>
+<li class="chapter" data-level="15.2.7" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d7"><i class="fa fa-check"></i><b>15.2.7</b> D7</a></li>
+<li class="chapter" data-level="15.2.8" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d8"><i class="fa fa-check"></i><b>15.2.8</b> D8</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#compare-models-9"><i class="fa fa-check"></i><b>14.3</b> Compare models</a></li>
-<li class="chapter" data-level="14.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#determine-natural-scale-values-9"><i class="fa fa-check"></i><b>14.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="14.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#credible-intervals-of-major-categories-1"><i class="fa fa-check"></i><b>14.5</b> Credible intervals of major categories</a></li>
-<li class="chapter" data-level="14.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#warnings-versus-no-warnings-9"><i class="fa fa-check"></i><b>14.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="15.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#compare-models-9"><i class="fa fa-check"></i><b>15.3</b> Compare models</a></li>
+<li class="chapter" data-level="15.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#determine-natural-scale-values-9"><i class="fa fa-check"></i><b>15.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="15.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#credible-intervals-of-major-categories-1"><i class="fa fa-check"></i><b>15.5</b> Credible intervals of major categories</a></li>
+<li class="chapter" data-level="15.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#warnings-versus-no-warnings-9"><i class="fa fa-check"></i><b>15.6</b> Warnings versus no warnings</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html"><i class="fa fa-check"></i><b>15</b> Technical Debt Ratio</a>
+<li class="chapter" data-level="16" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html"><i class="fa fa-check"></i><b>16</b> Technical Debt Ratio</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#prepare-data-10"><i class="fa fa-check"></i><b>15.1</b> Prepare data</a></li>
-<li class="chapter" data-level="15.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#define-models-9"><i class="fa fa-check"></i><b>15.2</b> Define Models</a>
+<li class="chapter" data-level="16.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#prepare-data-10"><i class="fa fa-check"></i><b>16.1</b> Prepare data</a></li>
+<li class="chapter" data-level="16.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#define-models-9"><i class="fa fa-check"></i><b>16.2</b> Define Models</a>
 <ul>
-<li class="chapter" data-level="15.2.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td1"><i class="fa fa-check"></i><b>15.2.1</b> TD1</a></li>
-<li class="chapter" data-level="15.2.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td2"><i class="fa fa-check"></i><b>15.2.2</b> TD2</a></li>
-<li class="chapter" data-level="15.2.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td3"><i class="fa fa-check"></i><b>15.2.3</b> TD3</a></li>
-<li class="chapter" data-level="15.2.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td4"><i class="fa fa-check"></i><b>15.2.4</b> TD4</a></li>
-<li class="chapter" data-level="15.2.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td5"><i class="fa fa-check"></i><b>15.2.5</b> TD5</a></li>
-<li class="chapter" data-level="15.2.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td6"><i class="fa fa-check"></i><b>15.2.6</b> TD6</a></li>
-<li class="chapter" data-level="15.2.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td7"><i class="fa fa-check"></i><b>15.2.7</b> TD7</a></li>
-<li class="chapter" data-level="15.2.8" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td8"><i class="fa fa-check"></i><b>15.2.8</b> TD8</a></li>
+<li class="chapter" data-level="16.2.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td1"><i class="fa fa-check"></i><b>16.2.1</b> TD1</a></li>
+<li class="chapter" data-level="16.2.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td2"><i class="fa fa-check"></i><b>16.2.2</b> TD2</a></li>
+<li class="chapter" data-level="16.2.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td3"><i class="fa fa-check"></i><b>16.2.3</b> TD3</a></li>
+<li class="chapter" data-level="16.2.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td4"><i class="fa fa-check"></i><b>16.2.4</b> TD4</a></li>
+<li class="chapter" data-level="16.2.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td5"><i class="fa fa-check"></i><b>16.2.5</b> TD5</a></li>
+<li class="chapter" data-level="16.2.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td6"><i class="fa fa-check"></i><b>16.2.6</b> TD6</a></li>
+<li class="chapter" data-level="16.2.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td7"><i class="fa fa-check"></i><b>16.2.7</b> TD7</a></li>
+<li class="chapter" data-level="16.2.8" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td8"><i class="fa fa-check"></i><b>16.2.8</b> TD8</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#compare-models-10"><i class="fa fa-check"></i><b>15.3</b> Compare models</a></li>
-<li class="chapter" data-level="15.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#determine-natural-scale-values-10"><i class="fa fa-check"></i><b>15.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="15.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#intervals-of-major-categories-8"><i class="fa fa-check"></i><b>15.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="15.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#warnings-versus-no-warnings-10"><i class="fa fa-check"></i><b>15.6</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="15.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#without-outliers-2"><i class="fa fa-check"></i><b>15.7</b> Without outliers</a></li>
+<li class="chapter" data-level="16.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#compare-models-10"><i class="fa fa-check"></i><b>16.3</b> Compare models</a></li>
+<li class="chapter" data-level="16.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#determine-natural-scale-values-10"><i class="fa fa-check"></i><b>16.4</b> Determine natural scale values</a></li>
+<li class="chapter" data-level="16.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#intervals-of-major-categories-8"><i class="fa fa-check"></i><b>16.5</b> Intervals of major categories</a></li>
+<li class="chapter" data-level="16.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#warnings-versus-no-warnings-10"><i class="fa fa-check"></i><b>16.6</b> Warnings versus no warnings</a></li>
+<li class="chapter" data-level="16.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#without-outliers-2"><i class="fa fa-check"></i><b>16.7</b> Without outliers</a></li>
 </ul></li>
 </ul>
 
@@ -392,11 +393,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cyclomatic-complexity-1" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Cyclomatic Complexity<a href="cyclomatic-complexity-1.html#cyclomatic-complexity-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="cyclomatic-complexity-1" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Cyclomatic Complexity<a href="cyclomatic-complexity-1.html#cyclomatic-complexity-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This section covers the analysis relating to the cyclomatic complexity metric.</p>
-<div id="prepare-data-7" class="section level2 hasAnchor" number="12.1">
-<h2><span class="header-section-number">12.1</span> Prepare data<a href="cyclomatic-complexity-1.html#prepare-data-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prepare-data-7" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Prepare data<a href="cyclomatic-complexity-1.html#prepare-data-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="cyclomatic-complexity-1.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model seed is the date that the analysis was conducted</span></span>
 <span id="cb157-2"><a href="cyclomatic-complexity-1.html#cb157-2" aria-hidden="true" tabindex="-1"></a>model_seed <span class="ot">&lt;-</span> <span class="dv">20230331</span></span>
 <span id="cb157-3"><a href="cyclomatic-complexity-1.html#cb157-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -419,10 +420,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb157-20"><a href="cyclomatic-complexity-1.html#cb157-20" aria-hidden="true" tabindex="-1"></a>data_factor_uses_warnings <span class="ot">&lt;-</span> <span class="fu">create_cyclomatic_complexity_data</span>(df)</span>
 <span id="cb157-21"><a href="cyclomatic-complexity-1.html#cb157-21" aria-hidden="true" tabindex="-1"></a>data_factor_uses_warnings<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">uses_warnings</span>(df<span class="sc">$</span>category))</span></code></pre></div>
 </div>
-<div id="define-models-6" class="section level2 hasAnchor" number="12.2">
-<h2><span class="header-section-number">12.2</span> Define models<a href="cyclomatic-complexity-1.html#define-models-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="cyc1" class="section level3 hasAnchor" number="12.2.1">
-<h3><span class="header-section-number">12.2.1</span> CYC1<a href="cyclomatic-complexity-1.html#cyc1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="define-models-6" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Define models<a href="cyclomatic-complexity-1.html#define-models-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cyc1" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> CYC1<a href="cyclomatic-complexity-1.html#cyc1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="cyclomatic-complexity-1.html#cb158-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc1 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb158-2"><a href="cyclomatic-complexity-1.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb158-3"><a href="cyclomatic-complexity-1.html#cb158-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category&quot;</span>,</span>
@@ -436,8 +437,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb158-11"><a href="cyclomatic-complexity-1.html#cb158-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb158-12"><a href="cyclomatic-complexity-1.html#cb158-12" aria-hidden="true" tabindex="-1"></a>cyc1 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc1</span>(<span class="st">&quot;cyc1&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc2" class="section level3 hasAnchor" number="12.2.2">
-<h3><span class="header-section-number">12.2.2</span> CYC2<a href="cyclomatic-complexity-1.html#cyc2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc2" class="section level3 hasAnchor" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> CYC2<a href="cyclomatic-complexity-1.html#cyc2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="cyclomatic-complexity-1.html#cb159-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc2 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb159-2"><a href="cyclomatic-complexity-1.html#cb159-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb159-3"><a href="cyclomatic-complexity-1.html#cb159-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + contributors_std&quot;</span>,</span>
@@ -452,8 +453,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb159-12"><a href="cyclomatic-complexity-1.html#cb159-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb159-13"><a href="cyclomatic-complexity-1.html#cb159-13" aria-hidden="true" tabindex="-1"></a>cyc2 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc2</span>(<span class="st">&quot;cyc2&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc3" class="section level3 hasAnchor" number="12.2.3">
-<h3><span class="header-section-number">12.2.3</span> CYC3<a href="cyclomatic-complexity-1.html#cyc3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc3" class="section level3 hasAnchor" number="13.2.3">
+<h3><span class="header-section-number">13.2.3</span> CYC3<a href="cyclomatic-complexity-1.html#cyc3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="cyclomatic-complexity-1.html#cb160-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc3 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb160-2"><a href="cyclomatic-complexity-1.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb160-3"><a href="cyclomatic-complexity-1.html#cb160-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + size_std&quot;</span>,</span>
@@ -468,8 +469,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb160-12"><a href="cyclomatic-complexity-1.html#cb160-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb160-13"><a href="cyclomatic-complexity-1.html#cb160-13" aria-hidden="true" tabindex="-1"></a>cyc3 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc3</span>(<span class="st">&quot;cyc3&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc4" class="section level3 hasAnchor" number="12.2.4">
-<h3><span class="header-section-number">12.2.4</span> CYC4<a href="cyclomatic-complexity-1.html#cyc4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc4" class="section level3 hasAnchor" number="13.2.4">
+<h3><span class="header-section-number">13.2.4</span> CYC4<a href="cyclomatic-complexity-1.html#cyc4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="cyclomatic-complexity-1.html#cb161-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc4 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb161-2"><a href="cyclomatic-complexity-1.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb161-3"><a href="cyclomatic-complexity-1.html#cb161-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + files_std&quot;</span>,</span>
@@ -484,8 +485,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb161-12"><a href="cyclomatic-complexity-1.html#cb161-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb161-13"><a href="cyclomatic-complexity-1.html#cb161-13" aria-hidden="true" tabindex="-1"></a>cyc4 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc4</span>(<span class="st">&quot;cyc4&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc5" class="section level3 hasAnchor" number="12.2.5">
-<h3><span class="header-section-number">12.2.5</span> CYC5<a href="cyclomatic-complexity-1.html#cyc5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc5" class="section level3 hasAnchor" number="13.2.5">
+<h3><span class="header-section-number">13.2.5</span> CYC5<a href="cyclomatic-complexity-1.html#cyc5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="cyclomatic-complexity-1.html#cb162-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc5 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb162-2"><a href="cyclomatic-complexity-1.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb162-3"><a href="cyclomatic-complexity-1.html#cb162-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + age_std&quot;</span>,</span>
@@ -500,8 +501,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb162-12"><a href="cyclomatic-complexity-1.html#cb162-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb162-13"><a href="cyclomatic-complexity-1.html#cb162-13" aria-hidden="true" tabindex="-1"></a>cyc5 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc5</span>(<span class="st">&quot;cyc5&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc6" class="section level3 hasAnchor" number="12.2.6">
-<h3><span class="header-section-number">12.2.6</span> CYC6<a href="cyclomatic-complexity-1.html#cyc6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc6" class="section level3 hasAnchor" number="13.2.6">
+<h3><span class="header-section-number">13.2.6</span> CYC6<a href="cyclomatic-complexity-1.html#cyc6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="cyclomatic-complexity-1.html#cb163-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc6 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb163-2"><a href="cyclomatic-complexity-1.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb163-3"><a href="cyclomatic-complexity-1.html#cb163-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + stars_std&quot;</span>,</span>
@@ -516,8 +517,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb163-12"><a href="cyclomatic-complexity-1.html#cb163-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb163-13"><a href="cyclomatic-complexity-1.html#cb163-13" aria-hidden="true" tabindex="-1"></a>cyc6 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc6</span>(<span class="st">&quot;cyc6&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc7" class="section level3 hasAnchor" number="12.2.7">
-<h3><span class="header-section-number">12.2.7</span> CYC7<a href="cyclomatic-complexity-1.html#cyc7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc7" class="section level3 hasAnchor" number="13.2.7">
+<h3><span class="header-section-number">13.2.7</span> CYC7<a href="cyclomatic-complexity-1.html#cyc7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="cyclomatic-complexity-1.html#cb164-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc7 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb164-2"><a href="cyclomatic-complexity-1.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb164-3"><a href="cyclomatic-complexity-1.html#cb164-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + size_std + files_std&quot;</span>,</span>
@@ -533,8 +534,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb164-13"><a href="cyclomatic-complexity-1.html#cb164-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb164-14"><a href="cyclomatic-complexity-1.html#cb164-14" aria-hidden="true" tabindex="-1"></a>cyc7 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc7</span>(<span class="st">&quot;cyc7&quot;</span>, data)</span></code></pre></div>
 </div>
-<div id="cyc8" class="section level3 hasAnchor" number="12.2.8">
-<h3><span class="header-section-number">12.2.8</span> CYC8<a href="cyclomatic-complexity-1.html#cyc8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cyc8" class="section level3 hasAnchor" number="13.2.8">
+<h3><span class="header-section-number">13.2.8</span> CYC8<a href="cyclomatic-complexity-1.html#cyc8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="cyclomatic-complexity-1.html#cb165-1" aria-hidden="true" tabindex="-1"></a>fit_model_cyc8 <span class="ot">&lt;-</span> <span class="cf">function</span>(name, data) {</span>
 <span id="cb165-2"><a href="cyclomatic-complexity-1.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model</span>(name,</span>
 <span id="cb165-3"><a href="cyclomatic-complexity-1.html#cb165-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;cyclomatic_complexity_kloc_std ~ 0 + category + size_std + age_std&quot;</span>,</span>
@@ -551,8 +552,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb165-14"><a href="cyclomatic-complexity-1.html#cb165-14" aria-hidden="true" tabindex="-1"></a>cyc8 <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc8</span>(<span class="st">&quot;cyc8&quot;</span>, data)</span></code></pre></div>
 </div>
 </div>
-<div id="compare-models-7" class="section level2 hasAnchor" number="12.3">
-<h2><span class="header-section-number">12.3</span> Compare models<a href="cyclomatic-complexity-1.html#compare-models-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="compare-models-7" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Compare models<a href="cyclomatic-complexity-1.html#compare-models-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="cyclomatic-complexity-1.html#cb166-1" aria-hidden="true" tabindex="-1"></a>cyc1 <span class="ot">&lt;-</span> <span class="fu">add_criterion</span>(cyc1, <span class="at">criterion=</span><span class="st">&quot;loo&quot;</span>, <span class="at">moment_match=</span><span class="cn">FALSE</span>)</span>
 <span id="cb166-2"><a href="cyclomatic-complexity-1.html#cb166-2" aria-hidden="true" tabindex="-1"></a>cyc2 <span class="ot">&lt;-</span> <span class="fu">add_criterion</span>(cyc2, <span class="at">criterion=</span><span class="st">&quot;loo&quot;</span>, <span class="at">moment_match=</span><span class="cn">FALSE</span>)</span>
 <span id="cb166-3"><a href="cyclomatic-complexity-1.html#cb166-3" aria-hidden="true" tabindex="-1"></a>cyc3 <span class="ot">&lt;-</span> <span class="fu">add_criterion</span>(cyc3, <span class="at">criterion=</span><span class="st">&quot;loo&quot;</span>, <span class="at">moment_match=</span><span class="cn">FALSE</span>)</span>
@@ -574,8 +575,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## cyc2   -2.8       1.1  -201.5     55.7        29.8   25.8    403.0  111.3  
 ## cyc1   -3.1       2.2  -201.9     57.0        30.5   26.8    403.7  114.0</code></pre>
 </div>
-<div id="determine-natural-scale-values-7" class="section level2 hasAnchor" number="12.4">
-<h2><span class="header-section-number">12.4</span> Determine natural scale values<a href="cyclomatic-complexity-1.html#determine-natural-scale-values-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="determine-natural-scale-values-7" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Determine natural scale values<a href="cyclomatic-complexity-1.html#determine-natural-scale-values-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="cyclomatic-complexity-1.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cyc7)</span></code></pre></div>
 <pre><code>##  Family: gaussian 
 ##   Links: mu = identity; sigma = identity 
@@ -615,14 +616,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AEP  160.72 182.84  116.48  204.96
 ## AEP+ 174.00 178.42  136.39  211.60</code></pre>
 </div>
-<div id="intervals-of-major-categories-7" class="section level2 hasAnchor" number="12.5">
-<h2><span class="header-section-number">12.5</span> Intervals of major categories<a href="cyclomatic-complexity-1.html#intervals-of-major-categories-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="intervals-of-major-categories-7" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Intervals of major categories<a href="cyclomatic-complexity-1.html#intervals-of-major-categories-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="cyclomatic-complexity-1.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intervals_of_major_categories</span>(cyc7) <span class="sc">+</span></span>
 <span id="cb172-2"><a href="cyclomatic-complexity-1.html#cb172-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;CYC7&quot;</span>, <span class="at">x=</span><span class="st">&quot;Cyclomatic complexity per KLOC (std)&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/cyc-plot-intervals-of-major-categories-1.png" width="576" /></p>
 </div>
-<div id="warnings-versus-no-warnings-7" class="section level2 hasAnchor" number="12.6">
-<h2><span class="header-section-number">12.6</span> Warnings versus no warnings<a href="cyclomatic-complexity-1.html#warnings-versus-no-warnings-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="warnings-versus-no-warnings-7" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Warnings versus no warnings<a href="cyclomatic-complexity-1.html#warnings-versus-no-warnings-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="cyclomatic-complexity-1.html#cb173-1" aria-hidden="true" tabindex="-1"></a>cyc7_factor_uses_warnings <span class="ot">&lt;-</span> <span class="fu">fit_model_cyc7</span>(<span class="st">&quot;cyc7_factor_uses_warnings&quot;</span>,</span>
 <span id="cb173-2"><a href="cyclomatic-complexity-1.html#cb173-2" aria-hidden="true" tabindex="-1"></a>                                            data_factor_uses_warnings)</span>
 <span id="cb173-3"><a href="cyclomatic-complexity-1.html#cb173-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -634,8 +635,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb173-9"><a href="cyclomatic-complexity-1.html#cb173-9" aria-hidden="true" tabindex="-1"></a>                   ))</span></code></pre></div>
 <p><img src="_main_files/figure-html/cyc-warnings-vs-no-warnings-1.png" width="576" /></p>
 </div>
-<div id="without-outliers-1" class="section level2 hasAnchor" number="12.7">
-<h2><span class="header-section-number">12.7</span> Without outliers<a href="cyclomatic-complexity-1.html#without-outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="without-outliers-1" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">13.7</span> Without outliers<a href="cyclomatic-complexity-1.html#without-outliers-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Category AEP+ has a notable outlier, “better-enums”.
 We will remove it from the sample population to see how this affects the analysis results.</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="cyclomatic-complexity-1.html#cb174-1" aria-hidden="true" tabindex="-1"></a>df_culled <span class="ot">&lt;-</span> df</span>
