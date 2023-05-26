@@ -1,0 +1,40 @@
+---
+author: Albin Johansson & Carl Holmberg
+date: 2023
+---
+
+# Causal analysis
+
+```{r dag-include-setup, include=FALSE}
+source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```
+
+## DAG
+
+The following DAG illustrates the casual relationships assumed to be true for 
+the purposes of the study.
+
+- C: Culture
+- W: Warnings
+- R: Refactoring
+- D: Defects
+- S: Size
+
+```{r dag, message=FALSE}
+library(dagitty)
+
+dag <- dagitty("dag {
+    C -> R
+    W -> R
+    D -> R
+    D -> W
+    S -> D
+}")
+
+tidy_dagitty(dag, layout="fr") %>%
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_dag_node() +
+  geom_dag_text() +
+  geom_dag_edges() +
+  theme_dag()
+```
