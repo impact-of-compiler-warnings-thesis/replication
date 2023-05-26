@@ -1,11 +1,14 @@
-# Setup
+---
+title: Setup
+---
 
 ```{r, include=FALSE}
-options(knitr.duplicate.label = "allow")
+options(knitr.duplicate.label="allow")
 ```
 
 This page outlines the steps required to prepare the R environment.
-First we need to load the required packages.
+
+## Required packages
 
 ```{r setup-load-packages, message=FALSE}
 # Bayesian data analysis tools
@@ -15,9 +18,14 @@ library(brms)
 library(ggplot2)
 library(ggpattern)
 library(ggdag)
+
+# Causal analysis
+library(dagitty)
 ```
 
-Then we define some useful constants.
+## Constants
+
+Here we define some useful constants.
 
 ```{r setup-define-constants}
 major_categories <- c(1, 2, 3, 5, 7)
@@ -36,7 +44,9 @@ ordered_category_names <- c("N",    # category 1
                             )
 ```
 
-We will also define some convenience functions.
+## Functions
+
+Here we define some common convenience functions.
 
 ```{r setup-load-utility-functions}
 # Returns the number of days between a date and the analysis date.
@@ -183,9 +193,16 @@ plot_priors <- function(fit, xlab) {
     theme_default(base_family="sans", base_size=14) +
     labs(title="Prior predictive checks", x=xlab, y="Probability density")
 }
+
+plot_caterpillar <- function(fit, var, ylabel) {
+  mcmc_plot(fit, type="trace", variable=var) +
+    ylab(ylabel)
+}
 ```
 
-The data we need has been prepared in a separate CSV file, all we need to do is load it. However, we will need to create some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.
+## Data
+
+The data we need has been prepared in a separate CSV file, all we need to do is load it. We also add some additional columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.
 
 ```{r setup-load-data-frame}
 df <- read.csv("data/data_frame.csv")
@@ -194,7 +211,9 @@ df <- read.csv("data/data_frame.csv")
 df <- add_scaled_metrics(df)
 ```
 
-The following provides information about the used R session.
+## Environment
+
+The following provides information about the R environment used to generate the results.
 
 ```{r setup-print-env-info}
 sessionInfo()
