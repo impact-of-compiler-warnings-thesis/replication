@@ -1,21 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Duplicated lines
 ---
 
-```{r d-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```{r dl-include-setup, include=FALSE}
+source(knitr::purl('setup.Rmd', output=tempfile()))
 ```
 
-# Duplicated Lines
+This section covers the analysis relating to the _duplicated lines_ metric.
 
-This section covers the analysis relating to the "duplicated lines" metric.
+## Data preparation
 
-## Prepare data
-
-```{r dl-prepare-data}
-# The model seed is the date that the analysis was conducted
-model_seed <- 20230403
+```{r dl-data-preparation}
+model_seed <- 20230403 # 2023 April 3
 
 create_duplicated_lines_data <- function(data) {
   list(
@@ -28,16 +24,11 @@ create_duplicated_lines_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_duplicated_lines_data(df)
 data$category <- factor(df$category)
-
-# Prepare data that factors on the presence of compiler warnings
-data_factor_uses_warnings <- create_duplicated_lines_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define models
+## Candidate models {.tabset}
 
 ### D1
 
@@ -184,9 +175,9 @@ fit_model_d8 <- function(name, data) {
 d8 <- fit_model_d8("d8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r dl-compare-models, message=FALSE}
+```{r dl-model-comparison, message=FALSE}
 d1 <- add_criterion(d1, criterion="loo")
 d2 <- add_criterion(d2, criterion="loo")
 d3 <- add_criterion(d3, criterion="loo")
@@ -200,33 +191,57 @@ print(loo_compare(d1, d2, d3, d4, d5, d6, d7, d8, criterion="loo"),
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
 
-```{r dl-ppc}
+### Prior predictive check
+
+```{r dl-ppc, message=FALSE}
 plot_priors(d6, "Duplicated lines per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r dl-determine-natural-scale-values}
+```{r dl-caterpillars, message=FALSE}
+plot_caterpillar(d6, "b_category1", "N")
+plot_caterpillar(d6, "b_category2", "A")
+plot_caterpillar(d6, "b_category3", "AE")
+plot_caterpillar(d6, "b_category5", "AEP")
+plot_caterpillar(d6, "b_category7", "AEP+")
+```
+
+## Estimates {.tabset}
+
+### Standardized
+
+```{r dl-standardized-estimates, message=FALSE}
 summary(d6)
+```
+
+### Natural scale
+
+```{r dl-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(d6, df$duplicated_lines_kloc))
 ```
 
-## Credible intervals of major categories
+## Plots {.tabset}
 
-```{r dl-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+### Major category intervals
+
+```{r dl-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(d6) +
   labs(title="D6", x="Duplicated lines per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+### Binary warning usage
 
-```{r d-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-d6_factor_uses_warnings <- fit_model_d6("d6_factor_uses_warnings",
-                                        data_factor_uses_warnings)
+```{r dl-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor <- create_duplicated_lines_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(d6_factor_uses_warnings) +
+d6_binary_factor <- fit_model_d6("d6_factor_uses_warnings",
+                                 data_binary_factor)
+
+plot_intervals_of_categories(d6_binary_factor) +
   labs(title="D6", x="Duplicated lines per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
