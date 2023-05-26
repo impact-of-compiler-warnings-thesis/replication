@@ -709,8 +709,8 @@ The plot indicates that there is no clear correlation between use of compiler wa
 <p><img src="_main_files/figure-html/cyc-plot-intervals-no-outliers-1.png" width="576" /></p>
 <p>However, projects that do not use warnings still have lower cyclomatic complexity
 than those who do use warnings.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="cyclomatic-complexity-1.html#cb187-1" aria-hidden="true" tabindex="-1"></a>data_cyc_factor_uses_warnings <span class="ot">&lt;-</span> <span class="fu">create_cyclomatic_complexity_data</span>(df_cyc)</span>
-<span id="cb187-2"><a href="cyclomatic-complexity-1.html#cb187-2" aria-hidden="true" tabindex="-1"></a>data_cyc_factor_uses_warnings<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">uses_warnings</span>(df_cyc<span class="sc">$</span>category))</span>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="cyclomatic-complexity-1.html#cb187-1" aria-hidden="true" tabindex="-1"></a>data_cyc_factor_uses_warnings <span class="ot">&lt;-</span> <span class="fu">create_cyclomatic_complexity_data</span>(df_culled)</span>
+<span id="cb187-2"><a href="cyclomatic-complexity-1.html#cb187-2" aria-hidden="true" tabindex="-1"></a>data_cyc_factor_uses_warnings<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">uses_warnings</span>(df_culled<span class="sc">$</span>category))</span>
 <span id="cb187-3"><a href="cyclomatic-complexity-1.html#cb187-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb187-4"><a href="cyclomatic-complexity-1.html#cb187-4" aria-hidden="true" tabindex="-1"></a>cyc7_culled_factor_uses_warnings <span class="ot">&lt;-</span></span>
 <span id="cb187-5"><a href="cyclomatic-complexity-1.html#cb187-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_model_cyc7</span>(<span class="st">&quot;cyc7_no_outliers_factor_uses_warnings&quot;</span>, </span>
