@@ -1,21 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Vulnerabilities
 ---
 
 ```{r v-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output=tempfile()))
 ```
 
-# Vulnerabilities
+This section covers the analysis relating to the _vulnerabilities_ metric.
 
-This section covers the analysis relating to the "vulnerabilities" metric.
+## Data preparation
 
-## Prepare data
-
-```{r v-prepare-data}
-# The model seed is the date that the analysis was conducted
-model_seed <- 20230330
+```{r v-data-preparation, message=FALSE}
+model_seed <- 20230330  # 2023 March 30
 
 create_vulnerabilities_data <- function(data) {
   list(
@@ -28,16 +24,11 @@ create_vulnerabilities_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_vulnerabilities_data(df)
 data$category <- factor(df$category)
-
-# Prepare data that factors on the presence of compiler warnings
-data_factor_uses_warnings <- create_vulnerabilities_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define models
+## Candidate models {.tabset}
 
 ### V1
 
@@ -184,9 +175,9 @@ fit_model_v8 <- function(name, data) {
 v8 <- fit_model_v8("v8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r v-compare-models}
+```{r v-model-comparison, message=FALSE}
 v1 <- add_criterion(v1, criterion="loo", moment_match=TRUE)
 v2 <- add_criterion(v2, criterion="loo", moment_match=TRUE)
 v3 <- add_criterion(v3, criterion="loo", moment_match=TRUE)
@@ -200,37 +191,59 @@ print(loo_compare(v1, v2, v3, v4, v5, v6, v7, v8, criterion="loo"),
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
 
-```{r v-ppc}
+### Prior predictive check
+
+```{r v-ppc, message=FALSE}
 plot_priors(v1, "Vulnerabilities per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r v-determine-natural-scale-values}
+```{r v-caterpillars, message=FALSE}
+plot_caterpillar(v1, "b_category1", "N")
+plot_caterpillar(v1, "b_category2", "A")
+plot_caterpillar(v1, "b_category3", "AE")
+plot_caterpillar(v1, "b_category5", "AEP")
+plot_caterpillar(v1, "b_category7", "AEP+")
+```
+
+## Estimates {.tabset}
+
+### Standardized
+
+```{r v-standardized-estimates, message=FALSE}
 summary(v1)
+```
+
+### Natural scale
+
+```{r v-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(v1, df$vulnerabilities_kloc, precision=6))
 ```
 
-## Intervals of major categories
+## Plots {.tabset}
 
-```{r v-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+### Major category intervals
+
+```{r v-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(v1) +
   labs(title="V1", x="Vulnerabilities per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+### Binary warning usage
 
-```{r v-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-v1_factor_uses_warnings <- fit_model_v1("v1_factor_uses_warnings",
-                                        data_factor_uses_warnings)
+```{r v-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor <- create_vulnerabilities_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(v1_factor_uses_warnings) +
+v1_binary_factor <- fit_model_v1("v1_factor_uses_warnings", data_binary_factor)
+
+plot_intervals_of_categories(v1_binary_factor) +
   labs(title="V1", x="Vulnerabilities per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
                    ))
 ```
-
