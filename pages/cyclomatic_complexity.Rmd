@@ -265,8 +265,8 @@ However, projects that do not use warnings still have lower cyclomatic complexit
 than those who do use warnings.
 
 ```{r cyc-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}
-data_cyc_factor_uses_warnings <- create_cyclomatic_complexity_data(df_cyc)
-data_cyc_factor_uses_warnings$category <- factor(uses_warnings(df_cyc$category))
+data_cyc_factor_uses_warnings <- create_cyclomatic_complexity_data(df_culled)
+data_cyc_factor_uses_warnings$category <- factor(uses_warnings(df_culled$category))
 
 cyc7_culled_factor_uses_warnings <-
   fit_model_cyc7("cyc7_no_outliers_factor_uses_warnings", 
