@@ -29,7 +29,7 @@ navbar:
           href: "cognitive_complexity.html"
         - text: "Duplicated lines"
           href: "duplicated_lines.html"
-        - text: "Technical debt"
+        - text: "Technical debt ratio"
           href: "technical_debt.html"
   right:
     - text: "Source"

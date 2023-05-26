@@ -1,20 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Technical debt ratio
 ---
 
-```{r td-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+```{r tdr-include-setup, include=FALSE}
+source(knitr::purl('setup.Rmd', output=tempfile()))
 ```
 
-# Technical Debt Ratio
+This section covers the analysis concerning the _technical debt ratio_ metric.
 
-This section covers the analysis relating to the technical debt ratio metric.
+## Data preparation
 
-## Prepare data
-
-```{r}
-model_seed <- 20230302
+```{r tdr-data-preparation, message=FALSE}
+model_seed <- 20230302 # 2023 March 2
 
 create_tech_debt_data <- function(data) {
   list(
@@ -29,16 +26,13 @@ create_tech_debt_data <- function(data) {
 
 data <- create_tech_debt_data(df)
 data$category <- factor(df$category)
-
-data_factor_uses_warnings <- create_tech_debt_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define Models
+## Candidate models {.tabset}
 
 ### TD1
 
-```{r td-model-1, message=FALSE}
+```{r tdr-model-1, message=FALSE}
 fit_model_td1 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category",
@@ -55,7 +49,7 @@ td1 <- fit_model_td1("td1", data)
 
 ### TD2
 
-```{r td-model-2, message=FALSE}
+```{r tdr-model-2, message=FALSE}
 fit_model_td2 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + files_std",
@@ -73,7 +67,7 @@ td2 <- fit_model_td2("td2", data)
 
 ### TD3
 
-```{r td-model-3, message=FALSE}
+```{r tdr-model-3, message=FALSE}
 fit_model_td3 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + contributors_std",
@@ -91,7 +85,7 @@ td3 <- fit_model_td3("td3", data)
 
 ### TD4
 
-```{r td-model-4, message=FALSE}
+```{r tdr-model-4, message=FALSE}
 fit_model_td4 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + size_std",
@@ -109,7 +103,7 @@ td4 <- fit_model_td4("td4", data)
 
 ### TD5
 
-```{r td-model-5, message=FALSE}
+```{r tdr-model-5, message=FALSE}
 fit_model_td5 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + age_std",
@@ -127,7 +121,7 @@ td5 <- fit_model_td5("td5", data)
 
 ### TD6
 
-```{r td-model-6, message=FALSE}
+```{r tdr-model-6, message=FALSE}
 fit_model_td6 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + stars_std",
@@ -145,7 +139,7 @@ td6 <- fit_model_td6("td6", data)
 
 ### TD7
 
-```{r td-model-7, message=FALSE}
+```{r tdr-model-7, message=FALSE}
 fit_model_td7 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + contributors_std + files_std",
@@ -164,7 +158,7 @@ td7 <- fit_model_td7("td7", data)
 
 ### TD8
 
-```{r td-model-8, message=FALSE}
+```{r tdr-model-8, message=FALSE}
 fit_model_td8 <- function(name, data) {
   fit_model(name,
             "tech_debt_std ~ 0 + category + contributors_std + stars_std",
@@ -181,9 +175,9 @@ fit_model_td8 <- function(name, data) {
 td8 <- fit_model_td8("td8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r td-compare-models, message=FALSE}
+```{r tdr-model-comparison, message=FALSE}
 td1 <- add_criterion(td1, "loo", moment_match=TRUE)
 td2 <- add_criterion(td2, "loo", moment_match=TRUE)
 td3 <- add_criterion(td3, "loo", moment_match=TRUE)
@@ -197,32 +191,58 @@ print(loo_compare(td1, td2, td3, td4, td5, td6, td7, td8, criterion="loo"),
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
 
-```{r td-ppc}
+### Prior predictive check
+
+```{r tdr-ppc, message=FALSE}
 plot_priors(td1, "Technical debt ratio (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r td-determine-natural-scale-values, message=FALSE}
+```{r tdr-caterpillars, message=FALSE}
+plot_caterpillar(td1, "b_category1", "N")
+plot_caterpillar(td1, "b_category2", "A")
+plot_caterpillar(td1, "b_category3", "AE")
+plot_caterpillar(td1, "b_category5", "AEP")
+plot_caterpillar(td1, "b_category7", "AEP+")
+```
+
+## Full population
+
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r tdr-full-standardized-estimates, message=FALSE}
 summary(td1)
+```
+
+#### Natural scale
+
+```{r tdr-full-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(td1, df$sqale_debt_ratio))
 ```
 
-## Intervals of major categories
+### Plots {.tabset}
 
-```{r td-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+#### Major category intervals
+
+```{r tdr-full-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(td1) +
   labs(title="TD1", x="Technical debt ratio (std)")
 ```
 
-## Warnings versus no warnings
+#### Binary warning usage
 
-```{r td-warnings-no-warnings, fig.width=6, fig.height=2.8, message=FALSE}
-td1_factor_uses_warnings <- fit_model_td1("td1_factor_uses_warnings", data_factor_uses_warnings)
+```{r tdr-full-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor <- create_tech_debt_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(td1_factor_uses_warnings) + 
+td1_binary_factor <- fit_model_td1("td1_factor_uses_warnings", data_binary_factor)
+
+plot_intervals_of_categories(td1_binary_factor) + 
   labs(title="TD1", x="Technical debt ratio (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
@@ -230,31 +250,52 @@ plot_intervals_of_categories(td1_factor_uses_warnings) +
                   ))
 ```
 
-## Without outliers
+## Culled population
 
-```{r td-without-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+```{r tdr-culled-data-preparation, fig.height=2.8, message=FALSE}
 df_culled <- df
 df_culled <- df_culled[df_culled$name != "clipp",]
 
-culled_data <- create_tech_debt_data(df_culled)
-culled_data$category <- factor(df_culled$category)
+data_culled <- create_tech_debt_data(df_culled)
+data_culled$category <- factor(df_culled$category)
 
-td1_culled <- fit_model_td1("td1_no_outliers", culled_data)
+td1_culled <- fit_model_td1("td1_no_outliers", data_culled)
+```
 
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r tdr-culled-standardized-estimates, message=FALSE}
 summary(td1_culled)
-print(create_natural_scale_summary_df(td1_culled, df_culled$sqale_debt_ratio))
+```
 
+#### Natural scale
+
+```{r tdr-culled-natural-scale-estimates, message=FALSE}
+print(create_natural_scale_summary_df(td1_culled, df_culled$sqale_debt_ratio))
+```
+
+### Plots {.tabset}
+
+#### Major category intervals
+
+```{r tdr-culled-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(td1_culled) + 
   labs(title="TD1 (culled)", x="Technical debt ratio (std)")
+```
 
-culled_data_factor_uses_warnings <- create_tech_debt_data(df_culled)
-culled_data_factor_uses_warnings$category <- factor(uses_warnings(df_culled$category))
+#### Binary warning usage
 
-td1_culled_factor_uses_warnings <-
+```{r tdr-culled-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor_culled <- create_tech_debt_data(df_culled)
+data_binary_factor_culled$category <- factor(uses_warnings(df_culled$category))
+
+td1_binary_factor_culled <-
   fit_model_td1("td1_data_no_outliers_factor_uses_warnings",
-                culled_data_factor_uses_warnings)
+                data_binary_factor_culled)
 
-plot_intervals_of_categories(td1_culled_factor_uses_warnings) +
+plot_intervals_of_categories(td1_binary_factor_culled) +
    labs(title="TD1 (culled)", x="Technical debt ratio (std)") +
    scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
