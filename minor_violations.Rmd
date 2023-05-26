@@ -1,21 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Minor violations
 ---
 
 ```{r miv-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output = tempfile()))
 ```
 
-# Minor Violations
+This section covers the analysis relating to the _minor violations_ metric.
 
-This section covers the analysis relating to the "minor violations" metric.
-
-## Prepare data
+## Data preparation
 
 ```{r miv-prepare-data}
-# The model seed is the date that the analysis was conducted
-model_seed <- 20230328
+model_seed <- 20230328  # 2023 March 28
 
 create_minor_violations_data <- function(data) {
   list(
@@ -28,16 +24,11 @@ create_minor_violations_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_minor_violations_data(df)
 data$category <- factor(df$category)
-
-# Prepare data that factors on the presence of compiler warnings
-data_factor_uses_warnings <- create_minor_violations_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define models
+## Candidate models {.tabset}
 
 ### MIV1
 
@@ -184,7 +175,7 @@ fit_model_miv8 <- function(name, data) {
 miv8 <- fit_model_miv8("miv8", data)
 ```
 
-## Compare models
+## Model comparison
 
 ```{r miv-model-comparisons}
 miv1 <- add_criterion(miv1, criterion="loo", moment_match=TRUE)
@@ -200,33 +191,57 @@ print(loo_compare(miv1, miv2, miv3, miv4, miv5, miv6, miv7, miv8, criterion="loo
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
+
+### Prior predictive check
 
 ```{r miv-ppc}
 plot_priors(miv1, "Minor violations per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r miv-determine-natural-scale-values, message=FALSE}
+```{r miv-caterpillars, message=FALSE}
+plot_caterpillar(miv1, "b_category1", "N")
+plot_caterpillar(miv1, "b_category2", "A")
+plot_caterpillar(miv1, "b_category3", "AE")
+plot_caterpillar(miv1, "b_category5", "AEP")
+plot_caterpillar(miv1, "b_category7", "AEP+")
+```
+
+## Estimates {.tabset}
+
+### Standardized
+
+```{r miv-standardized-estimates, message=FALSE}
 summary(miv1)
+```
+
+### Natural scale
+
+```{r miv-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(miv1, df$minor_violations_kloc))
 ```
 
-## Intervals of major categories
+## Plots {.tabset}
 
-```{r miv-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+### Major category intervals
+
+```{r miv-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(miv1) +
   labs(title="MIV1", x="Minor violations per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+### Binary warning factor
 
-```{r miv-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-miv1_factor_uses_warnings <- fit_model_miv1("miv1_factor_uses_warnings",
-                                            data_factor_uses_warnings)
+```{r miv-binary-warning-factor, fig.height=2, message=FALSE}
+data_binary_factor <- create_minor_violations_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(miv1_factor_uses_warnings) +
+miv1_binary_factor <- fit_model_miv1("miv1_factor_uses_warnings",
+                                     data_binary_factor)
+
+plot_intervals_of_categories(miv1_binary_factor) +
   labs(title="MIV1", x="Minor violations per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
