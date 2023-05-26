@@ -1,0 +1,293 @@
+---
+title: Code smells
+---
+
+```{r cs-include-setup, include=FALSE}
+source(knitr::purl('setup.Rmd', output = tempfile()))
+```
+
+This section covers the analysis relating to the _code smells_ metric.
+
+## Data preparation
+
+```{r cs-prepare-data}
+model_seed <- 20230302  # 2023 March 2
+
+create_code_smells_data <- function(data) {
+  list(
+    code_smells_kloc_std=scale(data$code_smells_kloc),
+        contributors_std=scale(data$contributors),
+               stars_std=scale(data$stars),
+                 age_std=scale(get_age(data$created_at))
+  )
+}
+
+data <- create_code_smells_data(df)
+data$category <- factor(df$category)
+```
+
+## Candidate models {.tabset}
+
+### CS1
+
+```{r cs-model-1}
+fit_model_cs1 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs1 <- fit_model_cs1("cs1", data)
+```
+
+### CS2
+
+```{r cs-model-2}
+fit_model_cs2 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs2 <- fit_model_cs2("cs2", data)
+```
+
+### CS3
+
+```{r cs-model-3}
+fit_model_cs3 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs3 <- fit_model_cs3("cs3", data)
+```
+
+### CS4
+
+```{r cs-model-4}
+fit_model_cs4 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs4 <- fit_model_cs4("cs4", data)
+```
+
+### CS5
+
+```{r cs-model-5}
+fit_model_cs5 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs5 <- fit_model_cs5("cs5", data)
+```
+
+### CS6
+
+```{r cs-model-6}
+fit_model_cs6 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs6 <- fit_model_cs6("cs6", data)
+```
+
+### CS7
+
+```{r cs-model-7}
+fit_model_cs7 <- function(name, data) {
+  fit_model(name,
+            "code_smells_kloc_std ~ 0 + category + contributors_std + stars_std + age_std",
+            c(
+              prior(normal(0, 1), class=b),
+              prior(normal(0, 1), class=b, coef="contributors_std"),
+              prior(normal(0, 1), class=b, coef="stars_std"),
+              prior(normal(0, 1), class=b, coef="age_std"),
+              prior(exponential(1), class=sigma)
+            ),
+            data,
+            model_seed)
+}
+
+cs7 <- fit_model_cs7("cs7", data)
+```
+
+## Model comparison
+
+```{r cs-compare-models}
+cs1 <- add_criterion(cs1, criterion="loo", moment_match=TRUE)
+cs2 <- add_criterion(cs2, criterion="loo", moment_match=TRUE)
+cs3 <- add_criterion(cs3, criterion="loo", moment_match=TRUE)
+cs4 <- add_criterion(cs4, criterion="loo", moment_match=TRUE)
+cs5 <- add_criterion(cs5, criterion="loo", moment_match=TRUE)
+cs6 <- add_criterion(cs6, criterion="loo", moment_match=TRUE)
+cs7 <- add_criterion(cs7, criterion="loo", moment_match=TRUE)
+
+print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6, cs7, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Diagnostics {.tabset}
+
+### Prior predictive check
+
+```{r cs-ppc}
+plot_priors(cs6, "Code smells per KLOC (std)")
+```
+
+### MCMC chain trace plots
+
+```{r b-caterpillars, message=FALSE}
+plot_caterpillar(cs6, "b_category1", "N")
+plot_caterpillar(cs6, "b_category2", "A")
+plot_caterpillar(cs6, "b_category3", "AE")
+plot_caterpillar(cs6, "b_category5", "AEP")
+plot_caterpillar(cs6, "b_category7", "AEP+")
+```
+
+## Full population
+
+This section covers the analysis using the full sample population.
+
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r cs-standardized-estimates}
+summary(cs6)
+print(create_natural_scale_summary_df(cs6, df$code_smells_kloc))
+```
+
+#### Natural scale
+
+```{r cs-natural-scale-estimates}
+print(create_natural_scale_summary_df(cs6, df$code_smells_kloc))
+```
+
+### Plots {.tabset}
+
+#### Major category intervals
+
+```{r cs-plot-intervals-of-major-categories, message=FALSE, fig.height=2.8}
+plot_intervals_of_major_categories(cs6) +
+  labs(title="CS6", x="Code smells per KLOC (std)")
+```
+
+#### Binary warning usage
+
+```{r cs-warnings-vs-no-warnings, message=FALSE, fig.height=2}
+data_binary_factor  <- create_code_smells_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
+
+cs6_binary_factor <- fit_model_cs6("cs6_factor_uses_warnings",
+                                     data_binary_factor)
+
+plot_intervals_of_categories(cs6_binary_factor) +
+  labs(title="CS6", x="Code smells per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
+
+## Culled population
+
+There are outliers in category AEP and AEP+, "clipp" and "hana", which bias the analysis results.
+Here we remove these samples and fit CS2 to the trimmed data.
+
+```{r cs-remove-outliers, message=FALSE}
+df_culled <- df
+df_culled <- df_culled[df_culled$name != "clipp",]
+df_culled <- df_culled[df_culled$name != "hana",]
+
+culled_data <- create_code_smells_data(df_culled)
+culled_data$category <- factor(df_culled$category)
+
+cs6_culled <- fit_model_cs6("cs6_no_outliers", culled_data)
+```
+
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r cs-culled-standardized-estimates, message=FALSE}
+summary(cs6_culled)
+```
+
+#### Natural scale
+
+```{r cs-culled-natural-scale-estimates, message=FALSE}
+print(create_natural_scale_summary_df(cs6_culled, df_culled$code_smells_kloc))
+```
+
+### Plots {.tabset}
+
+#### Major category intervals
+
+```{r cs-plot-culled-intervals, message=FALSE, fig.height=2.8}
+plot_intervals_of_major_categories(cs6_culled) +
+  labs(title="CS6 (culled)", x="Code smells per KLOC (std)")
+```
+
+#### Binary warning usage
+
+```{r cs-plot-culled-binary-factor, message=FALSE, fig.height=2}
+data_culled_binary_factor <- create_code_smells_data(df_culled)
+data_culled_binary_factor$category <- factor(uses_warnings(df_culled$category))
+
+cs6_culled_binary_factor <-
+  fit_model_cs6("cs6_data_no_outliers_factor_uses_warnings",
+                data_culled_binary_factor)
+
+plot_intervals_of_categories(cs6_culled_binary_factor) +
+  labs(title="CS6 (culled)", x="Code smells per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
