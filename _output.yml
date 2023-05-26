@@ -1,0 +1,9 @@
+html_document:
+  theme: "cosmo"         # default, bootstrap, cerulean, cosmo, darkly, flatly, journal, lumen, paper, readable, sandstone, simplex, spacelab, united, yeti
+  highlight: "pygments"  # default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark, textmate
+  toc: true
+  toc_float: true
+  code_download: false
+  self_contained: true
+  df_print: "paged"
+  lib_dir: "docs/html/lib"

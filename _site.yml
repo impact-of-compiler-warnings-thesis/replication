@@ -1,0 +1,21 @@
+name: "The Impact of Compiler Warnings on Code Quality in C++ Projects"
+output_dir: "docs"
+navbar:
+  title: "Overview"
+  left:
+    - text: "Setup"
+      href: "setup.html"
+    - text: "Causality"
+      href: "causal_analysis.html"
+    - text: "Analysis"
+      menu:
+        - text: "Bugs"
+          href: "bugs.html"
+  right:
+    - text: "Source"
+      icon: fab fa-github
+      href: "https://github.com/impact-of-compiler-warnings-thesis/replication"
+output:
+  html_document:
+    include:
+      after_body: "footer.html"

@@ -1,29 +1,23 @@
 ---
-title: The Impact of Compiler Warnings on Code Quality in C++ Projects
+title: Replication package
 author: Albin Johansson & Carl Holmberg
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-documentclass: book
-link-citations: yes   
-github-repo: impact-of-compiler-warnings-thesis/replication
-output: 
-  bookdown::gitbook:
-    css: style.css
-    config:
-      info: true
-      download: null
-      sharing:
-        github: true
-        facebook: false
-        twitter: false
-        linkedin: false
-        weibo: false
-        instapaper: false
-        vk: false
-        whatsapp: false
-        all: []
 ---
 
-# Impact of Compiler Warnings on Software Quality
+This is the replication package accompanying the Master thesis "*The Impact of Compiler Warnings on Code Quality in C++ Projects*" written by Albin Johansson and Carl Holmberg at Chalmers University of Technology.
 
-This is the replication package accompanying the Master thesis "The Impact of Compiler Warnings on Code Quality in C++ Projects" written by Albin Johansson and Carl Holmberg.
+- [Setup](setup.html)
+- [Data summary](data_summary.html)
+- [Causal analysis](causal_analysis.html)
+- Analysis
+  -   [Bugs](bugs.html)
+  -   [Code smells](code_smells.html)
+  -   [Critical violations](critical_violations.html)
+  -   [Major violations](major_violations.html)
+  -   [Minor violations](minor_violations.html)
+  -   [Security hotspots](security_hotspots.html)
+  -   [Vulnerabilities](vulnerabilities.html)
+  -   [Cyclomatic complexity](cyclomatic_complexity.html)
+  -   [Cognitive complexity](cognitive_complexity.html)
+  -   [Duplicated lines](duplicated_lines.html)
+  -   [Technical debt](technical_debt.html)
