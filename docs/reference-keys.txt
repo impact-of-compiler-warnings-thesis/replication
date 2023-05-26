@@ -34,6 +34,7 @@ b4
 b5
 b6
 compare-models
+prior-predictive-checks
 determine-natural-scale-values
 intervals-of-major-categories
 warnings-versus-no-warnings
@@ -48,6 +49,7 @@ cs5
 cs6
 cs7
 compare-models-1
+prior-predictive-checks-1
 determine-natural-scale-values-1
 intervals-of-major-categories-1
 warnings-versus-no-warnings-1
@@ -64,6 +66,7 @@ cv6
 cv7
 cv8
 compare-models-2
+prior-predictive-checks-2
 determine-natural-scale-values-2
 intervals-of-major-categories-2
 warnings-versus-no-warnings-2
@@ -78,6 +81,7 @@ mav6
 mav7
 mav8
 compare-models-3
+prior-predictive-checks-3
 determine-natural-scale-values-3
 intervals-of-major-categories-3
 warnings-versus-no-warnings-3
@@ -94,6 +98,7 @@ miv6
 miv7
 miv8
 compare-models-4
+prior-predictive-checks-4
 determine-natural-scale-values-4
 intervals-of-major-categories-4
 warnings-versus-no-warnings-4
@@ -109,6 +114,7 @@ s6
 s7
 s8
 compare-models-5
+prior-predictive-checks-5
 determine-natural-scale-values-5
 intervals-of-major-categories-5
 warnings-versus-no-warnings-5
@@ -124,6 +130,7 @@ v6
 v7
 v8
 compare-models-6
+prior-predictive-checks-6
 determine-natural-scale-values-6
 intervals-of-major-categories-6
 warnings-versus-no-warnings-6
@@ -139,6 +146,7 @@ cyc6
 cyc7
 cyc8
 compare-models-7
+prior-predictive-checks-7
 determine-natural-scale-values-7
 intervals-of-major-categories-7
 warnings-versus-no-warnings-7
@@ -155,6 +163,7 @@ cog6
 cog7
 cog8
 compare-models-8
+prior-predictive-checks-8
 determine-natural-scale-values-8
 credible-intervals-of-major-categories
 warnings-versus-no-warnings-8
@@ -170,6 +179,7 @@ d6
 d7
 d8
 compare-models-9
+prior-predictive-checks-9
 determine-natural-scale-values-9
 credible-intervals-of-major-categories-1
 warnings-versus-no-warnings-9
@@ -185,6 +195,7 @@ td6
 td7
 td8
 compare-models-10
+prior-predictive-checks-10
 determine-natural-scale-values-10
 intervals-of-major-categories-8
 warnings-versus-no-warnings-10
