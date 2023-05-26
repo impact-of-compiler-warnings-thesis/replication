@@ -1,21 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Security hotspots
 ---
 
 ```{r s-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output=tempfile()))
 ```
 
-# Security Hotspots
+This section covers the analysis relating to the _security hotspots_ metric.
 
-This section covers the analysis relating to the "security hotspots" metric.
-
-## Prepare data
+## Data preparation
 
 ```{r s-prepare-data}
-# The model seed is the date that the analysis was conducted
-model_seed <- 20230330
+model_seed <- 20230330  # 2023 March 30
 
 create_security_hotspots_data <- function(data) {
   list(
@@ -28,16 +24,11 @@ create_security_hotspots_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_security_hotspots_data(df)
 data$category <- factor(df$category)
-
-# Prepare data that factors on the presence of compiler warnings
-data_factor_uses_warnings <- create_security_hotspots_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define models
+## Candidate models {.tabset}
 
 ### S1
 
@@ -184,9 +175,9 @@ fit_model_s8 <- function(name, data) {
 s8 <- fit_model_s8("s8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r s-model-comparisons}
+```{r s-model-comparisons, message=FALSE}
 s1 <- add_criterion(s1, criterion="loo", moment_match=TRUE)
 s2 <- add_criterion(s2, criterion="loo", moment_match=TRUE)
 s3 <- add_criterion(s3, criterion="loo", moment_match=TRUE)
@@ -200,33 +191,56 @@ print(loo_compare(s1, s2, s3, s4, s5, s6, s7, s8, criterion="loo"),
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
+
+### Prior predictive check
 
 ```{r s-ppc}
 plot_priors(s2, "Security hotspots per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r s-determine-natural-scale-values}
+```{r s-caterpillars, message=FALSE}
+plot_caterpillar(s2, "b_category1", "N")
+plot_caterpillar(s2, "b_category2", "A")
+plot_caterpillar(s2, "b_category3", "AE")
+plot_caterpillar(s2, "b_category5", "AEP")
+plot_caterpillar(s2, "b_category7", "AEP+")
+```
+
+## Estimates {.tabset}
+
+### Standardized
+
+```{r s-standardized-estimates, message=FALSE}
 summary(s2)
+```
+
+### Natural scale
+
+```{r s-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(s2, df$security_hotspots_kloc))
 ```
 
-## Intervals of major categories
+## Plots {.tabset}
 
-```{r s-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+### Major category intervals
+
+```{r s-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(s2) +
   labs(title="S2", x="Security hotspots per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+### Binary warning usage
 
-```{r s-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-s2_factor_uses_warnings <- fit_model_s2("s2_factor_uses_warnings",
-                                        data_factor_uses_warnings)
+```{r s-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor <- create_security_hotspots_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(s2_factor_uses_warnings) +
+s2_binary_factor <- fit_model_s2("s2_factor_uses_warnings", data_binary_factor)
+
+plot_intervals_of_categories(s2_binary_factor) +
   labs(title="S2", x="Security hotspots per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
