@@ -182,6 +182,12 @@ print(loo_compare(cs1, cs2, cs3, cs4, cs5, cs6, cs7, criterion="loo"),
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r cs-ppc}
+plot_priors(cs6, "Code smells per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r cs-determine-natural-scale-values}

@@ -194,6 +194,12 @@ print(loo_compare(cog1, cog2, cog3, cog4, cog5, cog6, cog7, cog8, criterion="loo
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r cog-ppc}
+plot_priors(cog5, "Cognitive complexity per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r cog-determine-natural-scale-values}

@@ -200,6 +200,12 @@ print(loo_compare(miv1, miv2, miv3, miv4, miv5, miv6, miv7, miv8, criterion="loo
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r miv-ppc}
+plot_priors(miv1, "Minor violations per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r miv-determine-natural-scale-values, message=FALSE}

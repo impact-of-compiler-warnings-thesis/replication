@@ -200,6 +200,12 @@ print(loo_compare(d1, d2, d3, d4, d5, d6, d7, d8, criterion="loo"),
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r dl-ppc}
+plot_priors(d6, "Duplicated lines per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r dl-determine-natural-scale-values}

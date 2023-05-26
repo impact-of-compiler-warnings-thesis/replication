@@ -200,6 +200,12 @@ print(loo_compare(s1, s2, s3, s4, s5, s6, s7, s8, criterion="loo"),
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r s-ppc}
+plot_priors(s2, "Security hotspots per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r s-determine-natural-scale-values}

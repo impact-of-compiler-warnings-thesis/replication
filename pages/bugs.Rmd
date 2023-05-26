@@ -163,6 +163,13 @@ b6 <- add_criterion(b6, criterion="loo", moment_match=TRUE)
 print(loo_compare(b1, b2, b3, b4, b5, b6, criterion="loo"), simplify=FALSE)
 ```
 
+
+## Prior predictive checks
+
+```{r b-ppc}
+plot_priors(b1, "Bugs per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r b-determine-natural-scale-values}

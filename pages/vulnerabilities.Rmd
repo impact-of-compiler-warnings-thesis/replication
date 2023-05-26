@@ -200,6 +200,12 @@ print(loo_compare(v1, v2, v3, v4, v5, v6, v7, v8, criterion="loo"),
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r v-ppc}
+plot_priors(v1, "Vulnerabilities per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r v-determine-natural-scale-values}

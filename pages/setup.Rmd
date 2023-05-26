@@ -176,6 +176,13 @@ plot_intervals_of_major_categories <- function(fit) {
                        "b_category7"="AEP+"
                      ))
 }
+
+# Plots a prior predictive check plot
+plot_priors <- function(fit, xlab) {
+  pp_check(fit, ndraws=25) +
+    theme_default(base_family="sans", base_size=14) +
+    labs(title="Prior predictive checks", x=xlab, y="Probability density")
+}
 ```
 
 The data we need has been prepared in a separate CSV file, all we need to do is load it. However, we will need to create some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.

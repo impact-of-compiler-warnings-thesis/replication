@@ -196,6 +196,12 @@ print(loo_compare(mav1, mav2, mav3, mav4, mav5, mav6, mav7, mav8, criterion="loo
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r mav-ppc}
+plot_priors(mav5, "Major violations per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r mav-determine-natural-scale-values, message=FALSE}

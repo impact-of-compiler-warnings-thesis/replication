@@ -200,6 +200,12 @@ print(loo_compare(cyc1, cyc2, cyc3, cyc4, cyc5, cyc6, cyc7, cyc8, criterion="loo
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r cyc-ppc}
+plot_priors(cyc7, "Cyclomatic complexity per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r cyc-determine-natural-scale-values}

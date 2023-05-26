@@ -201,6 +201,12 @@ print(loo_compare(cv1, cv2, cv3, cv4, cv5, cv6, cv7, cv8, criterion="loo"),
       simplify=FALSE)
 ```
 
+## Prior predictive checks
+
+```{r cv-ppc}
+plot_priors(cv1, "Critical violations per KLOC (std)")
+```
+
 ## Determine natural scale values
 
 ```{r cv-determine-natural-scale-values}
