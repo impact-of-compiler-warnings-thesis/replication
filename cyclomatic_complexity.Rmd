@@ -1,21 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Cyclomatic complexity
 ---
 
 ```{r cyc-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output=tempfile()))
 ```
 
-# Cyclomatic Complexity
+This section covers the analysis relating to the _cyclomatic complexity_ metric.
 
-This section covers the analysis relating to the cyclomatic complexity metric.
+## Data preparation
 
-## Prepare data
-
-```{r cyc-prepare-data}
-# The model seed is the date that the analysis was conducted
-model_seed <- 20230331
+```{r cyc-data-preparation}
+model_seed <- 20230331 # 2023 March 31
 
 create_cyclomatic_complexity_data <- function(data) {
   list(
@@ -28,16 +24,11 @@ create_cyclomatic_complexity_data <- function(data) {
   )
 }
 
-# Prepare data with all categories as factors (1-11).
 data <- create_cyclomatic_complexity_data(df)
 data$category <- factor(df$category)
-
-# Prepare data that factors on the presence of compiler warnings
-data_factor_uses_warnings <- create_cyclomatic_complexity_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-## Define models
+## Candidate models {.tabset}
 
 ### CYC1
 
@@ -184,9 +175,9 @@ fit_model_cyc8 <- function(name, data) {
 cyc8 <- fit_model_cyc8("cyc8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r cyc-compare-models, message=FALSE}
+```{r cyc-model-comparison, message=FALSE}
 cyc1 <- add_criterion(cyc1, criterion="loo", moment_match=FALSE)
 cyc2 <- add_criterion(cyc2, criterion="loo", moment_match=FALSE)
 cyc3 <- add_criterion(cyc3, criterion="loo", moment_match=FALSE)
@@ -200,33 +191,59 @@ print(loo_compare(cyc1, cyc2, cyc3, cyc4, cyc5, cyc6, cyc7, cyc8, criterion="loo
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
+
+### Prior predictive check
 
 ```{r cyc-ppc}
 plot_priors(cyc7, "Cyclomatic complexity per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r cyc-determine-natural-scale-values}
+```{r cyc-caterpillars, message=FALSE}
+plot_caterpillar(cyc7, "b_category1", "N")
+plot_caterpillar(cyc7, "b_category2", "A")
+plot_caterpillar(cyc7, "b_category3", "AE")
+plot_caterpillar(cyc7, "b_category5", "AEP")
+plot_caterpillar(cyc7, "b_category7", "AEP+")
+```
+
+## Full population
+
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r cyc-full-standardized-estimates, message=FALSE}
 summary(cyc7)
+```
+
+#### Natural scale
+
+```{r cyc-full-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(cyc7, df$cyclomatic_complexity_kloc))
 ```
 
-## Intervals of major categories
+### Plots {.tabset}
 
-```{r cyc-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+#### Major category intervals
+
+```{r cyc-full-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(cyc7) +
   labs(title="CYC7", x="Cyclomatic complexity per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+#### Binary warning usage
 
-```{r cyc-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
-cyc7_factor_uses_warnings <- fit_model_cyc7("cyc7_factor_uses_warnings",
-                                            data_factor_uses_warnings)
+```{r cyc-full-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor <- create_cyclomatic_complexity_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
 
-plot_intervals_of_categories(cyc7_factor_uses_warnings) +
+cyc7_binary_factor <- fit_model_cyc7("cyc7_factor_uses_warnings",
+                                     data_binary_factor)
+
+plot_intervals_of_categories(cyc7_binary_factor) +
   labs(title="CYC7", x="Cyclomatic complexity per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
@@ -234,7 +251,7 @@ plot_intervals_of_categories(cyc7_factor_uses_warnings) +
                    ))
 ```
 
-## Without outliers
+## Culled population
 
 Category AEP+ has a notable outlier, "better-enums".
 We will remove it from the sample population to see how this affects the analysis results. 
@@ -243,40 +260,50 @@ We will remove it from the sample population to see how this affects the analysi
 df_culled <- df
 df_culled <- df_culled[df_culled$name != "better-enums",]
 
-culled_data <- create_cyclomatic_complexity_data(df_culled)
-culled_data$category <- factor(df_culled$category)
+data_culled <- create_cyclomatic_complexity_data(df_culled)
+data_culled$category <- factor(df_culled$category)
 
-cyc7_culled <- fit_model_cyc7("cyc7_no_outliers", culled_data)
-
-summary(cyc7_culled)
-print(create_natural_scale_summary_df(cyc7_culled, df_culled$cyclomatic_complexity_kloc))
+cyc7_culled <- fit_model_cyc7("cyc7_no_outliers", data_culled)
 ```
 
-We can now plot the credible intervals of the major categories again, and see that
-AEP+ has dramatically improved as a result of removing the outlier.
-The plot indicates that there is no clear correlation between use of compiler warnings and cyclomatic complexity.
+### Estimates {.tabset}
 
-```{r cyc-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+#### Standardized
+
+```{r cyc-culled-standardized-estimates, message=FALSE}
+summary(cyc7_culled)
+```
+
+#### Natural scale
+
+```{r cyc-culled-natural-scale-estimates, message=FALSE}
+print(create_natural_scale_summary_df(cyc7_culled,
+                                      df_culled$cyclomatic_complexity_kloc))
+```
+
+### Plots {.tabset}
+
+### Major category intervals
+
+```{r cyc-culled-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(cyc7_culled) +
   labs(title="CYC7 (culled)", x="Cyclomatic complexity per KLOC (std)")
 ```
 
-However, projects that do not use warnings still have lower cyclomatic complexity
-than those who do use warnings.
+### Binary warning usage
 
-```{r cyc-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}
-data_cyc_factor_uses_warnings <- create_cyclomatic_complexity_data(df_culled)
-data_cyc_factor_uses_warnings$category <- factor(uses_warnings(df_culled$category))
+```{r cyc-culled-binary-warning-usage, fig.height=2, message=FALSE}
+data_binary_factor_culled <- create_cyclomatic_complexity_data(df_culled)
+data_binary_factor_culled$category <- factor(uses_warnings(df_culled$category))
 
-cyc7_culled_factor_uses_warnings <-
+cyc7_binary_factor_culled <-
   fit_model_cyc7("cyc7_no_outliers_factor_uses_warnings", 
-                 data_cyc_factor_uses_warnings)
+                 data_binary_factor_culled)
 
-plot_intervals_of_categories(cyc7_culled_factor_uses_warnings) +
+plot_intervals_of_categories(cyc7_binary_factor_culled) +
   labs(title="CYC7 (culled)", x="Cyclomatic complexity per KLOC (std)") +
   scale_y_discrete(labels=c(
                      "b_category1"="No warnings",
                      "b_category2"="Any warnings"
                    ))
 ```
-
