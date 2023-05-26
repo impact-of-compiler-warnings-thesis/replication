@@ -1,65 +1,69 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+
+<html>
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Setup | The Impact of Compiler Warnings on Code Quality in C++ Projects</title>
-  <meta name="description" content="Chapter 3 Setup | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 3 Setup | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta name="github-repo" content="impact-of-compiler-warnings-thesis/replication" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Setup | The Impact of Compiler Warnings on Code Quality in C++ Projects" />
-  
-  
-  
-
-<meta name="author" content="Albin Johansson &amp; Carl Holmberg" />
-
-
-<meta name="date" content="2023-01-01" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="introduction.html"/>
-<link rel="next" href="causal-analysis.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
+<title>Setup</title>
 
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -117,471 +121,526 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
-<link rel="stylesheet" href="style.css" type="text/css" />
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
 </head>
 
 <body>
 
 
+<div class="container-fluid main-container">
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
-    <div class="book-summary">
-      <nav role="navigation">
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
 
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Impact of Compiler Warnings on Software Quality</a></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>3</b> Setup</a></li>
-<li class="chapter" data-level="4" data-path="causal-analysis.html"><a href="causal-analysis.html"><i class="fa fa-check"></i><b>4</b> Causal analysis</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="causal-analysis.html"><a href="causal-analysis.html#dag"><i class="fa fa-check"></i><b>4.1</b> DAG</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-summary.html"><a href="data-summary.html"><i class="fa fa-check"></i><b>5</b> Data summary</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="data-summary.html"><a href="data-summary.html#plot-category-sample-distribution"><i class="fa fa-check"></i><b>5.1</b> Plot category sample distribution</a></li>
-<li class="chapter" data-level="5.2" data-path="data-summary.html"><a href="data-summary.html#prepare-for-metric-summary-plots"><i class="fa fa-check"></i><b>5.2</b> Prepare for metric summary plots</a></li>
-<li class="chapter" data-level="5.3" data-path="data-summary.html"><a href="data-summary.html#category-overview-plots"><i class="fa fa-check"></i><b>5.3</b> Category overview plots</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="data-summary.html"><a href="data-summary.html#loc-per-sample"><i class="fa fa-check"></i><b>5.3.1</b> LOC per sample</a></li>
-<li class="chapter" data-level="5.3.2" data-path="data-summary.html"><a href="data-summary.html#loc-per-category"><i class="fa fa-check"></i><b>5.3.2</b> LOC per category</a></li>
-<li class="chapter" data-level="5.3.3" data-path="data-summary.html"><a href="data-summary.html#stars-per-category"><i class="fa fa-check"></i><b>5.3.3</b> Stars per category</a></li>
-<li class="chapter" data-level="5.3.4" data-path="data-summary.html"><a href="data-summary.html#age-per-sample"><i class="fa fa-check"></i><b>5.3.4</b> Age per sample</a></li>
-<li class="chapter" data-level="5.3.5" data-path="data-summary.html"><a href="data-summary.html#age-per-category"><i class="fa fa-check"></i><b>5.3.5</b> Age per category</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="data-summary.html"><a href="data-summary.html#metric-summary-plots"><i class="fa fa-check"></i><b>5.4</b> Metric summary plots</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="data-summary.html"><a href="data-summary.html#bugs"><i class="fa fa-check"></i><b>5.4.1</b> Bugs</a></li>
-<li class="chapter" data-level="5.4.2" data-path="data-summary.html"><a href="data-summary.html#code-smells"><i class="fa fa-check"></i><b>5.4.2</b> Code smells</a></li>
-<li class="chapter" data-level="5.4.3" data-path="data-summary.html"><a href="data-summary.html#critical-violations"><i class="fa fa-check"></i><b>5.4.3</b> Critical violations</a></li>
-<li class="chapter" data-level="5.4.4" data-path="data-summary.html"><a href="data-summary.html#major-violations"><i class="fa fa-check"></i><b>5.4.4</b> Major violations</a></li>
-<li class="chapter" data-level="5.4.5" data-path="data-summary.html"><a href="data-summary.html#minor-violations"><i class="fa fa-check"></i><b>5.4.5</b> Minor violations</a></li>
-<li class="chapter" data-level="5.4.6" data-path="data-summary.html"><a href="data-summary.html#security-hotspots"><i class="fa fa-check"></i><b>5.4.6</b> Security hotspots</a></li>
-<li class="chapter" data-level="5.4.7" data-path="data-summary.html"><a href="data-summary.html#vulnerabilities"><i class="fa fa-check"></i><b>5.4.7</b> Vulnerabilities</a></li>
-<li class="chapter" data-level="5.4.8" data-path="data-summary.html"><a href="data-summary.html#cyclomatic-complexity"><i class="fa fa-check"></i><b>5.4.8</b> Cyclomatic complexity</a></li>
-<li class="chapter" data-level="5.4.9" data-path="data-summary.html"><a href="data-summary.html#cognitive-complexity"><i class="fa fa-check"></i><b>5.4.9</b> Cognitive complexity</a></li>
-<li class="chapter" data-level="5.4.10" data-path="data-summary.html"><a href="data-summary.html#duplicated-lines"><i class="fa fa-check"></i><b>5.4.10</b> Duplicated lines</a></li>
-<li class="chapter" data-level="5.4.11" data-path="data-summary.html"><a href="data-summary.html#technical-debt-ratio"><i class="fa fa-check"></i><b>5.4.11</b> Technical Debt Ratio</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="bugs-1.html"><a href="bugs-1.html"><i class="fa fa-check"></i><b>6</b> Bugs</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="bugs-1.html"><a href="bugs-1.html#prepare-data"><i class="fa fa-check"></i><b>6.1</b> Prepare data</a></li>
-<li class="chapter" data-level="6.2" data-path="bugs-1.html"><a href="bugs-1.html#define-models"><i class="fa fa-check"></i><b>6.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="bugs-1.html"><a href="bugs-1.html#b1"><i class="fa fa-check"></i><b>6.2.1</b> B1</a></li>
-<li class="chapter" data-level="6.2.2" data-path="bugs-1.html"><a href="bugs-1.html#b2"><i class="fa fa-check"></i><b>6.2.2</b> B2</a></li>
-<li class="chapter" data-level="6.2.3" data-path="bugs-1.html"><a href="bugs-1.html#b3"><i class="fa fa-check"></i><b>6.2.3</b> B3</a></li>
-<li class="chapter" data-level="6.2.4" data-path="bugs-1.html"><a href="bugs-1.html#b4"><i class="fa fa-check"></i><b>6.2.4</b> B4</a></li>
-<li class="chapter" data-level="6.2.5" data-path="bugs-1.html"><a href="bugs-1.html#b5"><i class="fa fa-check"></i><b>6.2.5</b> B5</a></li>
-<li class="chapter" data-level="6.2.6" data-path="bugs-1.html"><a href="bugs-1.html#b6"><i class="fa fa-check"></i><b>6.2.6</b> B6</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="bugs-1.html"><a href="bugs-1.html#compare-models"><i class="fa fa-check"></i><b>6.3</b> Compare models</a></li>
-<li class="chapter" data-level="6.4" data-path="bugs-1.html"><a href="bugs-1.html#prior-predictive-checks"><i class="fa fa-check"></i><b>6.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="6.5" data-path="bugs-1.html"><a href="bugs-1.html#determine-natural-scale-values"><i class="fa fa-check"></i><b>6.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="6.6" data-path="bugs-1.html"><a href="bugs-1.html#intervals-of-major-categories"><i class="fa fa-check"></i><b>6.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="6.7" data-path="bugs-1.html"><a href="bugs-1.html#warnings-versus-no-warnings"><i class="fa fa-check"></i><b>6.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="code-smells-1.html"><a href="code-smells-1.html"><i class="fa fa-check"></i><b>7</b> Code Smells</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="code-smells-1.html"><a href="code-smells-1.html#prepare-data-1"><i class="fa fa-check"></i><b>7.1</b> Prepare data</a></li>
-<li class="chapter" data-level="7.2" data-path="code-smells-1.html"><a href="code-smells-1.html#define-models-1"><i class="fa fa-check"></i><b>7.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="code-smells-1.html"><a href="code-smells-1.html#cs1"><i class="fa fa-check"></i><b>7.2.1</b> CS1</a></li>
-<li class="chapter" data-level="7.2.2" data-path="code-smells-1.html"><a href="code-smells-1.html#cs2"><i class="fa fa-check"></i><b>7.2.2</b> CS2</a></li>
-<li class="chapter" data-level="7.2.3" data-path="code-smells-1.html"><a href="code-smells-1.html#cs3"><i class="fa fa-check"></i><b>7.2.3</b> CS3</a></li>
-<li class="chapter" data-level="7.2.4" data-path="code-smells-1.html"><a href="code-smells-1.html#cs4"><i class="fa fa-check"></i><b>7.2.4</b> CS4</a></li>
-<li class="chapter" data-level="7.2.5" data-path="code-smells-1.html"><a href="code-smells-1.html#cs5"><i class="fa fa-check"></i><b>7.2.5</b> CS5</a></li>
-<li class="chapter" data-level="7.2.6" data-path="code-smells-1.html"><a href="code-smells-1.html#cs6"><i class="fa fa-check"></i><b>7.2.6</b> CS6</a></li>
-<li class="chapter" data-level="7.2.7" data-path="code-smells-1.html"><a href="code-smells-1.html#cs7"><i class="fa fa-check"></i><b>7.2.7</b> CS7</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="code-smells-1.html"><a href="code-smells-1.html#compare-models-1"><i class="fa fa-check"></i><b>7.3</b> Compare models</a></li>
-<li class="chapter" data-level="7.4" data-path="code-smells-1.html"><a href="code-smells-1.html#prior-predictive-checks-1"><i class="fa fa-check"></i><b>7.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="7.5" data-path="code-smells-1.html"><a href="code-smells-1.html#determine-natural-scale-values-1"><i class="fa fa-check"></i><b>7.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="7.6" data-path="code-smells-1.html"><a href="code-smells-1.html#intervals-of-major-categories-1"><i class="fa fa-check"></i><b>7.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="7.7" data-path="code-smells-1.html"><a href="code-smells-1.html#warnings-versus-no-warnings-1"><i class="fa fa-check"></i><b>7.7</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="7.8" data-path="code-smells-1.html"><a href="code-smells-1.html#without-outliers"><i class="fa fa-check"></i><b>7.8</b> Without outliers</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="critical-violations-1.html"><a href="critical-violations-1.html"><i class="fa fa-check"></i><b>8</b> Critical Violations</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#prepare-data-2"><i class="fa fa-check"></i><b>8.1</b> Prepare Data</a></li>
-<li class="chapter" data-level="8.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#define-models-2"><i class="fa fa-check"></i><b>8.2</b> Define Models</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv1"><i class="fa fa-check"></i><b>8.2.1</b> CV1</a></li>
-<li class="chapter" data-level="8.2.2" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv2"><i class="fa fa-check"></i><b>8.2.2</b> CV2</a></li>
-<li class="chapter" data-level="8.2.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv3"><i class="fa fa-check"></i><b>8.2.3</b> CV3</a></li>
-<li class="chapter" data-level="8.2.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv4"><i class="fa fa-check"></i><b>8.2.4</b> CV4</a></li>
-<li class="chapter" data-level="8.2.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv5"><i class="fa fa-check"></i><b>8.2.5</b> CV5</a></li>
-<li class="chapter" data-level="8.2.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv6"><i class="fa fa-check"></i><b>8.2.6</b> CV6</a></li>
-<li class="chapter" data-level="8.2.7" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv7"><i class="fa fa-check"></i><b>8.2.7</b> CV7</a></li>
-<li class="chapter" data-level="8.2.8" data-path="critical-violations-1.html"><a href="critical-violations-1.html#cv8"><i class="fa fa-check"></i><b>8.2.8</b> CV8</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="critical-violations-1.html"><a href="critical-violations-1.html#compare-models-2"><i class="fa fa-check"></i><b>8.3</b> Compare models</a></li>
-<li class="chapter" data-level="8.4" data-path="critical-violations-1.html"><a href="critical-violations-1.html#prior-predictive-checks-2"><i class="fa fa-check"></i><b>8.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="8.5" data-path="critical-violations-1.html"><a href="critical-violations-1.html#determine-natural-scale-values-2"><i class="fa fa-check"></i><b>8.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="8.6" data-path="critical-violations-1.html"><a href="critical-violations-1.html#intervals-of-major-categories-2"><i class="fa fa-check"></i><b>8.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="8.7" data-path="critical-violations-1.html"><a href="critical-violations-1.html#warnings-versus-no-warnings-2"><i class="fa fa-check"></i><b>8.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="major-violations-1.html"><a href="major-violations-1.html"><i class="fa fa-check"></i><b>9</b> Major Violations</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="major-violations-1.html"><a href="major-violations-1.html#prepare-data-3"><i class="fa fa-check"></i><b>9.1</b> Prepare Data</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="major-violations-1.html"><a href="major-violations-1.html#mav1"><i class="fa fa-check"></i><b>9.1.1</b> MAV1</a></li>
-<li class="chapter" data-level="9.1.2" data-path="major-violations-1.html"><a href="major-violations-1.html#mav2"><i class="fa fa-check"></i><b>9.1.2</b> MAV2</a></li>
-<li class="chapter" data-level="9.1.3" data-path="major-violations-1.html"><a href="major-violations-1.html#mav3"><i class="fa fa-check"></i><b>9.1.3</b> MAV3</a></li>
-<li class="chapter" data-level="9.1.4" data-path="major-violations-1.html"><a href="major-violations-1.html#mav4"><i class="fa fa-check"></i><b>9.1.4</b> MAV4</a></li>
-<li class="chapter" data-level="9.1.5" data-path="major-violations-1.html"><a href="major-violations-1.html#mav5"><i class="fa fa-check"></i><b>9.1.5</b> MAV5</a></li>
-<li class="chapter" data-level="9.1.6" data-path="major-violations-1.html"><a href="major-violations-1.html#mav6"><i class="fa fa-check"></i><b>9.1.6</b> MAV6</a></li>
-<li class="chapter" data-level="9.1.7" data-path="major-violations-1.html"><a href="major-violations-1.html#mav7"><i class="fa fa-check"></i><b>9.1.7</b> MAV7</a></li>
-<li class="chapter" data-level="9.1.8" data-path="major-violations-1.html"><a href="major-violations-1.html#mav8"><i class="fa fa-check"></i><b>9.1.8</b> MAV8</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="major-violations-1.html"><a href="major-violations-1.html#compare-models-3"><i class="fa fa-check"></i><b>9.2</b> Compare models</a></li>
-<li class="chapter" data-level="9.3" data-path="major-violations-1.html"><a href="major-violations-1.html#prior-predictive-checks-3"><i class="fa fa-check"></i><b>9.3</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="9.4" data-path="major-violations-1.html"><a href="major-violations-1.html#determine-natural-scale-values-3"><i class="fa fa-check"></i><b>9.4</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="9.5" data-path="major-violations-1.html"><a href="major-violations-1.html#intervals-of-major-categories-3"><i class="fa fa-check"></i><b>9.5</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="9.6" data-path="major-violations-1.html"><a href="major-violations-1.html#warnings-versus-no-warnings-3"><i class="fa fa-check"></i><b>9.6</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="9.7" data-path="major-violations-1.html"><a href="major-violations-1.html#without-clipp"><i class="fa fa-check"></i><b>9.7</b> Without <code>clipp</code></a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="minor-violations-1.html"><a href="minor-violations-1.html"><i class="fa fa-check"></i><b>10</b> Minor Violations</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#prepare-data-4"><i class="fa fa-check"></i><b>10.1</b> Prepare data</a></li>
-<li class="chapter" data-level="10.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#define-models-3"><i class="fa fa-check"></i><b>10.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv1"><i class="fa fa-check"></i><b>10.2.1</b> MIV1</a></li>
-<li class="chapter" data-level="10.2.2" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv2"><i class="fa fa-check"></i><b>10.2.2</b> MIV2</a></li>
-<li class="chapter" data-level="10.2.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv3"><i class="fa fa-check"></i><b>10.2.3</b> MIV3</a></li>
-<li class="chapter" data-level="10.2.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv4"><i class="fa fa-check"></i><b>10.2.4</b> MIV4</a></li>
-<li class="chapter" data-level="10.2.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv5"><i class="fa fa-check"></i><b>10.2.5</b> MIV5</a></li>
-<li class="chapter" data-level="10.2.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv6"><i class="fa fa-check"></i><b>10.2.6</b> MIV6</a></li>
-<li class="chapter" data-level="10.2.7" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv7"><i class="fa fa-check"></i><b>10.2.7</b> MIV7</a></li>
-<li class="chapter" data-level="10.2.8" data-path="minor-violations-1.html"><a href="minor-violations-1.html#miv8"><i class="fa fa-check"></i><b>10.2.8</b> MIV8</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="minor-violations-1.html"><a href="minor-violations-1.html#compare-models-4"><i class="fa fa-check"></i><b>10.3</b> Compare models</a></li>
-<li class="chapter" data-level="10.4" data-path="minor-violations-1.html"><a href="minor-violations-1.html#prior-predictive-checks-4"><i class="fa fa-check"></i><b>10.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="10.5" data-path="minor-violations-1.html"><a href="minor-violations-1.html#determine-natural-scale-values-4"><i class="fa fa-check"></i><b>10.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="10.6" data-path="minor-violations-1.html"><a href="minor-violations-1.html#intervals-of-major-categories-4"><i class="fa fa-check"></i><b>10.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="10.7" data-path="minor-violations-1.html"><a href="minor-violations-1.html#warnings-versus-no-warnings-4"><i class="fa fa-check"></i><b>10.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html"><i class="fa fa-check"></i><b>11</b> Security Hotspots</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#prepare-data-5"><i class="fa fa-check"></i><b>11.1</b> Prepare data</a></li>
-<li class="chapter" data-level="11.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#define-models-4"><i class="fa fa-check"></i><b>11.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s1"><i class="fa fa-check"></i><b>11.2.1</b> S1</a></li>
-<li class="chapter" data-level="11.2.2" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s2"><i class="fa fa-check"></i><b>11.2.2</b> S2</a></li>
-<li class="chapter" data-level="11.2.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s3"><i class="fa fa-check"></i><b>11.2.3</b> S3</a></li>
-<li class="chapter" data-level="11.2.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s4"><i class="fa fa-check"></i><b>11.2.4</b> S4</a></li>
-<li class="chapter" data-level="11.2.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s5"><i class="fa fa-check"></i><b>11.2.5</b> S5</a></li>
-<li class="chapter" data-level="11.2.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s6"><i class="fa fa-check"></i><b>11.2.6</b> S6</a></li>
-<li class="chapter" data-level="11.2.7" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s7"><i class="fa fa-check"></i><b>11.2.7</b> S7</a></li>
-<li class="chapter" data-level="11.2.8" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#s8"><i class="fa fa-check"></i><b>11.2.8</b> S8</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#compare-models-5"><i class="fa fa-check"></i><b>11.3</b> Compare models</a></li>
-<li class="chapter" data-level="11.4" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#prior-predictive-checks-5"><i class="fa fa-check"></i><b>11.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="11.5" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#determine-natural-scale-values-5"><i class="fa fa-check"></i><b>11.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="11.6" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#intervals-of-major-categories-5"><i class="fa fa-check"></i><b>11.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="11.7" data-path="security-hotspots-1.html"><a href="security-hotspots-1.html#warnings-versus-no-warnings-5"><i class="fa fa-check"></i><b>11.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html"><i class="fa fa-check"></i><b>12</b> Vulnerabilities</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#prepare-data-6"><i class="fa fa-check"></i><b>12.1</b> Prepare data</a></li>
-<li class="chapter" data-level="12.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#define-models-5"><i class="fa fa-check"></i><b>12.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="12.2.1" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v1"><i class="fa fa-check"></i><b>12.2.1</b> V1</a></li>
-<li class="chapter" data-level="12.2.2" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v2"><i class="fa fa-check"></i><b>12.2.2</b> V2</a></li>
-<li class="chapter" data-level="12.2.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v3"><i class="fa fa-check"></i><b>12.2.3</b> V3</a></li>
-<li class="chapter" data-level="12.2.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v4"><i class="fa fa-check"></i><b>12.2.4</b> V4</a></li>
-<li class="chapter" data-level="12.2.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v5"><i class="fa fa-check"></i><b>12.2.5</b> V5</a></li>
-<li class="chapter" data-level="12.2.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v6"><i class="fa fa-check"></i><b>12.2.6</b> V6</a></li>
-<li class="chapter" data-level="12.2.7" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v7"><i class="fa fa-check"></i><b>12.2.7</b> V7</a></li>
-<li class="chapter" data-level="12.2.8" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#v8"><i class="fa fa-check"></i><b>12.2.8</b> V8</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#compare-models-6"><i class="fa fa-check"></i><b>12.3</b> Compare models</a></li>
-<li class="chapter" data-level="12.4" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#prior-predictive-checks-6"><i class="fa fa-check"></i><b>12.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="12.5" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#determine-natural-scale-values-6"><i class="fa fa-check"></i><b>12.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="12.6" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#intervals-of-major-categories-6"><i class="fa fa-check"></i><b>12.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="12.7" data-path="vulnerabilities-1.html"><a href="vulnerabilities-1.html#warnings-versus-no-warnings-6"><i class="fa fa-check"></i><b>12.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html"><i class="fa fa-check"></i><b>13</b> Cyclomatic Complexity</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#prepare-data-7"><i class="fa fa-check"></i><b>13.1</b> Prepare data</a></li>
-<li class="chapter" data-level="13.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#define-models-6"><i class="fa fa-check"></i><b>13.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="13.2.1" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc1"><i class="fa fa-check"></i><b>13.2.1</b> CYC1</a></li>
-<li class="chapter" data-level="13.2.2" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc2"><i class="fa fa-check"></i><b>13.2.2</b> CYC2</a></li>
-<li class="chapter" data-level="13.2.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc3"><i class="fa fa-check"></i><b>13.2.3</b> CYC3</a></li>
-<li class="chapter" data-level="13.2.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc4"><i class="fa fa-check"></i><b>13.2.4</b> CYC4</a></li>
-<li class="chapter" data-level="13.2.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc5"><i class="fa fa-check"></i><b>13.2.5</b> CYC5</a></li>
-<li class="chapter" data-level="13.2.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc6"><i class="fa fa-check"></i><b>13.2.6</b> CYC6</a></li>
-<li class="chapter" data-level="13.2.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc7"><i class="fa fa-check"></i><b>13.2.7</b> CYC7</a></li>
-<li class="chapter" data-level="13.2.8" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#cyc8"><i class="fa fa-check"></i><b>13.2.8</b> CYC8</a></li>
-</ul></li>
-<li class="chapter" data-level="13.3" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#compare-models-7"><i class="fa fa-check"></i><b>13.3</b> Compare models</a></li>
-<li class="chapter" data-level="13.4" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#prior-predictive-checks-7"><i class="fa fa-check"></i><b>13.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="13.5" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#determine-natural-scale-values-7"><i class="fa fa-check"></i><b>13.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="13.6" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#intervals-of-major-categories-7"><i class="fa fa-check"></i><b>13.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="13.7" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#warnings-versus-no-warnings-7"><i class="fa fa-check"></i><b>13.7</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="13.8" data-path="cyclomatic-complexity-1.html"><a href="cyclomatic-complexity-1.html#without-outliers-1"><i class="fa fa-check"></i><b>13.8</b> Without outliers</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html"><i class="fa fa-check"></i><b>14</b> Cognitive Complexity</a>
-<ul>
-<li class="chapter" data-level="14.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#prepare-data-8"><i class="fa fa-check"></i><b>14.1</b> Prepare data</a></li>
-<li class="chapter" data-level="14.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#define-models-7"><i class="fa fa-check"></i><b>14.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="14.2.1" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog1"><i class="fa fa-check"></i><b>14.2.1</b> COG1</a></li>
-<li class="chapter" data-level="14.2.2" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog2"><i class="fa fa-check"></i><b>14.2.2</b> COG2</a></li>
-<li class="chapter" data-level="14.2.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog3"><i class="fa fa-check"></i><b>14.2.3</b> COG3</a></li>
-<li class="chapter" data-level="14.2.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog4"><i class="fa fa-check"></i><b>14.2.4</b> COG4</a></li>
-<li class="chapter" data-level="14.2.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog5"><i class="fa fa-check"></i><b>14.2.5</b> COG5</a></li>
-<li class="chapter" data-level="14.2.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog6"><i class="fa fa-check"></i><b>14.2.6</b> COG6</a></li>
-<li class="chapter" data-level="14.2.7" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog7"><i class="fa fa-check"></i><b>14.2.7</b> COG7</a></li>
-<li class="chapter" data-level="14.2.8" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#cog8"><i class="fa fa-check"></i><b>14.2.8</b> COG8</a></li>
-</ul></li>
-<li class="chapter" data-level="14.3" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#compare-models-8"><i class="fa fa-check"></i><b>14.3</b> Compare models</a></li>
-<li class="chapter" data-level="14.4" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#prior-predictive-checks-8"><i class="fa fa-check"></i><b>14.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="14.5" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#determine-natural-scale-values-8"><i class="fa fa-check"></i><b>14.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="14.6" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#credible-intervals-of-major-categories"><i class="fa fa-check"></i><b>14.6</b> Credible intervals of major categories</a></li>
-<li class="chapter" data-level="14.7" data-path="cognitive-complexity-1.html"><a href="cognitive-complexity-1.html#warnings-versus-no-warnings-8"><i class="fa fa-check"></i><b>14.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html"><i class="fa fa-check"></i><b>15</b> Duplicated Lines</a>
-<ul>
-<li class="chapter" data-level="15.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#prepare-data-9"><i class="fa fa-check"></i><b>15.1</b> Prepare data</a></li>
-<li class="chapter" data-level="15.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#define-models-8"><i class="fa fa-check"></i><b>15.2</b> Define models</a>
-<ul>
-<li class="chapter" data-level="15.2.1" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d1"><i class="fa fa-check"></i><b>15.2.1</b> D1</a></li>
-<li class="chapter" data-level="15.2.2" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d2"><i class="fa fa-check"></i><b>15.2.2</b> D2</a></li>
-<li class="chapter" data-level="15.2.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d3"><i class="fa fa-check"></i><b>15.2.3</b> D3</a></li>
-<li class="chapter" data-level="15.2.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d4"><i class="fa fa-check"></i><b>15.2.4</b> D4</a></li>
-<li class="chapter" data-level="15.2.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d5"><i class="fa fa-check"></i><b>15.2.5</b> D5</a></li>
-<li class="chapter" data-level="15.2.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d6"><i class="fa fa-check"></i><b>15.2.6</b> D6</a></li>
-<li class="chapter" data-level="15.2.7" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d7"><i class="fa fa-check"></i><b>15.2.7</b> D7</a></li>
-<li class="chapter" data-level="15.2.8" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#d8"><i class="fa fa-check"></i><b>15.2.8</b> D8</a></li>
-</ul></li>
-<li class="chapter" data-level="15.3" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#compare-models-9"><i class="fa fa-check"></i><b>15.3</b> Compare models</a></li>
-<li class="chapter" data-level="15.4" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#prior-predictive-checks-9"><i class="fa fa-check"></i><b>15.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="15.5" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#determine-natural-scale-values-9"><i class="fa fa-check"></i><b>15.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="15.6" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#credible-intervals-of-major-categories-1"><i class="fa fa-check"></i><b>15.6</b> Credible intervals of major categories</a></li>
-<li class="chapter" data-level="15.7" data-path="duplicated-lines-1.html"><a href="duplicated-lines-1.html#warnings-versus-no-warnings-9"><i class="fa fa-check"></i><b>15.7</b> Warnings versus no warnings</a></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html"><i class="fa fa-check"></i><b>16</b> Technical Debt Ratio</a>
-<ul>
-<li class="chapter" data-level="16.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#prepare-data-10"><i class="fa fa-check"></i><b>16.1</b> Prepare data</a></li>
-<li class="chapter" data-level="16.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#define-models-9"><i class="fa fa-check"></i><b>16.2</b> Define Models</a>
-<ul>
-<li class="chapter" data-level="16.2.1" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td1"><i class="fa fa-check"></i><b>16.2.1</b> TD1</a></li>
-<li class="chapter" data-level="16.2.2" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td2"><i class="fa fa-check"></i><b>16.2.2</b> TD2</a></li>
-<li class="chapter" data-level="16.2.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td3"><i class="fa fa-check"></i><b>16.2.3</b> TD3</a></li>
-<li class="chapter" data-level="16.2.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td4"><i class="fa fa-check"></i><b>16.2.4</b> TD4</a></li>
-<li class="chapter" data-level="16.2.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td5"><i class="fa fa-check"></i><b>16.2.5</b> TD5</a></li>
-<li class="chapter" data-level="16.2.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td6"><i class="fa fa-check"></i><b>16.2.6</b> TD6</a></li>
-<li class="chapter" data-level="16.2.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td7"><i class="fa fa-check"></i><b>16.2.7</b> TD7</a></li>
-<li class="chapter" data-level="16.2.8" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#td8"><i class="fa fa-check"></i><b>16.2.8</b> TD8</a></li>
-</ul></li>
-<li class="chapter" data-level="16.3" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#compare-models-10"><i class="fa fa-check"></i><b>16.3</b> Compare models</a></li>
-<li class="chapter" data-level="16.4" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#prior-predictive-checks-10"><i class="fa fa-check"></i><b>16.4</b> Prior predictive checks</a></li>
-<li class="chapter" data-level="16.5" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#determine-natural-scale-values-10"><i class="fa fa-check"></i><b>16.5</b> Determine natural scale values</a></li>
-<li class="chapter" data-level="16.6" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#intervals-of-major-categories-8"><i class="fa fa-check"></i><b>16.6</b> Intervals of major categories</a></li>
-<li class="chapter" data-level="16.7" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#warnings-versus-no-warnings-10"><i class="fa fa-check"></i><b>16.7</b> Warnings versus no warnings</a></li>
-<li class="chapter" data-level="16.8" data-path="technical-debt-ratio-1.html"><a href="technical-debt-ratio-1.html#without-outliers-2"><i class="fa fa-check"></i><b>16.8</b> Without outliers</a></li>
-</ul></li>
-</ul>
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
-      </nav>
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Overview</a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="setup.html">Setup</a>
+</li>
+<li>
+  <a href="causal_analysis.html">Causal analysis</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bugs.html">Bugs</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/impact-of-compiler-warnings-thesis/replication">
+    <span class="fab fa-github"></span>
+     
+    Source
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Impact of Compiler Warnings on Code Quality in C++ Projects</a>
-          </h1>
-        </div>
+<div id="header">
 
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
 
-            <section class="normal" id="section-">
-<div id="setup" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Setup<a href="setup.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+<h1 class="title toc-ignore">Setup</h1>
+
+</div>
+
+
 <p>This page outlines the steps required to prepare the R environment.
 First we need to load the required packages.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="setup.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bayesian data analysis tools</span></span>
-<span id="cb1-2"><a href="setup.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
-<span id="cb1-3"><a href="setup.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="setup.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Miscellaneous plotting</span></span>
-<span id="cb1-5"><a href="setup.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-6"><a href="setup.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpattern)</span>
-<span id="cb1-7"><a href="setup.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bayesian data analysis tools</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Miscellaneous plotting</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpattern)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Causal analysis</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span></code></pre></div>
 <p>Then we define some useful constants.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="setup.html#cb2-1" aria-hidden="true" tabindex="-1"></a>major_categories <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb2-2"><a href="setup.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="setup.html#cb2-3" aria-hidden="true" tabindex="-1"></a>ordered_category_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>,    <span class="co"># category 1</span></span>
-<span id="cb2-4"><a href="setup.html#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;A&quot;</span>,    <span class="co"># category 2</span></span>
-<span id="cb2-5"><a href="setup.html#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AE&quot;</span>,   <span class="co"># category 3</span></span>
-<span id="cb2-6"><a href="setup.html#cb2-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AP&quot;</span>,   <span class="co"># category 4</span></span>
-<span id="cb2-7"><a href="setup.html#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AEP&quot;</span>,  <span class="co"># category 5</span></span>
-<span id="cb2-8"><a href="setup.html#cb2-8" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AE+&quot;</span>,  <span class="co"># category 6</span></span>
-<span id="cb2-9"><a href="setup.html#cb2-9" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AEP+&quot;</span>, <span class="co"># category 7</span></span>
-<span id="cb2-10"><a href="setup.html#cb2-10" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AP+&quot;</span>,  <span class="co"># category 8</span></span>
-<span id="cb2-11"><a href="setup.html#cb2-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;E+&quot;</span>,   <span class="co"># category 9</span></span>
-<span id="cb2-12"><a href="setup.html#cb2-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;A+&quot;</span>,   <span class="co"># category 10</span></span>
-<span id="cb2-13"><a href="setup.html#cb2-13" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;E&quot;</span>     <span class="co"># category 11</span></span>
-<span id="cb2-14"><a href="setup.html#cb2-14" aria-hidden="true" tabindex="-1"></a>                            )</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>major_categories <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ordered_category_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>,    <span class="co"># category 1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;A&quot;</span>,    <span class="co"># category 2</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AE&quot;</span>,   <span class="co"># category 3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AP&quot;</span>,   <span class="co"># category 4</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AEP&quot;</span>,  <span class="co"># category 5</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AE+&quot;</span>,  <span class="co"># category 6</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AEP+&quot;</span>, <span class="co"># category 7</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;AP+&quot;</span>,  <span class="co"># category 8</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;E+&quot;</span>,   <span class="co"># category 9</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;A+&quot;</span>,   <span class="co"># category 10</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;E&quot;</span>     <span class="co"># category 11</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                            )</span></code></pre></div>
 <p>We will also define some convenience functions.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="setup.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns the number of days between a date and the analysis date.</span></span>
-<span id="cb3-2"><a href="setup.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We use February 28 as the reference date, otherwise it changes from day-to-day.</span></span>
-<span id="cb3-3"><a href="setup.html#cb3-3" aria-hidden="true" tabindex="-1"></a>get_age <span class="ot">&lt;-</span> <span class="cf">function</span> (yymmdd) {</span>
-<span id="cb3-4"><a href="setup.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.integer</span>(<span class="fu">difftime</span>(<span class="st">&quot;2023-02-28&quot;</span>, <span class="fu">as.Date</span>(yymmdd, <span class="st">&quot;%Y-%m-%d&quot;</span>), <span class="at">units=</span><span class="st">&quot;days&quot;</span>))</span>
-<span id="cb3-5"><a href="setup.html#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-6"><a href="setup.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="setup.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adds columns for each metric that are relative to 1,000 lines-of-code.</span></span>
-<span id="cb3-8"><a href="setup.html#cb3-8" aria-hidden="true" tabindex="-1"></a>add_scaled_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb3-9"><a href="setup.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>bugs_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>bugs <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-10"><a href="setup.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>code_smells_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>code_smells <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-11"><a href="setup.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>critical_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>critical_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-12"><a href="setup.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>major_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>major_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-13"><a href="setup.html#cb3-13" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>minor_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>minor_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-14"><a href="setup.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>security_hotspots_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>security_hotspots <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-15"><a href="setup.html#cb3-15" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>vulnerabilities_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>vulnerabilities <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-16"><a href="setup.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>duplicated_lines_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>duplicated_lines <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-17"><a href="setup.html#cb3-17" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>cyclomatic_complexity_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>cyclomatic_complexity <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-18"><a href="setup.html#cb3-18" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>cognitive_complexity_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>cognitive_complexity <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
-<span id="cb3-19"><a href="setup.html#cb3-19" aria-hidden="true" tabindex="-1"></a>  data</span>
-<span id="cb3-20"><a href="setup.html#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-21"><a href="setup.html#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="setup.html#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns 2 for projects that use warnings, 1 otherwise.</span></span>
-<span id="cb3-23"><a href="setup.html#cb3-23" aria-hidden="true" tabindex="-1"></a>uses_warnings <span class="ot">&lt;-</span> <span class="cf">function</span>(categories) {</span>
-<span id="cb3-24"><a href="setup.html#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(categories <span class="sc">%in%</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb3-25"><a href="setup.html#cb3-25" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-26"><a href="setup.html#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="setup.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Utility function used to fit brms models</span></span>
-<span id="cb3-28"><a href="setup.html#cb3-28" aria-hidden="true" tabindex="-1"></a>fit_model <span class="ot">&lt;-</span> <span class="cf">function</span>(name, formula, priors, data, seed) {</span>
-<span id="cb3-29"><a href="setup.html#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brm</span>(</span>
-<span id="cb3-30"><a href="setup.html#cb3-30" aria-hidden="true" tabindex="-1"></a>    formula,</span>
-<span id="cb3-31"><a href="setup.html#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">family=</span>gaussian,</span>
-<span id="cb3-32"><a href="setup.html#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>priors,</span>
-<span id="cb3-33"><a href="setup.html#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>data,</span>
-<span id="cb3-34"><a href="setup.html#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">iter=</span><span class="dv">10000</span>,</span>
-<span id="cb3-35"><a href="setup.html#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">warmup=</span><span class="dv">5000</span>,</span>
-<span id="cb3-36"><a href="setup.html#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">chains=</span><span class="dv">4</span>,</span>
-<span id="cb3-37"><a href="setup.html#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">cores=</span><span class="dv">4</span>,</span>
-<span id="cb3-38"><a href="setup.html#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">file=</span><span class="fu">paste</span>(<span class="st">&quot;fits&quot;</span>, name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
-<span id="cb3-39"><a href="setup.html#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">file_refit=</span><span class="st">&quot;on_change&quot;</span>,</span>
-<span id="cb3-40"><a href="setup.html#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">save_pars=</span><span class="fu">save_pars</span>(<span class="at">all=</span><span class="cn">TRUE</span>),</span>
-<span id="cb3-41"><a href="setup.html#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed=</span>seed</span>
-<span id="cb3-42"><a href="setup.html#cb3-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-43"><a href="setup.html#cb3-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-44"><a href="setup.html#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="setup.html#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Converts a standardized value to the natural scale, given the source data.</span></span>
-<span id="cb3-46"><a href="setup.html#cb3-46" aria-hidden="true" tabindex="-1"></a>restore_from_std <span class="ot">&lt;-</span> <span class="cf">function</span>(value, data) {</span>
-<span id="cb3-47"><a href="setup.html#cb3-47" aria-hidden="true" tabindex="-1"></a>  value <span class="sc">*</span> <span class="fu">sd</span>(data) <span class="sc">+</span> <span class="fu">mean</span>(data)</span>
-<span id="cb3-48"><a href="setup.html#cb3-48" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-49"><a href="setup.html#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="setup.html#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns a data frame with columns for standardized and natural scale means</span></span>
-<span id="cb3-51"><a href="setup.html#cb3-51" aria-hidden="true" tabindex="-1"></a>determine_natural_scale_means <span class="ot">&lt;-</span> <span class="cf">function</span>(std_means, data, <span class="at">precision=</span><span class="dv">2</span>) {</span>
-<span id="cb3-52"><a href="setup.html#cb3-52" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row.names=</span>ordered_category_names, <span class="st">&quot;std&quot;</span><span class="ot">=</span>std_means)</span>
-<span id="cb3-53"><a href="setup.html#cb3-53" aria-hidden="true" tabindex="-1"></a>  means<span class="sc">$</span>natural <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(means<span class="sc">$</span>std, data), <span class="at">digits=</span>precision)</span>
-<span id="cb3-54"><a href="setup.html#cb3-54" aria-hidden="true" tabindex="-1"></a>  means</span>
-<span id="cb3-55"><a href="setup.html#cb3-55" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-56"><a href="setup.html#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-57"><a href="setup.html#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co"># This function creates a data frame with summary data in the natural scale,</span></span>
-<span id="cb3-58"><a href="setup.html#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co"># similar to what you get from the brms &quot;summary&quot; function.</span></span>
-<span id="cb3-59"><a href="setup.html#cb3-59" aria-hidden="true" tabindex="-1"></a>create_natural_scale_summary_df <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, raw_data, <span class="at">precision=</span><span class="dv">2</span>) {</span>
-<span id="cb3-60"><a href="setup.html#cb3-60" aria-hidden="true" tabindex="-1"></a>  fit_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(fit)</span>
-<span id="cb3-61"><a href="setup.html#cb3-61" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">posterior_interval</span>(fit, <span class="at">prob=</span><span class="fl">0.90</span>)  <span class="co"># 0.05-0.95</span></span>
-<span id="cb3-62"><a href="setup.html#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="setup.html#cb3-63" aria-hidden="true" tabindex="-1"></a>  std_means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category1), <span class="at">digits=</span>precision),</span>
-<span id="cb3-64"><a href="setup.html#cb3-64" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category2), <span class="at">digits=</span>precision),</span>
-<span id="cb3-65"><a href="setup.html#cb3-65" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category3), <span class="at">digits=</span>precision),</span>
-<span id="cb3-66"><a href="setup.html#cb3-66" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category5), <span class="at">digits=</span>precision),</span>
-<span id="cb3-67"><a href="setup.html#cb3-67" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category7), <span class="at">digits=</span>precision))</span>
-<span id="cb3-68"><a href="setup.html#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="setup.html#cb3-69" aria-hidden="true" tabindex="-1"></a>  std_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category1), <span class="at">digits=</span>precision),</span>
-<span id="cb3-70"><a href="setup.html#cb3-70" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category2), <span class="at">digits=</span>precision),</span>
-<span id="cb3-71"><a href="setup.html#cb3-71" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category3), <span class="at">digits=</span>precision),</span>
-<span id="cb3-72"><a href="setup.html#cb3-72" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category5), <span class="at">digits=</span>precision),</span>
-<span id="cb3-73"><a href="setup.html#cb3-73" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category7), <span class="at">digits=</span>precision))</span>
-<span id="cb3-74"><a href="setup.html#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="setup.html#cb3-75" aria-hidden="true" tabindex="-1"></a>  std_lower <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(intervals[<span class="dv">1</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-76"><a href="setup.html#cb3-76" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">2</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-77"><a href="setup.html#cb3-77" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">3</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-78"><a href="setup.html#cb3-78" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">5</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-79"><a href="setup.html#cb3-79" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">7</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision))</span>
-<span id="cb3-80"><a href="setup.html#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="setup.html#cb3-81" aria-hidden="true" tabindex="-1"></a>  std_upper <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(intervals[<span class="dv">1</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-82"><a href="setup.html#cb3-82" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">2</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-83"><a href="setup.html#cb3-83" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">3</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-84"><a href="setup.html#cb3-84" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">5</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
-<span id="cb3-85"><a href="setup.html#cb3-85" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">7</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision))</span>
-<span id="cb3-86"><a href="setup.html#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-87"><a href="setup.html#cb3-87" aria-hidden="true" tabindex="-1"></a>  natural_means <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_means, raw_data), <span class="at">digits=</span>precision)</span>
-<span id="cb3-88"><a href="setup.html#cb3-88" aria-hidden="true" tabindex="-1"></a>  natural_sd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_sd, raw_data), <span class="at">digits=</span>precision)</span>
-<span id="cb3-89"><a href="setup.html#cb3-89" aria-hidden="true" tabindex="-1"></a>  natural_lower <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_lower, raw_data), <span class="at">digits=</span>precision)</span>
-<span id="cb3-90"><a href="setup.html#cb3-90" aria-hidden="true" tabindex="-1"></a>  natural_upper <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_upper, raw_data), <span class="at">digits=</span>precision)</span>
-<span id="cb3-91"><a href="setup.html#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="setup.html#cb3-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">row.names=</span><span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;AE&quot;</span>, <span class="st">&quot;AEP&quot;</span>, <span class="st">&quot;AEP+&quot;</span>),</span>
-<span id="cb3-93"><a href="setup.html#cb3-93" aria-hidden="true" tabindex="-1"></a>             <span class="at">check.names=</span><span class="cn">FALSE</span>,</span>
-<span id="cb3-94"><a href="setup.html#cb3-94" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">Mean</span><span class="st">`</span><span class="ot">=</span>natural_means,</span>
-<span id="cb3-95"><a href="setup.html#cb3-95" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">SD</span><span class="st">`</span><span class="ot">=</span>natural_sd,</span>
-<span id="cb3-96"><a href="setup.html#cb3-96" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">0.05 CI</span><span class="st">`</span><span class="ot">=</span>natural_lower,</span>
-<span id="cb3-97"><a href="setup.html#cb3-97" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">0.95 CI</span><span class="st">`</span><span class="ot">=</span>natural_upper)</span>
-<span id="cb3-98"><a href="setup.html#cb3-98" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-99"><a href="setup.html#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="setup.html#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots credible intervals for all categories based on a fit model</span></span>
-<span id="cb3-101"><a href="setup.html#cb3-101" aria-hidden="true" tabindex="-1"></a>plot_intervals_of_categories <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
-<span id="cb3-102"><a href="setup.html#cb3-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(model,</span>
-<span id="cb3-103"><a href="setup.html#cb3-103" aria-hidden="true" tabindex="-1"></a>            <span class="at">type=</span><span class="st">&quot;intervals&quot;</span>,</span>
-<span id="cb3-104"><a href="setup.html#cb3-104" aria-hidden="true" tabindex="-1"></a>            <span class="at">variable=</span><span class="st">&quot;b_category&quot;</span>,</span>
-<span id="cb3-105"><a href="setup.html#cb3-105" aria-hidden="true" tabindex="-1"></a>            <span class="at">regex=</span><span class="cn">TRUE</span>,</span>
-<span id="cb3-106"><a href="setup.html#cb3-106" aria-hidden="true" tabindex="-1"></a>            <span class="at">point_size=</span><span class="dv">2</span>,</span>
-<span id="cb3-107"><a href="setup.html#cb3-107" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob=</span><span class="fl">0.5</span>,        <span class="co"># Inner region density mass percentage</span></span>
-<span id="cb3-108"><a href="setup.html#cb3-108" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob_outer=</span><span class="fl">0.90</span>  <span class="co"># Outer region density mass percentage</span></span>
-<span id="cb3-109"><a href="setup.html#cb3-109" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-110"><a href="setup.html#cb3-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>)</span>
-<span id="cb3-111"><a href="setup.html#cb3-111" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-112"><a href="setup.html#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-113"><a href="setup.html#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots credible intervals for the major categories based on a fit model</span></span>
-<span id="cb3-114"><a href="setup.html#cb3-114" aria-hidden="true" tabindex="-1"></a>plot_intervals_of_major_categories <span class="ot">&lt;-</span> <span class="cf">function</span>(fit) {</span>
-<span id="cb3-115"><a href="setup.html#cb3-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(fit,</span>
-<span id="cb3-116"><a href="setup.html#cb3-116" aria-hidden="true" tabindex="-1"></a>            <span class="at">type=</span><span class="st">&quot;intervals&quot;</span>,</span>
-<span id="cb3-117"><a href="setup.html#cb3-117" aria-hidden="true" tabindex="-1"></a>            <span class="at">variable=</span><span class="fu">c</span>(</span>
-<span id="cb3-118"><a href="setup.html#cb3-118" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category1&quot;</span>,  <span class="co"># N</span></span>
-<span id="cb3-119"><a href="setup.html#cb3-119" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category2&quot;</span>,  <span class="co"># A</span></span>
-<span id="cb3-120"><a href="setup.html#cb3-120" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category3&quot;</span>,  <span class="co"># AE</span></span>
-<span id="cb3-121"><a href="setup.html#cb3-121" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category5&quot;</span>,  <span class="co"># AEP</span></span>
-<span id="cb3-122"><a href="setup.html#cb3-122" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category7&quot;</span>   <span class="co"># AEP+</span></span>
-<span id="cb3-123"><a href="setup.html#cb3-123" aria-hidden="true" tabindex="-1"></a>            ),</span>
-<span id="cb3-124"><a href="setup.html#cb3-124" aria-hidden="true" tabindex="-1"></a>            <span class="at">regex=</span><span class="cn">FALSE</span>,</span>
-<span id="cb3-125"><a href="setup.html#cb3-125" aria-hidden="true" tabindex="-1"></a>            <span class="at">point_size=</span><span class="dv">2</span>,</span>
-<span id="cb3-126"><a href="setup.html#cb3-126" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob=</span><span class="fl">0.5</span>,        <span class="co"># Inner region density mass percentage</span></span>
-<span id="cb3-127"><a href="setup.html#cb3-127" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob_outer=</span><span class="fl">0.90</span>  <span class="co"># Outer region density mass percentage</span></span>
-<span id="cb3-128"><a href="setup.html#cb3-128" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-129"><a href="setup.html#cb3-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span> </span>
-<span id="cb3-130"><a href="setup.html#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(</span>
-<span id="cb3-131"><a href="setup.html#cb3-131" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category1&quot;</span><span class="ot">=</span><span class="st">&quot;N&quot;</span>,</span>
-<span id="cb3-132"><a href="setup.html#cb3-132" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category2&quot;</span><span class="ot">=</span><span class="st">&quot;A&quot;</span>,</span>
-<span id="cb3-133"><a href="setup.html#cb3-133" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category3&quot;</span><span class="ot">=</span><span class="st">&quot;AE&quot;</span>,</span>
-<span id="cb3-134"><a href="setup.html#cb3-134" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category5&quot;</span><span class="ot">=</span><span class="st">&quot;AEP&quot;</span>,</span>
-<span id="cb3-135"><a href="setup.html#cb3-135" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category7&quot;</span><span class="ot">=</span><span class="st">&quot;AEP+&quot;</span></span>
-<span id="cb3-136"><a href="setup.html#cb3-136" aria-hidden="true" tabindex="-1"></a>                     ))</span>
-<span id="cb3-137"><a href="setup.html#cb3-137" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-138"><a href="setup.html#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="setup.html#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots a prior predictive check plot</span></span>
-<span id="cb3-140"><a href="setup.html#cb3-140" aria-hidden="true" tabindex="-1"></a>plot_priors <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, xlab) {</span>
-<span id="cb3-141"><a href="setup.html#cb3-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pp_check</span>(fit, <span class="at">ndraws=</span><span class="dv">25</span>) <span class="sc">+</span></span>
-<span id="cb3-142"><a href="setup.html#cb3-142" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb3-143"><a href="setup.html#cb3-143" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Prior predictive checks&quot;</span>, <span class="at">x=</span>xlab, <span class="at">y=</span><span class="st">&quot;Probability density&quot;</span>)</span>
-<span id="cb3-144"><a href="setup.html#cb3-144" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>The data we need has been prepared in a separate CSV file, all we need to do is load it. However, we will need to create some new columns with metric values that are scaled according to the lines of code in each sample. This is so that we can compare metrics from projects of different sizes.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="setup.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data_frame.csv&quot;</span>)</span>
-<span id="cb4-2"><a href="setup.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="setup.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Include columns with metrics scaled per KLOC</span></span>
-<span id="cb4-4"><a href="setup.html#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">add_scaled_metrics</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns the number of days between a date and the analysis date.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We use February 28 as the reference date, otherwise it changes from day-to-day.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>get_age <span class="ot">&lt;-</span> <span class="cf">function</span> (yymmdd) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.integer</span>(<span class="fu">difftime</span>(<span class="st">&quot;2023-02-28&quot;</span>, <span class="fu">as.Date</span>(yymmdd, <span class="st">&quot;%Y-%m-%d&quot;</span>), <span class="at">units=</span><span class="st">&quot;days&quot;</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adds columns for each metric that are relative to 1,000 lines-of-code.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>add_scaled_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>bugs_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>bugs <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>code_smells_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>code_smells <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>critical_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>critical_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>major_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>major_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>minor_violations_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>minor_violations <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>security_hotspots_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>security_hotspots <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>vulnerabilities_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>vulnerabilities <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>duplicated_lines_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>duplicated_lines <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>cyclomatic_complexity_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>cyclomatic_complexity <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>cognitive_complexity_kloc <span class="ot">&lt;-</span> (data<span class="sc">$</span>cognitive_complexity <span class="sc">/</span> data<span class="sc">$</span>loc) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  data</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns 2 for projects that use warnings, 1 otherwise.</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>uses_warnings <span class="ot">&lt;-</span> <span class="cf">function</span>(categories) {</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(categories <span class="sc">%in%</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Utility function used to fit brms models</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fit_model <span class="ot">&lt;-</span> <span class="cf">function</span>(name, formula, priors, data, seed) {</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brm</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    formula,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">family=</span>gaussian,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior=</span>priors,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>data,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">iter=</span><span class="dv">10000</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">warmup=</span><span class="dv">5000</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">chains=</span><span class="dv">4</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">cores=</span><span class="dv">4</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">file=</span><span class="fu">paste</span>(<span class="st">&quot;fits&quot;</span>, name, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">file_refit=</span><span class="st">&quot;on_change&quot;</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">save_pars=</span><span class="fu">save_pars</span>(<span class="at">all=</span><span class="cn">TRUE</span>),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed=</span>seed</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Converts a standardized value to the natural scale, given the source data.</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>restore_from_std <span class="ot">&lt;-</span> <span class="cf">function</span>(value, data) {</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  value <span class="sc">*</span> <span class="fu">sd</span>(data) <span class="sc">+</span> <span class="fu">mean</span>(data)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns a data frame with columns for standardized and natural scale means</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>determine_natural_scale_means <span class="ot">&lt;-</span> <span class="cf">function</span>(std_means, data, <span class="at">precision=</span><span class="dv">2</span>) {</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row.names=</span>ordered_category_names, <span class="st">&quot;std&quot;</span><span class="ot">=</span>std_means)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  means<span class="sc">$</span>natural <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(means<span class="sc">$</span>std, data), <span class="at">digits=</span>precision)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  means</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co"># This function creates a data frame with summary data in the natural scale,</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co"># similar to what you get from the brms &quot;summary&quot; function.</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>create_natural_scale_summary_df <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, raw_data, <span class="at">precision=</span><span class="dv">2</span>) {</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  fit_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(fit)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">posterior_interval</span>(fit, <span class="at">prob=</span><span class="fl">0.90</span>)  <span class="co"># 0.05-0.95</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  std_means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category1), <span class="at">digits=</span>precision),</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category2), <span class="at">digits=</span>precision),</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category3), <span class="at">digits=</span>precision),</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category5), <span class="at">digits=</span>precision),</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(<span class="fu">mean</span>(fit_df<span class="sc">$</span>b_category7), <span class="at">digits=</span>precision))</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  std_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category1), <span class="at">digits=</span>precision),</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category2), <span class="at">digits=</span>precision),</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category3), <span class="at">digits=</span>precision),</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category5), <span class="at">digits=</span>precision),</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>              <span class="fu">round</span>(<span class="fu">sd</span>(fit_df<span class="sc">$</span>b_category7), <span class="at">digits=</span>precision))</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  std_lower <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(intervals[<span class="dv">1</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">2</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">3</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">5</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">7</span>, <span class="dv">1</span>], <span class="at">digits=</span>precision))</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>  std_upper <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">round</span>(intervals[<span class="dv">1</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">2</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">3</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">5</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision),</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">round</span>(intervals[<span class="dv">7</span>, <span class="dv">2</span>], <span class="at">digits=</span>precision))</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>  natural_means <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_means, raw_data), <span class="at">digits=</span>precision)</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>  natural_sd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_sd, raw_data), <span class="at">digits=</span>precision)</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>  natural_lower <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_lower, raw_data), <span class="at">digits=</span>precision)</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  natural_upper <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">restore_from_std</span>(std_upper, raw_data), <span class="at">digits=</span>precision)</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">row.names=</span><span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;AE&quot;</span>, <span class="st">&quot;AEP&quot;</span>, <span class="st">&quot;AEP+&quot;</span>),</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>             <span class="at">check.names=</span><span class="cn">FALSE</span>,</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">Mean</span><span class="st">`</span><span class="ot">=</span>natural_means,</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">SD</span><span class="st">`</span><span class="ot">=</span>natural_sd,</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">0.05 CI</span><span class="st">`</span><span class="ot">=</span>natural_lower,</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">0.95 CI</span><span class="st">`</span><span class="ot">=</span>natural_upper)</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots credible intervals for all categories based on a fit model</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>plot_intervals_of_categories <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(model,</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>            <span class="at">type=</span><span class="st">&quot;intervals&quot;</span>,</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>            <span class="at">variable=</span><span class="st">&quot;b_category&quot;</span>,</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>            <span class="at">regex=</span><span class="cn">TRUE</span>,</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>            <span class="at">point_size=</span><span class="dv">2</span>,</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob=</span><span class="fl">0.5</span>,        <span class="co"># Inner region density mass percentage</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob_outer=</span><span class="fl">0.90</span>  <span class="co"># Outer region density mass percentage</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>)</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots credible intervals for the major categories based on a fit model</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>plot_intervals_of_major_categories <span class="ot">&lt;-</span> <span class="cf">function</span>(fit) {</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(fit,</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>            <span class="at">type=</span><span class="st">&quot;intervals&quot;</span>,</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>            <span class="at">variable=</span><span class="fu">c</span>(</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category1&quot;</span>,  <span class="co"># N</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category2&quot;</span>,  <span class="co"># A</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category3&quot;</span>,  <span class="co"># AE</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category5&quot;</span>,  <span class="co"># AEP</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;b_category7&quot;</span>   <span class="co"># AEP+</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>            <span class="at">regex=</span><span class="cn">FALSE</span>,</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>            <span class="at">point_size=</span><span class="dv">2</span>,</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob=</span><span class="fl">0.5</span>,        <span class="co"># Inner region density mass percentage</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>            <span class="at">prob_outer=</span><span class="fl">0.90</span>  <span class="co"># Outer region density mass percentage</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span> </span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category1&quot;</span><span class="ot">=</span><span class="st">&quot;N&quot;</span>,</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category2&quot;</span><span class="ot">=</span><span class="st">&quot;A&quot;</span>,</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category3&quot;</span><span class="ot">=</span><span class="st">&quot;AE&quot;</span>,</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category5&quot;</span><span class="ot">=</span><span class="st">&quot;AEP&quot;</span>,</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;b_category7&quot;</span><span class="ot">=</span><span class="st">&quot;AEP+&quot;</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>                     ))</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots a prior predictive check plot</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>plot_priors <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, xlab) {</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pp_check</span>(fit, <span class="at">ndraws=</span><span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_default</span>(<span class="at">base_family=</span><span class="st">&quot;sans&quot;</span>, <span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Prior predictive checks&quot;</span>, <span class="at">x=</span>xlab, <span class="at">y=</span><span class="st">&quot;Probability density&quot;</span>)</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>plot_caterpillar <span class="ot">&lt;-</span> <span class="cf">function</span>(fit, var, ylabel) {</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mcmc_plot</span>(fit, <span class="at">type=</span><span class="st">&quot;trace&quot;</span>, <span class="at">variable=</span>var) <span class="sc">+</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(ylabel)</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The data we need has been prepared in a separate CSV file, all we
+need to do is load it. However, we will need to create some new columns
+with metric values that are scaled according to the lines of code in
+each sample. This is so that we can compare metrics from projects of
+different sizes.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/data_frame.csv&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Include columns with metrics scaled per KLOC</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">add_scaled_metrics</span>(df)</span></code></pre></div>
 <p>The following provides information about the used R session.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="setup.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.3.0 (2023-04-21)
 ## Platform: aarch64-apple-darwin20 (64-bit)
 ## Running under: macOS Ventura 13.4
@@ -600,97 +659,129 @@ First we need to load the required packages.</p>
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggdag_0.2.8     ggpattern_1.0.1 ggplot2_3.4.2   brms_2.19.0     Rcpp_1.0.10    
+## [1] dagitty_0.3-1   ggdag_0.2.8     ggpattern_1.0.1 ggplot2_3.4.2  
+## [5] brms_2.19.0     Rcpp_1.0.10    
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] tidyselect_1.2.0     dplyr_1.1.2          farver_2.1.1         loo_2.6.0           
-##   [5] fastmap_1.1.1        tensorA_0.36.2       shinystan_2.6.0      promises_1.2.0.1    
-##   [9] shinyjs_2.1.0        digest_0.6.31        mime_0.12            lifecycle_1.0.3     
-##  [13] StanHeaders_2.21.0-7 ellipsis_0.3.2       processx_3.8.1       magrittr_2.0.3      
-##  [17] posterior_1.4.1      compiler_4.3.0       sass_0.4.5           rlang_1.1.0         
-##  [21] tools_4.3.0          yaml_2.3.7           igraph_1.4.2         utf8_1.2.3          
-##  [25] knitr_1.42           prettyunits_1.1.1    bridgesampling_1.1-2 htmlwidgets_1.6.2   
-##  [29] pkgbuild_1.4.0       plyr_1.8.8           dygraphs_1.1.1.6     abind_1.4-5         
-##  [33] miniUI_0.1.1.1       purrr_1.0.1          withr_2.5.0          grid_4.3.0          
-##  [37] stats4_4.3.0         fansi_1.0.4          xts_0.13.1           xtable_1.8-4        
-##  [41] colorspace_2.1-0     inline_0.3.19        scales_1.2.1         gtools_3.9.4        
-##  [45] cli_3.6.1            mvtnorm_1.1-3        rmarkdown_2.21       crayon_1.5.2        
-##  [49] generics_0.1.3       RcppParallel_5.1.7   rstudioapi_0.14      reshape2_1.4.4      
-##  [53] cachem_1.0.7         rstan_2.21.8         stringr_1.5.0        shinythemes_1.2.0   
-##  [57] bayesplot_1.10.0     parallel_4.3.0       matrixStats_0.63.0   base64enc_0.1-3     
-##  [61] vctrs_0.6.2          Matrix_1.5-4         jsonlite_1.8.4       bookdown_0.33       
-##  [65] callr_3.7.3          crosstalk_1.2.0      tidyr_1.3.0          jquerylib_0.1.4     
-##  [69] glue_1.6.2           codetools_0.2-19     ps_1.7.5             DT_0.27             
-##  [73] distributional_0.3.2 stringi_1.7.12       gtable_0.3.3         later_1.3.0         
-##  [77] munsell_0.5.0        tibble_3.2.1         colourpicker_1.2.0   pillar_1.9.0        
-##  [81] htmltools_0.5.5      Brobdingnag_1.2-9    R6_2.5.1             tidygraph_1.2.3     
-##  [85] evaluate_0.20        shiny_1.7.4          lattice_0.21-8       markdown_1.6        
-##  [89] backports_1.4.1      threejs_0.3.3        bslib_0.4.2          httpuv_1.6.9        
-##  [93] rstantools_2.3.1     coda_0.19-4          gridExtra_2.3        nlme_3.1-162        
-##  [97] checkmate_2.1.0      xfun_0.39            zoo_1.8-12           pkgconfig_2.0.3</code></pre>
+##   [1] DBI_1.1.3            gridExtra_2.3        inline_0.3.19       
+##   [4] rlang_1.1.1          magrittr_2.0.3       e1071_1.7-13        
+##   [7] matrixStats_0.63.0   compiler_4.3.0       loo_2.6.0           
+##  [10] callr_3.7.3          vctrs_0.6.2          reshape2_1.4.4      
+##  [13] stringr_1.5.0        pkgconfig_2.0.3      crayon_1.5.2        
+##  [16] fastmap_1.1.1        backports_1.4.1      ellipsis_0.3.2      
+##  [19] ggraph_2.1.0         fontawesome_0.5.1    labeling_0.4.2      
+##  [22] utf8_1.2.3           threejs_0.3.3        promises_1.2.0.1    
+##  [25] rmarkdown_2.21       markdown_1.7         ps_1.7.5            
+##  [28] purrr_1.0.1          xfun_0.39            cachem_1.0.8        
+##  [31] jsonlite_1.8.4       highr_0.10           later_1.3.1         
+##  [34] tweenr_2.0.2         parallel_4.3.0       prettyunits_1.1.1   
+##  [37] R6_2.5.1             dygraphs_1.1.1.6     bslib_0.4.2         
+##  [40] stringi_1.7.12       StanHeaders_2.21.0-7 boot_1.3-28.1       
+##  [43] jquerylib_0.1.4      rstan_2.21.8         knitr_1.42          
+##  [46] zoo_1.8-12           base64enc_0.1-3      bayesplot_1.10.0    
+##  [49] httpuv_1.6.11        Matrix_1.5-4         igraph_1.4.2        
+##  [52] tidyselect_1.2.0     viridis_0.6.3        rstudioapi_0.14     
+##  [55] abind_1.4-5          yaml_2.3.7           codetools_0.2-19    
+##  [58] miniUI_0.1.1.1       curl_5.0.0           processx_3.8.1      
+##  [61] pkgbuild_1.4.0       lattice_0.21-8       tibble_3.2.1        
+##  [64] plyr_1.8.8           shiny_1.7.4          withr_2.5.0         
+##  [67] bridgesampling_1.1-2 posterior_1.4.1      coda_0.19-4         
+##  [70] evaluate_0.21        sf_1.0-12            polyclip_1.10-4     
+##  [73] units_0.8-2          proxy_0.4-27         RcppParallel_5.1.7  
+##  [76] xts_0.13.1           pillar_1.9.0         tensorA_0.36.2      
+##  [79] KernSmooth_2.23-21   checkmate_2.2.0      DT_0.27             
+##  [82] stats4_4.3.0         shinyjs_2.1.0        distributional_0.3.2
+##  [85] generics_0.1.3       rstantools_2.3.1     munsell_0.5.0       
+##  [88] scales_1.2.1         gtools_3.9.4         xtable_1.8-4        
+##  [91] class_7.3-22         glue_1.6.2           tools_4.3.0         
+##  [94] shinystan_2.6.0      gridpattern_1.0.2    colourpicker_1.2.0  
+##  [97] graphlayouts_1.0.0   mvtnorm_1.1-3        tidygraph_1.2.3     
+## [100] grid_4.3.0           tidyr_1.3.0          crosstalk_1.2.0     
+## [103] colorspace_2.1-0     nlme_3.1-162         ggforce_0.4.1       
+## [106] cli_3.6.1            fansi_1.0.4          viridisLite_0.4.2   
+## [109] Brobdingnag_1.2-9    dplyr_1.1.2          V8_4.3.0            
+## [112] gtable_0.3.3         sass_0.4.6           digest_0.6.31       
+## [115] classInt_0.4-9       ggrepel_0.9.3        htmlwidgets_1.6.2   
+## [118] farver_2.1.1         memoise_2.0.1        htmltools_0.5.5     
+## [121] lifecycle_1.0.3      mime_0.12            MASS_7.3-60         
+## [124] shinythemes_1.2.0</code></pre>
+
+<p>Albin Johansson and Carl Holmberg, Chalmers University of Technology, 2023</p>
+
 
 </div>
-            </section>
+</div>
 
-          </div>
-        </div>
-      </div>
-<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="causal-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+</div>
+
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": true,
-"facebook": false,
-"twitter": false,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": {}
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-},
-"info": true
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
 });
 </script>
 
-</body>
+<!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
 </html>
