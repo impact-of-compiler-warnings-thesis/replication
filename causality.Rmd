@@ -1,13 +1,12 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Causality
 ---
 
-# Causal analysis
-
 ```{r dag-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output = tempfile()))
 ```
+
+This page covers aspects related to causal relationships.
 
 ## DAG
 
@@ -21,8 +20,6 @@ the purposes of the study.
 - S: Size
 
 ```{r dag, message=FALSE}
-library(dagitty)
-
 dag <- dagitty("dag {
     C -> R
     W -> R

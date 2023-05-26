@@ -8,7 +8,7 @@ This is the replication package accompanying the Master thesis "*The Impact of C
 
 - [Setup](setup.html)
 - [Data summary](data_summary.html)
-- [Causal analysis](causal_analysis.html)
+- [Causality](causality.html)
 - Analysis
   -   [Bugs](bugs.html)
   -   [Code smells](code_smells.html)
