@@ -68,9 +68,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 target/
 
@@ -143,8 +140,6 @@ dmypy.json
 # Model fit files
 *.rds
 
-libs
 book
 _main.Rmd
-_main_files
 _bookdown_files
