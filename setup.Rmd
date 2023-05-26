@@ -191,7 +191,7 @@ plot_intervals_of_major_categories <- function(fit) {
 plot_priors <- function(fit, xlab) {
   pp_check(fit, ndraws=25) +
     theme_default(base_family="sans", base_size=14) +
-    labs(title="Prior predictive checks", x=xlab, y="Probability density")
+    labs(title="Prior predictive check", x=xlab, y="Probability density")
 }
 
 plot_caterpillar <- function(fit, var, ylabel) {

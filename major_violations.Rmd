@@ -1,20 +1,17 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Major violations
 ---
 
 ```{r mav-include-setup, include=FALSE}
-source(knitr::purl("pages/setup.Rmd", output = tempfile()))
+source(knitr::purl("setup.Rmd", output = tempfile()))
 ```
 
-# Major Violations
+This section covers the analysis relating to the _major violations_ metric.
 
-This is the section on major violations.
-
-## Prepare Data
+## Data preparation
 
 ```{r mav-prepare-data}
-model_seed <- 20230322
+model_seed <- 20230322  # 2023 March 22
 
 create_major_violations_data <- function(data) {
   list(
@@ -29,12 +26,11 @@ create_major_violations_data <- function(data) {
 
 data <- create_major_violations_data(df)
 data$category <- factor(df$category)
-
-data_factor_uses_warnings <- create_major_violations_data(df)
-data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
 ```
 
-### MAV1
+### Candidate models {.tabset}
+
+#### MAV1
 
 ```{r mav-model-1, message=FALSE}
 fit_model_mav1 <- function(name, data) {
@@ -51,7 +47,7 @@ fit_model_mav1 <- function(name, data) {
 mav1 <- fit_model_mav1("mav1", data)
 ```
 
-### MAV2
+#### MAV2
 
 ```{r mav-model-2, message=FALSE}
 fit_model_mav2 <- function(name, data) {
@@ -69,7 +65,7 @@ fit_model_mav2 <- function(name, data) {
 mav2 <- fit_model_mav2("mav2", data)
 ```
 
-### MAV3
+#### MAV3
 
 ```{r mav-model-3, message=FALSE}
 fit_model_mav3 <- function(name, data) {
@@ -87,7 +83,7 @@ fit_model_mav3 <- function(name, data) {
 mav3 <- fit_model_mav3("mav3", data)
 ```
 
-### MAV4
+#### MAV4
 
 ```{r mav-model-4, message=FALSE}
 fit_model_mav4 <- function(name, data) {
@@ -105,7 +101,7 @@ fit_model_mav4 <- function(name, data) {
 mav4 <- fit_model_mav4("mav4", data)
 ```
 
-### MAV5
+#### MAV5
 
 ```{r mav-model-5, message=FALSE}
 fit_model_mav5 <- function(name, data) {
@@ -123,7 +119,7 @@ fit_model_mav5 <- function(name, data) {
 mav5 <- fit_model_mav5("mav5", data)
 ```
 
-### MAV6
+#### MAV6
 
 ```{r mav-model-6, message=FALSE}
 fit_model_mav6 <- function(name, data) {
@@ -142,7 +138,7 @@ fit_model_mav6 <- function(name, data) {
 mav6 <- fit_model_mav6("mav6", data)
 ```
 
-### MAV7
+#### MAV7
 
 ```{r mav-model-7, message=FALSE}
 fit_model_mav7 <- function(name, data) {
@@ -161,7 +157,7 @@ fit_model_mav7 <- function(name, data) {
 mav7 <- fit_model_mav7("mav7", data)
 ```
 
-### MAV8
+#### MAV8
 
 ```{r mav-model-8, message=FALSE}
 fit_model_mav8 <- function(name, data) {
@@ -180,9 +176,9 @@ fit_model_mav8 <- function(name, data) {
 mav8 <- fit_model_mav8("mav8", data)
 ```
 
-## Compare models
+## Model comparison
 
-```{r mav-compare-models, message=FALSE, warning=FALSE}
+```{r mav-model-comparison, message=FALSE, warning=FALSE}
 mav1 <- add_criterion(mav1, criterion="loo", moment_match=FALSE)
 mav2 <- add_criterion(mav1, criterion="loo", moment_match=FALSE)
 mav3 <- add_criterion(mav3, criterion="loo", moment_match=FALSE)
@@ -196,29 +192,55 @@ print(loo_compare(mav1, mav2, mav3, mav4, mav5, mav6, mav7, mav8, criterion="loo
       simplify=FALSE)
 ```
 
-## Prior predictive checks
+## Diagnostics {.tabset}
+
+### Prior predictive check
 
 ```{r mav-ppc}
 plot_priors(mav5, "Major violations per KLOC (std)")
 ```
 
-## Determine natural scale values
+### MCMC chain trace plots
 
-```{r mav-determine-natural-scale-values, message=FALSE}
+```{r mav-caterpillars, message=FALSE}
+plot_caterpillar(mav5, "b_category1", "N")
+plot_caterpillar(mav5, "b_category2", "A")
+plot_caterpillar(mav5, "b_category3", "AE")
+plot_caterpillar(mav5, "b_category5", "AEP")
+plot_caterpillar(mav5, "b_category7", "AEP+")
+```
+
+## Full population
+
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r mav-full-standardized-estimates, message=FALSE}
 summary(mav5)
+```
+
+#### Natural scale
+
+```{r mav-full-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(mav5, df$major_violations_kloc))
 ```
 
-## Intervals of major categories
+### Plots {.tabset}
 
-```{r mav-plot-intervals-of-major-categories, fig.width=6, fig.height=2.8, message=FALSE}
+#### Major category intervals
+
+```{r mav-full-major-category-intervals, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(mav5) +
   labs(title="MAV5", x="Major violations per KLOC (std)")
 ```
 
-## Warnings versus no warnings
+#### Binary warning usage
 
-```{r mav-warnings-vs-no-warnings, fig.width=6, fig.height=2, message=FALSE}
+```{r mav-full-binary-warning-usage, fig.height=2, message=FALSE}
+data_factor_uses_warnings <- create_major_violations_data(df)
+data_factor_uses_warnings$category <- factor(uses_warnings(df$category))
+
 mav5_factor_uses_warnings <- fit_model_mav5("mav5_factor_uses_warnings",
                                             data_factor_uses_warnings)
 
@@ -230,9 +252,9 @@ plot_intervals_of_categories(mav5_factor_uses_warnings) +
   ))
 ```
 
-## Without `clipp`
+## Culled population
 
-```{r mav-remove-outliers, message=FALSE}
+```{r mav-culled-data-preparation, message=FALSE}
 culled_df <- df
 culled_df <- culled_df[culled_df$name != "clipp", ]
 
@@ -242,26 +264,41 @@ culled_data$category <- factor(culled_df$category)
 mav5_culled <- fit_model_mav5("mav5_culled", culled_data)
 ```
 
-```{r mav-determine-natural-scale-values-culled, message=FALSE}
+### Estimates {.tabset}
+
+#### Standardized
+
+```{r mav-culled-standardized-estimates, message=FALSE}
 summary(mav5_culled)
+```
+
+#### Natural scale
+
+```{r mav-culled-natural-scaled-estimates, message=FALSE}
 print(create_natural_scale_summary_df(mav5_culled, culled_df$major_violations_kloc))
 ```
 
-```{r mav-plot-intervals-no-outliers, fig.width=6, fig.height=2.8, message=FALSE}
+### Plots {.tabset}
+
+#### Major category intervals
+
+```{r mav-plot-intervals-no-outliers, fig.height=2.8, message=FALSE}
 plot_intervals_of_major_categories(mav5_culled) +
   labs(title="MAV5 (culled)", x="Major violations per KLOC (std)")
 ```
 
-```{r mav-plot-intervals-factor-uses-warnings-no-outliers, fig.width=6, fig.height=2, message=FALSE}
-culled_data_factor_uses_warnings <- create_major_violations_data(culled_df)
-culled_data_factor_uses_warnings$category <- factor(uses_warnings(culled_df$category))
+#### Binary warning usage
 
-mav5_culled_data_factor_uses_warnings <- fit_model_mav5(
+```{r mav-culled-binary-warning-usage, fig.height=2, message=FALSE}
+culled_data_binary_factor <- create_major_violations_data(culled_df)
+culled_data_binary_factor$category <- factor(uses_warnings(culled_df$category))
+
+mav5_culled_data_binary_factor <- fit_model_mav5(
   "mav5_culled_data_factor_uses_warnings",
-  culled_data_factor_uses_warnings
+  culled_data_binary_factor
 )
 
-plot_intervals_of_categories(mav5_culled_data_factor_uses_warnings) +
+plot_intervals_of_categories(mav5_culled_data_binary_factor) +
   labs(title="MAV5 (culled)", x="Major violations per KLOC (std)") +
   scale_y_discrete(labels=c(
     "b_category1"="No warnings",
