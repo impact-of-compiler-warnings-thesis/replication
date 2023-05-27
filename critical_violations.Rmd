@@ -1,0 +1,250 @@
+---
+title: Critical violations
+---
+
+```{r cv-include-setup, include=FALSE}
+source(knitr::purl('setup.Rmd', output = tempfile()))
+```
+
+This section covers the analysis relating to the _critical violations_ metric.
+
+## Data preparation
+
+```{r cv-prepare-data}
+model_seed <- 20230322  # 2023 March 22
+
+create_critical_violations_data <- function(data) {
+  list(
+    critical_violations_kloc_std=scale(data$critical_violations_kloc),
+                contributors_std=scale(data$contributors),
+                       stars_std=scale(data$stars),
+                       files_std=scale(data$files),
+                        size_std=scale(data$loc),
+                         age_std=scale(get_age(data$created_at))
+  )
+}
+
+data <- create_critical_violations_data(df)
+data$category <- factor(df$category)
+```
+
+## Candidate models {.tabset}
+
+### CV1
+
+```{r cv-model-1, message=FALSE}
+fit_model_cv1 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv1 <- fit_model_cv1("cv1", data)
+```
+
+### CV2
+
+```{r cv-model-2, message=FALSE}
+fit_model_cv2 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + contributors_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="contributors_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv2 <- fit_model_cv2("cv2", data)
+```
+
+### CV3
+
+```{r cv-model-3, message=FALSE}
+fit_model_cv3 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + stars_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="stars_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv3 <- fit_model_cv3("cv3", data)
+```
+
+### CV4
+
+```{r cv-model-4, message=FALSE}
+fit_model_cv4 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + files_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="files_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv4 <- fit_model_cv4("cv4", data)
+```
+
+### CV5
+
+```{r cv-model-5, message=FALSE}
+fit_model_cv5 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + age_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="age_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv5 <- fit_model_cv5("cv5", data)
+```
+
+### CV6
+
+```{r cv-model-6, message=FALSE}
+fit_model_cv6 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + size_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="size_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv6 <- fit_model_cv6("cv6", data)
+```
+
+### CV7
+
+```{r cv-model-7, message=FALSE}
+fit_model_cv7 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + contributors_std + stars_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="contributors_std"),
+               prior(normal(0, 1), class=b, coef="stars_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv7 <- fit_model_cv7("cv7", data)
+```
+
+### CV8
+
+```{r cv-model-8, message=FALSE}
+fit_model_cv8 <- function(name, data) {
+  fit_model(name,
+            "critical_violations_kloc_std ~ 0 + category + contributors_std + age_std",
+            c(
+               prior(normal(0, 1), class = b),
+               prior(normal(0, 1), class=b, coef="contributors_std"),
+               prior(normal(0, 1), class=b, coef="age_std"),
+               prior(exponential(1), class = sigma)
+             ),
+            data,
+            model_seed)
+}
+
+cv8 <- fit_model_cv8("cv8", data)
+```
+
+## Model comparison
+
+```{r cv-model-comparisons}
+cv1 <- add_criterion(cv1, criterion="loo", moment_match=TRUE)
+cv2 <- add_criterion(cv2, criterion="loo", moment_match=TRUE)
+cv3 <- add_criterion(cv3, criterion="loo", moment_match=TRUE)
+cv4 <- add_criterion(cv4, criterion="loo", moment_match=TRUE)
+cv5 <- add_criterion(cv5, criterion="loo", moment_match=TRUE)
+cv6 <- add_criterion(cv6, criterion="loo", moment_match=TRUE)
+cv7 <- add_criterion(cv7, criterion="loo", moment_match=TRUE)
+cv8 <- add_criterion(cv8, criterion="loo", moment_match=TRUE)
+
+print(loo_compare(cv1, cv2, cv3, cv4, cv5, cv6, cv7, cv8, criterion="loo"),
+      simplify=FALSE)
+```
+
+## Diagnostics {.tabset}
+
+### Prior predictive check
+
+```{r cv-ppc, message=FALSE}
+plot_priors(cv1, "Critical violations per KLOC (std)")
+```
+
+### MCMC chain trace plots
+
+```{r cv-caterpillars, message=FALSE}
+plot_caterpillar(cv1, "b_category1", "N")
+plot_caterpillar(cv1, "b_category2", "A")
+plot_caterpillar(cv1, "b_category3", "AE")
+plot_caterpillar(cv1, "b_category5", "AEP")
+plot_caterpillar(cv1, "b_category7", "AEP+")
+```
+
+## Estimates {.tabset}
+
+### Standardized
+
+```{r cv-standardized-estimates}
+summary(cv1)
+print(create_natural_scale_summary_df(cv1, df$critical_violations_kloc))
+```
+
+### Natural scale
+
+```{r cv-natural-scale-estimates}
+print(create_natural_scale_summary_df(cv1, df$critical_violations_kloc))
+```
+
+## Plots {.tabset}
+
+### Major category intervals
+
+```{r cv-plot-intervals-of-major-categories, message=FALSE, fig.height=2.8}
+plot_intervals_of_major_categories(cv1) +
+  labs(title="CV1", x="Critical violations per KLOC (std)")
+```
+
+### Binary warning usage
+
+```{r cv-binary-warning-usage-plot, message=FALSE, fig.height=2}
+data_binary_factor <- create_critical_violations_data(df)
+data_binary_factor$category <- factor(uses_warnings(df$category))
+
+cv1_binary_factor <- fit_model_cv1("cv1_factor_uses_warnings", data_binary_factor)
+
+plot_intervals_of_categories(cv1_binary_factor) +
+  labs(title="CV1", x="Critical violations per KLOC (std)") +
+  scale_y_discrete(labels=c(
+                     "b_category1"="No warnings",
+                     "b_category2"="Any warnings"
+                   ))
+```
