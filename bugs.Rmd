@@ -175,13 +175,13 @@ plot_caterpillar(b1, "b_category7", "AEP+")
 
 ### Standardized
 
-```{r b-standardized-estimates}
+```{r b-standardized-estimates, message=FALSE}
 summary(b1)
 ```
 
 ### Natural scale
 
-```{r b-natural-scale-estimates}
+```{r b-natural-scale-estimates, message=FALSE}
 print(create_natural_scale_summary_df(b1, df$bugs_kloc))
 ```
 
@@ -189,14 +189,14 @@ print(create_natural_scale_summary_df(b1, df$bugs_kloc))
 
 ### Major category intervals
 
-```{r b-plot-intervals-of-major-categories, message=FALSE, fig.height=2.8}
+```{r b-major-category-intervals, message=FALSE, fig.height=2.8}
 plot_intervals_of_major_categories(b1) +
   labs(title="B1", x="Bugs per KLOC (std)")
 ```
 
 ### Binary warning usage
 
-```{r b-warnings-vs-no-warnings, message=FALSE, fig.height=2.8}
+```{r b-binary-warning-usage, message=FALSE, fig.height=2}
 data_binary_factor <- create_bugs_data(df)
 data_binary_factor$category <- factor(uses_warnings(df$category))
 
