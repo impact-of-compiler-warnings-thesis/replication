@@ -140,6 +140,7 @@ dmypy.json
 # Model fit files
 *.rds
 
-book
+# Generated static content stuff
 _main.Rmd
-_bookdown_files
+docs/data
+docs/fits
