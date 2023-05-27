@@ -1,31 +1,28 @@
 ---
-author: Albin Johansson & Carl Holmberg
-date: 2023
+title: Data summary
 ---
 
-# Data summary
-
 ```{r ds-include-setup, include=FALSE}
-source(knitr::purl('pages/setup.Rmd', output = tempfile()))
+source(knitr::purl('setup.Rmd', output = tempfile()))
 ```
 
-## Plot category sample distribution
+## Preparation
 
 We assign indices to each of the warning categories as follows. The "major" categories are categories with more rigorous sample sizes, so their analysis results are more reliable. Subsequent analysis steps focus on these major categories.
 
--   1 = `N`
--   2 = `A`
--   3 = `AE`
--   4 = `AP`
--   5 = `AEP`
--   6 = `AE+`
--   7 = `AEP+`
--   8 = `AP+`
--   9 = `E+`
--   10 = `A+`
--   11 = `E`
+- 1 = `N`
+- 2 = `A`
+- 3 = `AE`
+- 4 = `AP`
+- 5 = `AEP`
+- 6 = `AE+`
+- 7 = `AEP+`
+- 8 = `AP+`
+- 9 = `E+`
+- 10 = `A+`
+- 11 = `E`
 
-```{r ds-arrange-categories}
+```{r ds-arrange-categories, message=FALSE}
 category_labels <- c("1"="N",
                      "2"="A",
                      "3"="AE",
@@ -37,11 +34,17 @@ category_labels <- c("1"="N",
                      "9"="E+",
                      "10"="A+",
                      "11"="E")
+
+# A data frame that only includes samples from the major categories
+df_major = df[df$category %in% major_categories, ]
+df_major$age <- get_age(df_major$created_at)
 ```
 
-Now we plot the amount of samples in each category, in a bar chart.
+## Category distribution
 
-```{r ds-category-sample-distribution}
+Now we plot the amount of samples in each category in a bar chart.
+
+```{r ds-category-sample-distribution, message=FALSE}
 # Used to dictate the patters used for the bars in each category
 category_patterns <- c(
   "N"="none",
@@ -95,13 +98,9 @@ ggplot(df, aes(x=category, fill=factor(category))) +
   scale_y_continuous(breaks=1:6 * 5)
 ```
 
-The bars will be ordered according to the different categories, and color coded.
+## Mean major category metrics
 
-## Prepare for metric summary plots
-
-To provide summary plots for the various metrics, we will define a helper function that produces color-coded bar plots. Here we will only include the major categories.
-
-```{r ds-prepare-summary-plots}
+```{r ds-prepare-summary-plots, message=FALSE}
 plot_barplot <- function(data, x, y) {
   ggplot(data,
          aes(x=x,
@@ -133,79 +132,47 @@ major_category_summary_barplot <- function(data, metric) {
 }
 ```
 
-Additionally, we will need to create a new data frame where the samples that do not belong any of the major categories are excluded.
+### Mean LOC per major category
 
-```{r ds-add-scaled-metrics}
-df_major = df[df$category %in% major_categories, ]
-```
-
-## Category overview plots
-
-This section includes plots that illustrate general traits of samples across the major categories.
-
-### LOC per sample
-
-```{r ds-loc-summary}
-major_samples_barplot(df_major, df_major$loc) +
-  labs(title="Overview of all major samples", x="Samples", y="LOC") +
-  geom_hline(yintercept=1:7 * 100000, alpha=0.2) +
-  scale_y_continuous(breaks=1:7 * 100000)
-```
-
-### LOC per category
-
-```{r ds-loc-per-category}
+```{r ds-loc-per-category, message=FALSE}
 loc_per_category <- aggregate(loc ~ category, df_major, mean)
 loc_per_category$category <- factor(loc_per_category$category)
 
 major_category_summary_barplot(loc_per_category, loc_per_category$loc) +
-  labs(title="Mean LOC per category", x="Categories", y="LOC") +
+  labs(title="Mean LOC per major category", x="Categories", y="LOC") +
   geom_hline(yintercept=1:9 * 20000, alpha=0.2) +
   scale_y_continuous(breaks=1:9 * 20000)
 ```
 
-### Stars per category
+### Mean number of stargazers per major category
 
-```{r ds-stars-per-category}
+```{r ds-stars-per-category, message=FALSE}
 stars_per_category <- aggregate(stars ~ category, df_major, mean)
 stars_per_category$category <- factor(stars_per_category$category)
 
 major_category_summary_barplot(stars_per_category, stars_per_category$stars) +
-  labs(title="Mean stargazers per category", x="Categories", y="Stargazers") +
+  labs(title="Mean stargazers per major category", x="Categories", y="Stargazers") +
   geom_hline(yintercept=1:6 * 1000, alpha=0.2) +
   scale_y_continuous(breaks=1:6 * 1000)
 ```
 
-### Age per sample
+### Mean project age per major category
 
-```{r ds-age-per-sample}
-df_major$age <- get_age(df_major$created_at)
-  
-major_samples_barplot(df_major, df_major$age) +
-  labs(title="Overview of all major samples", x="Samples", y="Age (days)") +
-  geom_hline(yintercept=1:5 * 1000, alpha=0.2) +
-  scale_y_continuous(breaks=1:5 * 1000)
-```
-
-### Age per category
-
-```{r ds-age-per-category}
+```{r ds-age-per-category, message=FALSE}
 age_per_category <- aggregate(age ~ category, df_major, mean)
 age_per_category$category <- factor(age_per_category$category)
 
 major_category_summary_barplot(age_per_category, age_per_category$age) +
-  labs(title="Mean Age per Category", x="Categories", y="Age (days)") +
+  labs(title="Mean project age per major category", x="Categories", y="Age (days)") +
   geom_hline(yintercept=1:6 * 500, alpha=0.2) +
   scale_y_continuous(breaks=1:6 * 500)
 ```
 
-## Metric summary plots
-
-We can now use the `major_samples_barplot` function to plot the scaled values for every sample in the major categories.
+## Metric overview
 
 ### Bugs
 
-```{r ds-bugs-summary}
+```{r ds-bugs-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$bugs_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Bugs / KLOC") +
   geom_hline(yintercept=1:18 / 2, alpha=0.2) +
@@ -214,7 +181,7 @@ major_samples_barplot(df_major, df_major$bugs_kloc) +
 
 ### Code smells
 
-```{r ds-code-smells-summary}
+```{r ds-code-smells-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$code_smells_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Code smells / KLOC") +
   geom_hline(yintercept=50 * 1:13, alpha=0.2) +
@@ -223,7 +190,7 @@ major_samples_barplot(df_major, df_major$code_smells_kloc) +
 
 ### Critical violations
 
-```{r ds-critical-violations-summary}
+```{r ds-critical-violations-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$critical_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Critical violations / KLOC") +
   geom_hline(yintercept=10 * 1:11, alpha=0.2) +
@@ -232,7 +199,7 @@ major_samples_barplot(df_major, df_major$critical_violations_kloc) +
 
 ### Major violations
 
-```{r ds-major-violations-summary}
+```{r ds-major-violations-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$major_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Major violations / KLOC") +
   geom_hline(yintercept=50 * 1:12, alpha=0.2) +
@@ -241,7 +208,7 @@ major_samples_barplot(df_major, df_major$major_violations_kloc) +
 
 ### Minor violations
 
-```{r ds-minor-violations-summary}
+```{r ds-minor-violations-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$minor_violations_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Minor violations / KLOC") +
   geom_hline(yintercept=10 * 1:10, alpha=0.2) +
@@ -250,7 +217,7 @@ major_samples_barplot(df_major, df_major$minor_violations_kloc) +
 
 ### Security hotspots
 
-```{r ds-security-hotspots-summary}
+```{r ds-security-hotspots-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$security_hotspots_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Security hotspots / KLOC") +
   geom_hline(yintercept=1:11 / 2, alpha=0.2) +
@@ -259,7 +226,7 @@ major_samples_barplot(df_major, df_major$security_hotspots_kloc) +
 
 ### Vulnerabilities
 
-```{r ds-vulnerabilities-summary}
+```{r ds-vulnerabilities-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$vulnerabilities_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Vulnerabilities / KLOC") +
   geom_hline(yintercept=1:6 / 20, alpha=0.2) +
@@ -268,7 +235,7 @@ major_samples_barplot(df_major, df_major$vulnerabilities_kloc) +
 
 ### Cyclomatic complexity
 
-```{r ds-cyclomatic-complexity-summary}
+```{r ds-cyclomatic-complexity-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$cyclomatic_complexity_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Cyclomatic complexity / KLOC") +
   geom_hline(yintercept=1:12 * 100, alpha=0.2) +
@@ -277,7 +244,7 @@ major_samples_barplot(df_major, df_major$cyclomatic_complexity_kloc) +
 
 ### Cognitive complexity
 
-```{r ds-cognitive-complexity-summary}
+```{r ds-cognitive-complexity-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$cognitive_complexity_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Cognitive complexity / KLOC") +
   geom_hline(yintercept=1:8 * 50, alpha=0.2) +
@@ -286,18 +253,18 @@ major_samples_barplot(df_major, df_major$cognitive_complexity_kloc) +
 
 ### Duplicated lines
 
-```{r ds-duplicated-lines-summary}
+```{r ds-duplicated-lines-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$duplicated_lines_kloc) +
   labs(title="Overview of all major samples", x="Samples", y="Duplicated lines / KLOC") +
   geom_hline(yintercept=1:12 * 50, alpha=0.2) +
   scale_y_continuous(breaks=1:12 * 50)
 ```
 
-### Technical Debt Ratio
+### Technical debt ratio
 
-```{r ds-technical-debt-ratio-summary}
+```{r ds-technical-debt-ratio-summary, message=FALSE}
 major_samples_barplot(df_major, df_major$sqale_debt_ratio) +
-  labs(title="Overview of all major samples", x="Samples", y="Technical Debt Ratio") +
+  labs(title="Overview of all major samples", x="Samples", y="Technical debt ratio") +
   geom_hline(yintercept=1:5 * 2, alpha=0.2) +
   scale_y_continuous(breaks=1:5 * 2)
 ```

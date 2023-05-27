@@ -5,6 +5,8 @@ navbar:
   left:
     - text: "Setup"
       href: "setup.html"
+    - text: "Data summary"
+      href: "data_summary.html"
     - text: "Causality"
       href: "causal_analysis.html"
     - text: "Analysis"
