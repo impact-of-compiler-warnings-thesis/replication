@@ -8,7 +8,7 @@ navbar:
     - text: "Data summary"
       href: "data_summary.html"
     - text: "Causality"
-      href: "causal_analysis.html"
+      href: "causality.html"
     - text: "Analysis"
       menu:
         - text: "Bugs"
