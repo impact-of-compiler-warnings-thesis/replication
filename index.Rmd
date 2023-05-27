@@ -2,6 +2,9 @@
 title: Replication package
 author: Albin Johansson & Carl Holmberg
 date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: false
 ---
 
 This is the replication package accompanying the Master thesis "*The Impact of Compiler Warnings on Code Quality in C++ Projects*" written by Albin Johansson and Carl Holmberg at Chalmers University of Technology.
@@ -20,4 +23,4 @@ This is the replication package accompanying the Master thesis "*The Impact of C
   - [Cyclomatic complexity](cyclomatic_complexity.html)
   - [Cognitive complexity](cognitive_complexity.html)
   - [Duplicated lines](duplicated_lines.html)
-  - [Technical debt](technical_debt.html)
+  - [Technical debt ratio](technical_debt.html)
