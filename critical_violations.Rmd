@@ -215,7 +215,6 @@ plot_caterpillar(cv1, "b_category7", "AEP+")
 
 ```{r cv-standardized-estimates}
 summary(cv1)
-print(create_natural_scale_summary_df(cv1, df$critical_violations_kloc))
 ```
 
 ### Natural scale
