@@ -715,17 +715,10 @@ violations</em> metric.</p>
 ## Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 ## and Tail_ESS are effective sample size measures, and Rhat is the potential
 ## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">create_natural_scale_summary_df</span>(cv1, df<span class="sc">$</span>critical_violations_kloc))</span></code></pre></div>
-<pre><code>##       Mean    SD 0.05 CI 0.95 CI
-## N    23.97 19.74   19.44   28.50
-## A    19.29 20.65   13.40   25.18
-## AE   17.63 20.04   12.64   22.61
-## AEP  16.12 20.50   10.38   21.86
-## AEP+ 11.89 20.04    7.05   16.72</code></pre>
 </div>
 <div id="natural-scale" class="section level3">
 <h3>Natural scale</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">create_natural_scale_summary_df</span>(cv1, df<span class="sc">$</span>critical_violations_kloc))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">create_natural_scale_summary_df</span>(cv1, df<span class="sc">$</span>critical_violations_kloc))</span></code></pre></div>
 <pre><code>##       Mean    SD 0.05 CI 0.95 CI
 ## N    23.97 19.74   19.44   28.50
 ## A    19.29 20.65   13.40   25.18
@@ -738,23 +731,23 @@ violations</em> metric.</p>
 <h2 class="tabset">Plots</h2>
 <div id="major-category-intervals" class="section level3">
 <h3>Major category intervals</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intervals_of_major_categories</span>(cv1) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;CV1&quot;</span>, <span class="at">x=</span><span class="st">&quot;Critical violations per KLOC (std)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intervals_of_major_categories</span>(cv1) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;CV1&quot;</span>, <span class="at">x=</span><span class="st">&quot;Critical violations per KLOC (std)&quot;</span>)</span></code></pre></div>
 <p><img src="critical_violations_files/figure-html/cv-plot-intervals-of-major-categories-1.png" width="672" /></p>
 </div>
 <div id="binary-warning-usage" class="section level3">
 <h3>Binary warning usage</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data_binary_factor <span class="ot">&lt;-</span> <span class="fu">create_critical_violations_data</span>(df)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>data_binary_factor<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">uses_warnings</span>(df<span class="sc">$</span>category))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>cv1_binary_factor <span class="ot">&lt;-</span> <span class="fu">fit_model_cv1</span>(<span class="st">&quot;cv1_factor_uses_warnings&quot;</span>, data_binary_factor)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intervals_of_categories</span>(cv1_binary_factor) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;CV1&quot;</span>, <span class="at">x=</span><span class="st">&quot;Critical violations per KLOC (std)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;b_category1&quot;</span><span class="ot">=</span><span class="st">&quot;No warnings&quot;</span>,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;b_category2&quot;</span><span class="ot">=</span><span class="st">&quot;Any warnings&quot;</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                   ))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_binary_factor <span class="ot">&lt;-</span> <span class="fu">create_critical_violations_data</span>(df)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data_binary_factor<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">uses_warnings</span>(df<span class="sc">$</span>category))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>cv1_binary_factor <span class="ot">&lt;-</span> <span class="fu">fit_model_cv1</span>(<span class="st">&quot;cv1_factor_uses_warnings&quot;</span>, data_binary_factor)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intervals_of_categories</span>(cv1_binary_factor) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;CV1&quot;</span>, <span class="at">x=</span><span class="st">&quot;Critical violations per KLOC (std)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;b_category1&quot;</span><span class="ot">=</span><span class="st">&quot;No warnings&quot;</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;b_category2&quot;</span><span class="ot">=</span><span class="st">&quot;Any warnings&quot;</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                   ))</span></code></pre></div>
 <p><img src="critical_violations_files/figure-html/cv-binary-warning-usage-plot-1.png" width="672" /></p>
 </div>
 </div>
