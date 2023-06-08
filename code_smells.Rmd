@@ -200,7 +200,6 @@ This section covers the analysis using the full sample population.
 
 ```{r cs-standardized-estimates}
 summary(cs6)
-print(create_natural_scale_summary_df(cs6, df$code_smells_kloc))
 ```
 
 #### Natural scale
